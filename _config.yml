@@ -55,10 +55,10 @@ img_cdn:
 avatar: '/assets/img/author.png'
 bar_image:
   light: 
-    # url: "https://picsum.photos/id/1073/2000/1000"
+    url: "https://picsum.photos/id/1073/2000/1000"
     position: "top"
   dark: 
-    # url: "https://picsum.photos/id/1073/2000/1000?grayscale"
+    url: "https://picsum.photos/id/1073/2000/1000?grayscale"
     position: "center"
 
 # boolean type, the global switch for ToC in posts.
