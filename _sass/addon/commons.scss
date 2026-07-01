@@ -976,7 +976,7 @@ $sidebar-display: "sidebar-display";
   overflow: hidden;
   left: 260px;
   width: calc(100% - $sidebar-width);
-  height: 320px;
+  height: 280px;
 }
 
 #bar-image {
@@ -1375,6 +1375,7 @@ $sidebar-display: "sidebar-display";
   #topbar-image {
     left: 0;
     width: 100%;
+    height: 170px;
   }
 
   #bar-image {

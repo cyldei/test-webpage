@@ -183,6 +183,7 @@ author:
   name: "@cyldei"
   url: https://github.com/cyldei
 
-sidebar:
-  enable_pins: true
-  enable_disclaimer: false
+enable:
+  bar_image: true
+  sidebar_pins: true
+  sidebar_disclaimer: false

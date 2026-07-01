@@ -37,21 +37,24 @@
 {% endif %}
 
 {% if page.layout == 'home' %}
+    {% if site.enable.bar_image %}
   <div id="topbar-image">
     <!-- <img src="{{ site.baseurl }}/assets/img/bar.jpeg" alt="bar" id="bar-image"> -->
 
-    <img
-      alt="bar"
-      id="bar-image"      
-      style-light="display: block; object-position: {{ site.bar_image.light.position | default: 'top' }};"
-      style-dark="display: block; object-position: {{ site.bar_image.dark.position | default: 'top' }};"
-      data-src-light="{{ site.bar_image.light.url | default: 'https://picsum.photos/id/1074/2000/1000' }}"
-      data-src-dark="{{ site.bar_image.dark.url | default: site.bar_image.light.url | default: 'https://picsum.photos/id/1074/2000/1000?grayscale' }}"
-    >
+      <img
+        alt="bar"
+        id="bar-image"      
+        style-light="display: block; object-position: {{ site.bar_image.light.position | default: 'top' }};"
+        style-dark="display: block; object-position: {{ site.bar_image.dark.position | default: 'top' }};"
+        data-src-light="{{ site.bar_image.light.url | default: 'https://picsum.photos/id/1074/2000/1000' }}"
+        data-src-dark="{{ site.bar_image.dark.url | default: site.bar_image.light.url | default: 'https://picsum.photos/id/1074/2000/1000?grayscale' }}"
+      >
+    
           <!-- data-src-light="https://picsum.photos/id/998/4000/1500" -->
       <!-- data-src-dark="https://picsum.photos/id/992/3000/1000" -->
 
   </div>
+    {% endif %}
   <div id="topbar-wrapper-home">
     <div id="topbar" class="container d-flex align-items-center justify-content-between h-100 pl-3 pr-3 pl-md-4 pr-md-4">
       <span id="breadcrumb">
