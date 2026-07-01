@@ -1,0 +1,10 @@
+{% if site.sidebar.enable_disclaimer == true %}
+<div id="access-lastmod" class="post">
+  <div class="panel-heading">{{ site.data.locales[site.lang].panel.disclaimer.title }}</div>
+  
+  <div style="margin-top: 10px;">{{ site.data.locales[site.lang].panel.disclaimer.content | newline_to_br }}</div>
+  
+</div>
+{% endif %}
+
+

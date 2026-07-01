@@ -1,0 +1,119 @@
+<!--
+  The Top Bar
+-->
+
+{% if page.layout != 'home' %}
+  <div id="topbar-wrapper">
+    <div id="topbar" class="container d-flex align-items-center justify-content-between h-100 pl-3 pr-3 pl-md-4 pr-md-4">
+      <span id="breadcrumb">
+        {% if site.data.locales[site.lang].page.others_header %}
+          <span>{{ site.data.locales[site.lang].page.others_header }}</span>
+        {% endif %}
+      </span><!-- endof #breadcrumb -->
+
+      <i id="sidebar-trigger" class="fas fa-bars fa-fw"></i>
+
+      <div id="topbar-title">
+        {% if page.layout == 'home' %}
+          {{- site.data.locales[site.lang].page.title | default: site.data.locales[site.lang].page.title -}}
+        {% elsif page.collection == 'tabs' or page.layout == 'page' %}
+          {%- capture tab_key -%}{{ page.url | split: '/' }}{%- endcapture -%}
+          {{- site.data.locales[site.lang].tabs[tab_key] | default: page.title -}}
+        {% else %}
+          {{- site.data.locales[site.lang].layout[page.layout] | default: page.layout | capitalize -}}
+        {% endif %}
+      </div>
+
+      <i id="search-trigger" class="fas fa-search fa-fw"></i>
+      <span id="search-wrapper" class="align-items-center">
+        <i class="fas fa-search fa-fw"></i>
+        <input class="form-control" id="search-input" type="search"
+          aria-label="search" autocomplete="off" placeholder="{{ site.data.locales[site.lang].search.hint | capitalize }}...">
+      </span>
+      <span id="search-cancel" >{{ site.data.locales[site.lang].search.cancel }}</span>
+    </div>
+
+  </div>
+{% endif %}
+
+{% if page.layout == 'home' %}
+  <div id="topbar-image">
+    <!-- <img src="{{ site.baseurl }}/assets/img/bar.jpeg" alt="bar" id="bar-image"> -->
+
+    <img
+      alt="bar"
+      id="bar-image"      
+      style-light="display: block; object-position: {{ site.bar_image.light.position | default: 'top' }};"
+      style-dark="display: block; object-position: {{ site.bar_image.dark.position | default: 'top' }};"
+      data-src-light="{{ site.bar_image.light.url | default: 'https://picsum.photos/id/1074/2000/1000' }}"
+      data-src-dark="{{ site.bar_image.dark.url | default: site.bar_image.light.url | default: 'https://picsum.photos/id/1074/2000/1000?grayscale' }}"
+    >
+          <!-- data-src-light="https://picsum.photos/id/998/4000/1500" -->
+      <!-- data-src-dark="https://picsum.photos/id/992/3000/1000" -->
+
+  </div>
+  <div id="topbar-wrapper-home">
+    <div id="topbar" class="container d-flex align-items-center justify-content-between h-100 pl-3 pr-3 pl-md-4 pr-md-4">
+      <span id="breadcrumb">
+        {% if site.data.locales[site.lang].page.home_header %}
+          <span>{{ site.data.locales[site.lang].page.home_header }}</span>
+        {% endif %}
+        <!-- <span>HEADER</span> -->
+      </span><!-- endof #breadcrumb --> 
+
+      <i id="sidebar-trigger" class="fas fa-bars fa-fw"></i>
+
+      <div id="topbar-title">
+        {% if page.layout == 'home' %}
+          {{- site.data.locales[site.lang].page.title | default: site.data.locales[site.lang].page.title -}}
+        {% elsif page.collection == 'tabs' or page.layout == 'page' %}
+          {%- capture tab_key -%}{{ page.url | split: '/' }}{%- endcapture -%}
+          {{- site.data.locales[site.lang].tabs[tab_key] | default: page.title -}}
+        {% else %}
+          {{- site.data.locales[site.lang].layout[page.layout] | default: page.layout | capitalize -}}
+        {% endif %}
+      </div>
+
+      <i id="search-trigger" class="fas fa-search fa-fw"></i>
+      <span id="search-wrapper" class="align-items-center">
+        <i class="fas fa-search fa-fw"></i>
+        <input class="form-control" id="search-input" type="search"
+          aria-label="search" autocomplete="off" placeholder="{{ site.data.locales[site.lang].search.hint | capitalize }}...">
+      </span>
+      <span id="search-cancel" >{{ site.data.locales[site.lang].search.cancel }}</span>
+    </div>
+
+  </div>
+{% endif %}
+
+{% if page.layout == 'home' %}
+  <script type="text/javascript">
+    $(function () {
+      const barImage = document.getElementById('bar-image');
+      if (!barImage) return;
+
+      const setTopbarImage = (mode) => {
+        const isDark = mode
+          ? mode === ModeToggle.DARK_MODE
+          : ($("html[data-mode=dark]").length > 0
+              || ($("html[data-mode]").length == 0
+                  && window.matchMedia("(prefers-color-scheme: dark)").matches));
+
+        barImage.src = isDark ? barImage.dataset.srcDark : barImage.dataset.srcLight;
+        const styleKey = isDark ? 'style-dark' : 'style-light';
+        const nextStyle = barImage.getAttribute(styleKey);
+        if (nextStyle) {
+          barImage.style.cssText = nextStyle;
+        }
+      };
+
+      setTopbarImage();
+
+      addEventListener("message", (event) => {
+        if (event.source === window && event.data && event.data.direction === ModeToggle.ID) {
+          setTopbarImage(event.data.message);
+        }
+      });
+    });
+  </script>
+{% endif %}

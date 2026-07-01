@@ -1,0 +1,13 @@
+#  The contact options.
+
+- type: email
+  icon: 'fas fa-envelope'
+  url:  mailto:michaljankowiak@onet.eu
+  noblank: true
+- type: telephone
+  icon: 'fas fa-phone'
+  url:  tel:+48123123123
+  noblank: true
+- type: rss
+  icon: 'fas fa-rss'
+  noblank: true
