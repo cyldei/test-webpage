@@ -4,11 +4,7 @@
 
 <div id="sidebar" class="d-flex flex-column align-items-end">
   <div class="profile-wrapper text-center">
-    {% assign avatar_fit = site.avatar_fit | default: 'cover' %}
-    {% if avatar_fit == 'scale' %}
-      {% assign avatar_fit = 'scale-down' %}
-    {% endif %}
-    <div id="avatar" style="--avatar-object-fit: {{ avatar_fit }};">
+    <div id="avatar" style="--avatar-object-fit: {{ site.avatar_fit | default: 'cover' }};">
       <a href="{{ '/' | relative_url }}" class="mx-auto">
         {% if site.avatar != empty and site.avatar %}
           {% capture avatar_url %}
