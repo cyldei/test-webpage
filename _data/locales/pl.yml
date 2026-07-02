@@ -4,6 +4,9 @@
 
 page: 
   title: Michał Jankowiak
+  header: Michał Jankowiak
+  copyright: Michał Jankowiak
+  author: Michał Jankowiak
 
   description: >-   
     Personal Blog.
@@ -11,7 +14,7 @@ page:
   tagline: |
     Witam na moim Blogu!
 
-  home_header: STRONA GŁÓWNA
+  home_header: 
   others_header: 
 
 layout:
@@ -39,8 +42,9 @@ panel:
   disclaimer: 
     title: "UWAGA!"
     content: | 
-      Treść ostrzeżenia.
-      Możesz ją zmienić w pliku `_data/locales/pl.yml` w sekcji `panel.disclaimer.content`."
+      Strona jest obecnie w budowie. 
+      Posty zostały napisane/wygenerowane przez autora kodu w celu wizualizacji strony.
+      Nie stanowią one faktycznej treści autora bloga.
   trending_tags: Trendujące Tagi
   toc: Zawartość
 
@@ -57,12 +61,12 @@ copyright:
     Except where otherwise noted, the blog posts on this site are licensed
     under the Creative Commons Attribution 4.0 International (CC BY 4.0) License by the author.
 
-  authored_by: "Wykonanie strony"
+  authored_by: "coded by:"
 
 meta: Using the :PLATFORM theme :THEME.
 
 not_found:
-  statment: Sorry, we've misplaced that URL or it's pointing to something that doesn't exist.
+  statment: Przepraszamy, strona nie została znaleziona.
 
 notification:
   update_found: A new version of content is available.
@@ -71,7 +75,9 @@ notification:
 # ----- Posts related labels -----
 
 post:
-  written_by: By
+  written_by: 
+    singular: "Autor:"
+    plural: "Autorzy:"
   posted: Posted
   updated: Updated
   words: words

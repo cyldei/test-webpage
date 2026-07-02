@@ -47,9 +47,15 @@
 
   {{ seo_tags }}
 
+  {% assign page_title = page.title %}
+  {% if page.collection == 'tabs' %}
+    {% assign tab_key = page.title | downcase %}
+    {% assign page_title = site.data.locales[site.lang].tabs[tab_key] | default: page.title %}
+  {% endif %}
+
   <title>
   {%- unless page.layout == "home" -%}
-    {{ page.title | append: " | "}}
+    {{ page_title | append: " | "}}
   {%- endunless -%}
     {{ site.data.locales[site.lang].page.title }}
   </title>

@@ -53,6 +53,8 @@ img_cdn:
 
 # the avatar on sidebar, support local or CORS resources
 avatar: '/assets/img/author.png'
+# avatar image fit mode for sidebar frame: cover | contain | scale-down
+avatar_fit: cover
 bar_image:
   light: 
     url: "https://picsum.photos/id/1073/2000/1000"
@@ -186,4 +188,4 @@ author:
 enable:
   bar_image: true
   sidebar_pins: true
-  sidebar_disclaimer: false
+  sidebar_disclaimer: true

@@ -1,8 +1,15 @@
 ---
 title: "Testowy Post"
-author: 'Michal Jankowiak'
-layout: post
-image: /assets/img/example-1.jpeg
+date: 2026-07-01 21:00:00 +0200
+updated_at: 2026-07-02 21:00:00 +0200
+authors: 
+  - 'Admin'
+  - 'Admin'
+image: 
+  path: /assets/img/example-1.jpeg
+  alt: "przykladowe zdjecie"
+  aspect_ratio: 40/32
+  object_fit: cover # contain/cover/scale
 hidden: true
 ---
 

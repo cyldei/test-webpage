@@ -4,7 +4,11 @@
 
 <div id="sidebar" class="d-flex flex-column align-items-end">
   <div class="profile-wrapper text-center">
-    <div id="avatar">
+    {% assign avatar_fit = site.avatar_fit | default: 'cover' %}
+    {% if avatar_fit == 'scale' %}
+      {% assign avatar_fit = 'scale-down' %}
+    {% endif %}
+    <div id="avatar" style="--avatar-object-fit: {{ avatar_fit }};">
       <a href="{{ '/' | relative_url }}" class="mx-auto">
         {% if site.avatar != empty and site.avatar %}
           {% capture avatar_url %}
@@ -22,7 +26,7 @@
     </div>
 
     <div class="site-title">
-      <a href="{{ '/' | relative_url }}">{{ site.data.locales[site.lang].page.title }}</a>
+      <a href="{{ '/' | relative_url }}">{{ site.data.locales[site.lang].page.header }}</a>
     </div>
     <div class="site-subtitle font-italic">{{ site.data.locales[site.lang].page.tagline | newline_to_br }}</div>
 
