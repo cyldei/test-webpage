@@ -61,7 +61,7 @@ bar_image:
     position: "top"
   dark: 
     url: "https://picsum.photos/id/1073/2000/1000?grayscale"
-    position: "center"
+    position: "top"
 
 # boolean type, the global switch for ToC in posts.
 toc: true

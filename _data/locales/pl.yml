@@ -43,7 +43,8 @@ panel:
     title: "UWAGA!"
     content: | 
       Strona jest obecnie w budowie. 
-      Posty zostały napisane/wygenerowane przez autora kodu w celu wizualizacji strony.
+      Posty zostały napisane/wygenerowane przez 
+      autora kodu w celu wizualizacji mozliwoscistrony.
       Nie stanowią one faktycznej treści autora bloga.
   trending_tags: Trendujące Tagi
   toc: Zawartość
