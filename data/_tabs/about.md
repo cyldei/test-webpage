@@ -3,6 +3,15 @@ layout: page
 icon: fa fa-person
 order: 6
 ---
+Michał Jankowiak (ur. 28 września 1972 r. w Tychach) to absolwent Wyższej Szkoły Policji w Szczytnie, który policyjny mundur z sukcesem zamienił na pióro. Pisaniem poezji dla dzieci zajmuje się od 2012 roku, a największą literacką inspiracją do tworzenia niezwykłych, rymowanych światów były dla niego jego córki – Oliwia i Amelia. 
+
+Na rynku wydawniczym zadebiutował w 2014 roku tomikiem poezji zatytułowanym „Dzieciaki Zwierzaki”, w 2018 roku ukazał się jego kolejny utwór –„Baśń o Trolinku”, wydany przez Wydawnictwo PETRUS w Krakowie, natomiast w lutym 2026 roku nakładem Wydawnictwa Poligraf wydano jego najnowszy, rozbudowany poemat pt. „Pies Karambus”.
+
+Obecnie twórczość Michała Jankowiaka dociera nie tylko do czytelników podczas licznych spotkań autorskich, ale zyskała również ogromne uznanie w systemie oświaty. Jego wiersze zostały włączone do podręcznika „Figlarna Kredka”, przeznaczonego dla polskich dzieci uczących się w Anglii. Z kolei w 2026 roku, za pośrednictwem Gdańskiego Wydawnictwa Oświatowego (GWO), wiersz autora pt. „Woda” znalazł się w oficjalnych podręcznikach dla uczniów klas pierwszych szkół podstawowych w całej Polsce. 
+
+To kolejne, prestiżowe wyróżnienie ostatecznie potwierdza, że jego twórczość jest z powodzeniem wykorzystywana w formalnej edukacji najmłodszych, ucząc ich wrażliwości i miłości do ojczystego języka.
+
+<!-- 
 Michał Jankowiak należy do wąskiego i elitarnego grona współczesnych polskich autorów, którzy z powodzeniem tworzą poezję dla dzieci w rzadko spotykanej dziś formie rozbudowanych poematów epickich.
 Jego utwory wyróżniają się nie tylko melodyjnym rytmem i nienagannym, bogatym rymem, ale przede wszystkim głęboką dbałością o piękno i kulturę ojczystego języka.
 W swojej twórczości Jankowiak z ogromnym szacunkiem nawiązuje do najlepszych tradycji polskiej literatury dziecięcej.
@@ -29,4 +38,5 @@ gdzie przeprowadza bezpłatne spotkania literackie. Te autorskie inicjatywy udow
 
 Przez krytyków, edukatorów oraz szerokie grono miłośników słowa pisanego Michał Jankowiak postrzegany jest jako jeden z tych wyjątkowych autorów, którzy z pełną determinacją konsekwentnie rozwijają i pielęgnują współczesną poezję dla dzieci. 
 Łącząc szlachetną tradycję literacką z własnym, w pełni rozpoznawalnym stylem, jego poematy dobitnie udowadniają, że klasyczne rymy i niezaprzeczalne piękno polskiego języka wciąż posiadają wielką moc.
-Potrafią one fascynować najmłodsze pokolenia, skutecznie odciągać je od cyfrowego świata i nieustannie zachęcać do pięknego odkrywania wielkiej literatury.
+Potrafią one fascynować najmłodsze pokolenia, skutecznie odciągać je od cyfrowego świata i nieustannie zachęcać do pięknego odkrywania wielkiej literatury. 
+-->
