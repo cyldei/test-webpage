@@ -121,7 +121,7 @@ collections:
     sort_by: date
   book:
     output: true
-    sort_by: date 
+    sort_by: order 
 
 collections_dir: data
 

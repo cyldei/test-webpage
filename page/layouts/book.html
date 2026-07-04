@@ -4,12 +4,11 @@ layout: page
 ---
 
 <div id="book" class="pl-xl-3">
-{% assign book = site.book | where_exp: "item", "item.hidden != true" | sort | reverse %}
+{% assign book = site.book | where_exp: "item", "item.hidden != true" %}
 {% for page in book %}
   <li class="d-flex justify-content-between pl-md-3 pr-md-3">
-    <a href="{{ page.url | relative_url }}">{{ page.title }}</a>
+    <a href="{{ page.url | relative_url }}">Rozdział {{ page.order }}: {{ page.title }}</a>
     <span class="dash flex-grow-1"></span>
-    {% include datetime.html date=page.date wrap='span' class='text-muted small' %}
   </li>
 {% endfor %}
 

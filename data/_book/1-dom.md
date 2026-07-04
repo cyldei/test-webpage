@@ -1,13 +1,12 @@
 ---
 title: "\"Dom\""
-layout: poem
 author: 'Michal'
 image:
   path: /assets/img/posts/2026/06/30/welcome.png
   aspect_ratio: 1/1
   object_fit: scale
   max_width: 400px
-text: center
+order: 1
 ---
 <p align=center>
 Kupiłem córce psa,<br>
