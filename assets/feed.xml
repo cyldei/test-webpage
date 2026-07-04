@@ -35,9 +35,17 @@ permalink: /feed.xml
   {% endif %}
     <id>{{ post_absolute_url }}</id>
     <content src="{{ post_absolute_url }}" />
+  {% if post.authors %}
+    {% for author in post.authors %}
     <author>
-      <name>{{ post.author  }}</name>
+      <name>{{ site.data.authors[author].name  | default: "N/A"}}</name>
     </author>
+    {% endfor %}
+  {% elsif post.author %}
+    <author>
+      <name>{{ site.data.authors[post.author].name | default: "N/A" }}</name>
+    </author>
+  {% endif %}
 
   {% if post.categories %}
     {% for category in post.categories %}
