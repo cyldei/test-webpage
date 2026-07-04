@@ -7,7 +7,6 @@ image:
   object_fit: scale
   aspect_ratio: 1/1
   max_width: 400px
-text: center
 ---
 <p align=center>
 Boże mój kochany,<br>
@@ -38,5 +37,5 @@ Prawdę mi do uszka,<br>
 Jesteś źródłem Życia,<br>
 Dobrem i Miłością,<br>
 Obdarz zatem proszę,<br>
-Życie me radością.
-</p>
+Życie me radością.<br>
+<br></p>

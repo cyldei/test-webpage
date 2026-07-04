@@ -41,13 +41,17 @@
   <div id="topbar-image">
     <!-- <img src="{{ site.baseurl }}/assets/img/bar.jpeg" alt="bar" id="bar-image"> -->
 
+      {% assign bar_image_light = site.bar_image.light.url | default: 'https://picsum.photos/id/1074/2000/1000' %}
+      {% assign bar_image_dark = site.bar_image.dark.url | default: site.bar_image.light.url | default: 'https://picsum.photos/id/1074/2000/1000?grayscale' %}
+      {% unless bar_image_light contains '://' %}{% assign bar_image_light = bar_image_light | relative_url %}{% endunless %}
+      {% unless bar_image_dark contains '://' %}{% assign bar_image_dark = bar_image_dark | relative_url %}{% endunless %}
       <img
-        alt="bar"
-        id="bar-image"      
-        style-light="display: block; object-position: {{ site.bar_image.light.position | default: 'top' }};"
-        style-dark="display: block; object-position: {{ site.bar_image.dark.position | default: 'top' }};"
-        data-src-light="{{ site.bar_image.light.url | default: 'https://picsum.photos/id/1074/2000/1000' }}"
-        data-src-dark="{{ site.bar_image.dark.url | default: site.bar_image.light.url | default: 'https://picsum.photos/id/1074/2000/1000?grayscale' }}"
+        alt="topbar-image"
+        id="bar-image"
+        style-light="display: block; object-position: {{ site.bar_image.light.position | default: 'top' }}; object-fit: {{ site.bar_image.light.fit | default: 'cover' }};"
+        style-dark="display: block; object-position: {{ site.bar_image.dark.position | default: 'top' }}; object-fit: {{ site.bar_image.dark.fit | default: site.bar_image.light.fit | default: 'cover' }};"
+        data-src-light="{{ bar_image_light }}"
+        data-src-dark="{{ bar_image_dark }}"
       >
     
           <!-- data-src-light="https://picsum.photos/id/998/4000/1500" -->

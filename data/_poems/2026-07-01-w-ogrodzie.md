@@ -7,7 +7,6 @@ image:
   object_fit: scale
   aspect_ratio: 1/1
   max_width: 400px
-text: center
 ---
 <p align=center >
 W naszym ogrodzie zakwitły kwiatki,<br>
@@ -31,4 +30,4 @@ Promienie słońca tańczą po kwiatach,<br>
 I ocieplają pustki w rabatach,<br>
 Nasz ogród marzeń, bajkowy, żywy,<br>
 Pełen zapachów, przygód prawdziwych.<br>
-</p>
+<br></p>

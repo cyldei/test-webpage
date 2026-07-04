@@ -7,7 +7,6 @@ image:
   object_fit: scale
   aspect_ratio: 1/1
   max_width: 400px
-text: center
 ---
 <p align=center>
 Ktoś zasypał śniegiem świat,<br>
@@ -29,4 +28,4 @@ Wziąłem stworka w swoje dłonie,<br>
 Biedak calusieńki płonie,<br>
 Biegnę go pokazać tacie,<br>
 Stworek się rozpuścił; jacie!<br>
-</p>
+<br></p>

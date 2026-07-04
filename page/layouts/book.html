@@ -1,0 +1,16 @@
+---
+layout: page
+# The Book collection page
+---
+
+<div id="book" class="pl-xl-3">
+{% assign book = site.book | where_exp: "item", "item.hidden != true" | sort | reverse %}
+{% for page in book %}
+  <li class="d-flex justify-content-between pl-md-3 pr-md-3">
+    <a href="{{ page.url | relative_url }}">{{ page.title }}</a>
+    <span class="dash flex-grow-1"></span>
+    {% include datetime.html date=page.date wrap='span' class='text-muted small' %}
+  </li>
+{% endfor %}
+
+</div>

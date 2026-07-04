@@ -56,12 +56,15 @@ avatar: '/assets/img/author.png'
 # avatar image fit mode for sidebar frame: cover | contain | scale-down
 avatar_fit: cover
 bar_image:
-  light: 
-    url: "https://picsum.photos/id/1073/2000/1000"
+  light:
+    # url: "https://picsum.photos/id/1073/2000/1000"
+    url: "/assets/img/background.png"
     position: "top"
-  dark: 
-    url: "https://picsum.photos/id/1073/2000/1000?grayscale"
-    position: "top"
+    fit: cover  # image fit mode for topbar image: cover | contain | scale-down
+  # dark:
+  #   url: "https://picsum.photos/id/1073/2000/1000?grayscale"
+  #   position: "top"
+  #   fit: cover  # falls back to bar_image.light.fit when unset
 
 comments:
   active:         # The global switch for posts comments, e.g., 'disqus'.  Keep it empty means disable
@@ -116,6 +119,9 @@ collections:
   poems:
     output: true
     sort_by: date
+  book:
+    output: true
+    sort_by: date 
 
 collections_dir: data
 
@@ -143,6 +149,14 @@ defaults:
       comments: false
       toc: false
       permalink: /poems/:title/
+  - scope:
+      path: ''
+      type: book
+    values:
+      layout: book-page
+      comments: false
+      toc: false
+      permalink: /book/:title/
   - scope:
       path: ''
       type: tabs             # see `site.collections`

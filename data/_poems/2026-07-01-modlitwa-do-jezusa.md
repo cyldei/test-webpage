@@ -7,7 +7,6 @@ image:
   object_fit: scale
   aspect_ratio: 1/1
   max_width: 400px
-text: center
 ---
 <p align=center>
 Jezu Chryste, synu Boży,<br>
@@ -22,5 +21,5 @@ I mękę na krzyżu,<br>
 Wybaw od grzechu.<br>
 O Jezu błagam Cię;<br>
 Niech Twoje serce bije we mnie,<br>
-Amen.
-</p>
+Amen.<br>
+<br></p>
