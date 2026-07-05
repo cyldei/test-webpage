@@ -1550,6 +1550,15 @@ $sidebar-display: "sidebar-display";
   #sidebar {
     width: $sidebar-width-small;
 
+    .site-title {
+      @include ml-mr(0.75rem);
+
+      a {
+        font-size: 1.25rem;
+        letter-spacing: 0;
+      }
+    }
+
     .site-subtitle {
       margin-left: 1rem;
       margin-right: 1rem;
@@ -1583,11 +1592,6 @@ $sidebar-display: "sidebar-display";
 
   #search-results > div {
     max-width: 700px;
-  }
-
-  .site-title {
-    font-size: 1.3rem;
-    margin-left: 0 !important;
   }
 
   .site-subtitle {
@@ -1712,7 +1716,8 @@ $sidebar-display: "sidebar-display";
       }
 
       %profile-ml {
-        margin-left: 4.5rem;
+        /* align with the tab text: ul padding (2.5rem) + .nav-link padding (1rem) */
+        margin-left: 3.5rem;
       }
 
       #avatar {
