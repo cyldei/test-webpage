@@ -389,3 +389,21 @@ nav[data-toggle="toc"] {
     border-radius: 0;
   }
 }
+
+/* 'Return to poems' links: FA sizing classes (fa-xs/fa-sm) carry a tiny
+   line-height meant for inline text; reset it so flex centers the arrow */
+.poems-return {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.85rem;
+  /* lighten the text-muted gray in both light and dark themes */
+  filter: brightness(1.35);
+  i {
+    line-height: 1;
+  }
+}
+.poems-return-button {
+  vertical-align: middle;
+//   margin-top:10px;
+//   margin-bottom:1px;
+}

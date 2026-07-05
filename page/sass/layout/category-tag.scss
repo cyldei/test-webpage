@@ -7,6 +7,13 @@
   border-bottom: 2px dotted var(--dash-color);
 }
 
+// /* Poems list reuses the category-page row pattern (title / dash / date);
+//    the same line-height keeps both texts and the dotted line vertically aligned */
+// #poems > li {
+//   line-height: 1.5rem;
+//   padding: 0.6rem 0;
+// }
+
 #page-category,
 #page-tag {
   ul > li {

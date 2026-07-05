@@ -3,7 +3,7 @@ layout: page
 # The Poems collection page
 ---
 
-{% assign per_page = 20 %}
+{% assign per_page = page.limit_items | default: 999 %}
 {% assign all_poems = site.poems | where_exp: "item", "item.hidden != true" %}
 {% assign total_poems = all_poems | size %}
 {% assign total_pages = total_poems | plus: per_page | minus: 1 | divided_by: per_page %}
@@ -14,7 +14,7 @@ layout: page
   {% for poem in date_group.items %}
   {% capture poem_idx %}{% increment poem_counter %}{% endcapture %}
   {% assign page_num = poem_idx | strip | plus: per_page | divided_by: per_page %}
-  <li class="d-flex justify-content-between pl-md-3 pr-md-3 poem-item" data-page="{{ page_num }}"{% unless page_num == 1 %} style="display: none;"{% endunless %}>
+  <li class="d-flex justify-content-between pl-md-3 pr-md-3 poem-item" data-page="{{ page_num }}"{% unless page_num == 1 %} style="display: none !important;"{% endunless %}>
     <a href="{{ poem.url | relative_url }}">{{ site.data.locales[site.lang].poems.poem }} {{ poem.title }}</a>
     <span class="dash flex-grow-1"></span>
     {% include datetime.html date=poem.date wrap='span' class='text-muted small' %}
@@ -61,7 +61,12 @@ layout: page
 
     function showPage(page) {
       items.forEach(function (item) {
-        item.style.display = (item.getAttribute('data-page') == page) ? '' : 'none';
+        // 'd-flex' is `display: flex !important` in Bootstrap, so hiding must be !important too
+        if (item.getAttribute('data-page') == page) {
+          item.style.removeProperty('display');
+        } else {
+          item.style.setProperty('display', 'none', 'important');
+        }
       });
 
       pagination.querySelectorAll('[data-page-btn]').forEach(function (btn) {

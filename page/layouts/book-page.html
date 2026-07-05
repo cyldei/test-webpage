@@ -7,12 +7,14 @@ tail_includes:
   - book-nav
 ---
 
-    <div class="d-flex justify-content-start mb-3">
-      <a href="{{ '/book' | relative_url }}" class="text-muted" aria-label="{{ site.data.locales[site.lang].book.return.title }}" title="{{ site.data.locales[site.lang].book.return.title }}">
-        <i class="fas fa-arrow-left"></i>  {{ site.data.locales[site.lang].book.return.arrow }}
-      </a>
-    </div>
-<h1 data-toc-skip>{{ site.data.locales[site.lang].book.chapter }} {{ page.order }}: {{ page.title }}</h1>
+<div class="d-flex justify-content-start my-3">
+    <a href="{{ '/book' | relative_url }}" class="text-muted poems-return" aria-label="{{ site.data.locales[site.lang].book.return.title }}" title="{{ site.data.locales[site.lang].book.return.title }}">
+    <i class="fas fa-arrow-left fa-xs mr-1 poems-return-button"></i>{{ site.data.locales[site.lang].book.return.arrow }}
+    </a>
+</div>
+
+
+<h1 data-toc-skip class="mt-0">{{ site.data.locales[site.lang].book.chapter }} {{ page.order }}: {{ page.title }}</h1>
 
 <div class="post-meta text-muted">
 

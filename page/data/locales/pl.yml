@@ -121,6 +121,10 @@ post:
       succeed: Skopiowano!
   # pinned prompt of posts list on homepage
   pin_prompt: Przypięty post
+  return:
+    arrow: "Strona Główna"
+    footer: "Powrót do strony głównej"
+    title: "Powrót do strony głównej"
 
 # Date time format.
 # See: <http://strftime.net/>, <https://day.js.org/docs/en/display/format>

@@ -2,7 +2,7 @@
 title: "\"Restauracja\""
 author: 'Michal'
 image:
-  path: /assets/img/book/ch-25.png
+  path: /assets/img/book/cover.png
   aspect_ratio: 3/4
   object_fit: scale
   max_width: 400px
