@@ -29,7 +29,7 @@
 {% assign total_pages = include.total_pages %}
 
 {% if total_pages > 1 %}
-<ul class="pagination align-items-center mt-4 pl-lg-2" id="{{ include.id }}-pagination">
+<ul class="pagination align-items-center mt-4" id="{{ include.id }}-pagination">
 
   <li class="page-item disabled" data-role="prev">
     <a class="page-link btn-box-shadow" href="#" aria-label="previous-page">
@@ -39,11 +39,11 @@
 
   {% for i in (1..total_pages) %}
   {% if i == total_pages and total_pages > 2 %}
-  <li class="page-item disabled {% if total_pages <= 3 %}d-none{% endif %}" data-role="ellipsis">
+  <li class="page-item disabled {% if total_pages <= 6 %}d-none{% endif %}" data-role="ellipsis">
     <span class="page-link">&hellip;</span>
   </li>
   {% endif %}
-  <li class="page-item {% if i == 1 %}active{% endif %} {% if i > 2 and i < total_pages %}d-none{% endif %}" data-page-btn="{{ i }}">
+  <li class="page-item {% if i == 1 %}active{% endif %} {% if i > 5 and i < total_pages %}d-none{% endif %}" data-page-btn="{{ i }}">
     <a class="page-link btn-box-shadow" href="#">{{ i }}</a>
   </li>
   {% if i == 1 and total_pages > 2 %}
@@ -86,9 +86,22 @@
         }
       });
 
-      /* show only first, last and the current page's neighbours: (<) (1) (2) ... (40) (>) */
-      var lo = Math.max(2, page - 1);
-      var hi = Math.min(totalPages - 1, page + 1);
+      /* (1) (2) (3) (4) (5) ... (100) at the start, (1) ... (49) (50) (51) ... (100) in the middle,
+         (1) ... (96) (97) (98) (99) (100) at the end */
+      var lo, hi;
+      if (totalPages <= 6) {
+        lo = 2;
+        hi = totalPages - 1;
+      } else if (page <= 3) {
+        lo = 2;
+        hi = 5;
+      } else if (page >= totalPages - 3) {
+        lo = totalPages - 4;
+        hi = totalPages - 1;
+      } else {
+        lo = page - 1;
+        hi = page + 1;
+      }
 
       pagination.querySelectorAll('[data-page-btn]').forEach(function (btn) {
         var i = parseInt(btn.getAttribute('data-page-btn'), 10);

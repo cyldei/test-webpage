@@ -192,11 +192,21 @@ footer {
   font-size: 0.8rem;
   background-color: var(--main-bg);
 
+  &::before {
+    content: '';
+    display: block;
+    border-top: 1px solid var(--main-border-color);
+    margin: 0 max(1rem, 1vw);
+  }
+
+  div.container-fluid {
+    padding: 0 max(1rem, 2vw);
+  }
+
   div.d-flex {
     height: $footer-height;
     line-height: 1.2rem;
     padding-bottom: 1rem;
-    border-top: 1px solid var(--main-border-color);
 
     > div {
       width: 350px;
@@ -1805,3 +1815,19 @@ $sidebar-display: "sidebar-display";
     } /* .sidebar-bottom */
   } /* #sidebar */
 } /* min-width: 1650px */
+
+/* Full-width layout: let the content span from the sidebar to the right edge
+   instead of being capped and centered by Bootstrap's .container */
+@media all and (min-width: 1200px) {
+  #topbar,
+  #main,
+  footer > .container,
+  #search-result-wrapper {
+    max-width: 100%;
+    padding-left: max(15px, 3vw) !important;
+  }
+
+  #back-to-top {
+    right: 5%;
+  }
+}
