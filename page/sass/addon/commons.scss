@@ -740,8 +740,8 @@ $sidebar-display: "sidebar-display";
   #avatar {
     > a {
       display: block;
-      width: 10rem;
-      height: 10rem;
+      width: clamp(10rem, 7vw, 14rem);
+      height: clamp(10rem, 7vw, 14rem);
       border-radius: 50%;
       border: 2px solid rgba(222, 222, 222, 0.7);
       overflow: hidden;
@@ -1719,9 +1719,6 @@ $sidebar-display: "sidebar-display";
         @extend %profile-ml;
 
         > a {
-          width: 6.2rem;
-          height: 6.2rem;
-
           &.mx-auto {
             margin-left: 0 !important;
           }
