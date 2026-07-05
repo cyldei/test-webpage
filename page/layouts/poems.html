@@ -3,11 +3,18 @@ layout: page
 # The Poems collection page
 ---
 
+{% assign per_page = 20 %}
+{% assign all_poems = site.poems | where_exp: "item", "item.hidden != true" %}
+{% assign total_poems = all_poems | size %}
+{% assign total_pages = total_poems | plus: per_page | minus: 1 | divided_by: per_page %}
+
 <div id="poems" class="pl-xl-3">
-{% assign poems = site.poems | where_exp: "item", "item.hidden != true" | sort: "title" | group_by: "date" | sort: "name" %}
+{% assign poems = all_poems | sort: "title" | group_by: "date" | sort: "name" %}
 {% for date_group in poems reversed %}
   {% for poem in date_group.items %}
-  <li class="d-flex justify-content-between pl-md-3 pr-md-3">
+  {% capture poem_idx %}{% increment poem_counter %}{% endcapture %}
+  {% assign page_num = poem_idx | strip | plus: per_page | divided_by: per_page %}
+  <li class="d-flex justify-content-between pl-md-3 pr-md-3 poem-item" data-page="{{ page_num }}"{% unless page_num == 1 %} style="display: none;"{% endunless %}>
     <a href="{{ poem.url | relative_url }}">{{ poem.title }}</a>
     <span class="dash flex-grow-1"></span>
     {% include datetime.html date=poem.date wrap='span' class='text-muted small' %}
@@ -16,3 +23,74 @@ layout: page
 {% endfor %}
 
 </div>
+
+{% if total_pages > 1 %}
+<ul class="pagination align-items-center mt-4 pl-lg-2" id="poems-pagination">
+
+  <li class="page-item disabled" data-role="prev">
+    <a class="page-link btn-box-shadow" href="#" aria-label="previous-page">
+      <i class="fas fa-angle-left"></i>
+    </a>
+  </li>
+
+  {% for i in (1..total_pages) %}
+  <li class="page-item {% if i == 1 %}active{% endif %}" data-page-btn="{{ i }}">
+    <a class="page-link btn-box-shadow" href="#">{{ i }}</a>
+  </li>
+  {% endfor %}
+
+  <li class="page-index align-middle">
+    <span id="poems-page-current">1</span>
+    <span class="text-muted">/ {{ total_pages }}</span>
+  </li>
+
+  <li class="page-item" data-role="next">
+    <a class="page-link btn-box-shadow" href="#" aria-label="next-page">
+      <i class="fas fa-angle-right"></i>
+    </a>
+  </li>
+
+</ul> <!-- #poems-pagination -->
+
+<script type="text/javascript">
+  (function () {
+    var pagination = document.getElementById('poems-pagination');
+    var items = document.querySelectorAll('#poems .poem-item');
+    var totalPages = parseInt("{{ total_pages }}", 10);
+    var current = 1;
+
+    function showPage(page) {
+      items.forEach(function (item) {
+        item.style.display = (item.getAttribute('data-page') == page) ? '' : 'none';
+      });
+
+      pagination.querySelectorAll('[data-page-btn]').forEach(function (btn) {
+        btn.classList.toggle('active', btn.getAttribute('data-page-btn') == page);
+      });
+
+      pagination.querySelector('[data-role="prev"]').classList.toggle('disabled', page == 1);
+      pagination.querySelector('[data-role="next"]').classList.toggle('disabled', page == totalPages);
+
+      document.getElementById('poems-page-current').textContent = page;
+      current = page;
+    }
+
+    pagination.querySelectorAll('[data-page-btn]').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        showPage(parseInt(btn.getAttribute('data-page-btn'), 10));
+      });
+    });
+
+    pagination.querySelector('[data-role="prev"]').addEventListener('click', function (e) {
+      e.preventDefault();
+      if (current > 1) showPage(current - 1);
+    });
+
+    pagination.querySelector('[data-role="next"]').addEventListener('click', function (e) {
+      e.preventDefault();
+      if (current < totalPages) showPage(current + 1);
+    });
+  })();
+</script>
+{% endif %}

@@ -2,8 +2,8 @@
 title: "\"Autobus\""
 author: 'Michal'
 image:
-  path: /assets/img/posts/2026/06/30/welcome.png
-  aspect_ratio: 1/1
+  path: /assets/img/book/ch-5.png
+  aspect_ratio: 3/4
   object_fit: scale
   max_width: 400px
 order: 5
