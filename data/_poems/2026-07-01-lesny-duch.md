@@ -1,11 +1,11 @@
 ---
 title: "\"Leśny duch\""
 author: 'Michal'
-image:
-  path: /assets/img/posts/2026/06/30/welcome.png
-  object_fit: scale
-  aspect_ratio: 1/1
-  max_width: 400px
+# image:
+#   path: /assets/img/posts/2026/06/30/welcome.png
+#   object_fit: scale
+#   aspect_ratio: 1/1
+#   max_width: 400px
 ---
 <p align=center>
 Błąka się po lesie dusza,<br>
@@ -50,4 +50,4 @@ Patrz człowiecze: już jej nie ma!!!<br>
 <br>
 <br>
 Zrób coś jeśli czujesz, że planeta umiera,… cokolwiek…….<br>
-<br></p>
+</p>

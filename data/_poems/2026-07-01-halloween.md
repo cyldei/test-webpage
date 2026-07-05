@@ -1,11 +1,11 @@
 ---
 title: "\"Halloween\""
 author: 'Michal'
-image:
-  path: /assets/img/posts/2026/06/30/welcome.png
-  object_fit: scale
-  aspect_ratio: 1/1
-  max_width: 400px
+# image:
+#   path: /assets/img/posts/2026/06/30/welcome.png
+#   object_fit: scale
+#   aspect_ratio: 1/1
+#   max_width: 400px
 ---
 <p align=center>
 Dziś Halloween w naszym mieście,<br>
@@ -40,4 +40,4 @@ Bo kto nie da, ten pająka,<br>
 Znajdzie u swego przedsionka,<br>
 A to wszystko jest na niby,<br>
 Nawet najstraszliwsze dziwy.<br>
-<br></p>
+</p>

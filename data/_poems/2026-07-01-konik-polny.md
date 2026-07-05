@@ -1,11 +1,11 @@
 ---
 title: "\"Konik polny\""
 author: 'Michal'
-image:
-  path: /assets/img/posts/2026/06/30/welcome.png
-  object_fit: scale
-  aspect_ratio: 1/1
-  max_width: 400px
+# image:
+#   path: /assets/img/posts/2026/06/30/welcome.png
+#   object_fit: scale
+#   aspect_ratio: 1/1
+#   max_width: 400px
 ---
 <p align=center>
 We dnie w trawie nagle pstryk,<br>
@@ -23,4 +23,4 @@ Ten wirtuoz się nie męczy.<br>
 <br>
 Pragnie zagrać jak pianista,<br>
 Bo to świerszcz jest, łąk artysta.<br>
-<br></p>
+</p>

@@ -1,11 +1,11 @@
 ---
 title: "\"Śnieżny stworek\""
 author: 'Michal'
-image:
-  path: /assets/img/posts/2026/06/30/welcome.png
-  object_fit: scale
-  aspect_ratio: 1/1
-  max_width: 400px
+# image:
+#   path: /assets/img/posts/2026/06/30/welcome.png
+#   object_fit: scale
+#   aspect_ratio: 1/1
+#   max_width: 400px
 ---
 <p align=center>
 Ktoś zasypał śniegiem świat,<br>
@@ -27,4 +27,4 @@ Wziąłem stworka w swoje dłonie,<br>
 Biedak calusieńki płonie,<br>
 Biegnę go pokazać tacie,<br>
 Stworek się rozpuścił; jacie!<br>
-<br></p>
+</p>

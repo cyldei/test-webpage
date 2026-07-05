@@ -1,11 +1,11 @@
 ---
 title: "\"Święty Mikołaj\""
 author: 'Michal'
-image:
-  path: /assets/img/posts/2026/06/30/welcome.png
-  object_fit: scale
-  aspect_ratio: 1/1
-  max_width: 400px
+# image:
+#   path: /assets/img/posts/2026/06/30/welcome.png
+#   object_fit: scale
+#   aspect_ratio: 1/1
+#   max_width: 400px
 ---
 <p align=center>
 Ktoś zasypał śniegiem świat,<br>
@@ -32,4 +32,4 @@ Rano; nikogo nie było,<br>
 Może mi się to przyśniło,<br>
 Lecz w skarpecie obok łóżka,<br>
 Piernikowe dwa serduszka.<br>
-<br></p>
+</p>

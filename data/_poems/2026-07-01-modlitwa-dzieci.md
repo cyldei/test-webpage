@@ -1,11 +1,11 @@
 ---
 title: "\"Modlitwa dzieci\""
 author: 'Michal'
-image:
-  path: /assets/img/posts/2026/06/30/welcome.png
-  object_fit: scale
-  aspect_ratio: 1/1
-  max_width: 400px
+# image:
+#   path: /assets/img/posts/2026/06/30/welcome.png
+#   object_fit: scale
+#   aspect_ratio: 1/1
+#   max_width: 400px
 ---
 <p align=center>
 Boże mój kochany,<br>
@@ -37,4 +37,4 @@ Jesteś źródłem Życia,<br>
 Dobrem i Miłością,<br>
 Obdarz zatem proszę,<br>
 Życie me radością.<br>
-<br></p>
+</p>

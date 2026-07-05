@@ -1,11 +1,11 @@
 ---
 title: "\"Dzieciaki Zwierzaki\""
 author: 'Michal'
-image:
-  path: /assets/img/posts/2026/06/30/welcome.png
-  object_fit: scale
-  aspect_ratio: 1/1
-  max_width: 400px
+# image:
+#   path: /assets/img/posts/2026/06/30/welcome.png
+#   object_fit: scale
+#   aspect_ratio: 1/1
+#   max_width: 400px
 ---
 <p align=center>
 Wszystkie Dzieciaki,<br>
@@ -27,4 +27,4 @@ w sercach dzieci mieszkające.<br>
 Nazywają je z radością,<br>
 <br>
 swoją kochaną własnością.<br>
-<br></p>
+</p>

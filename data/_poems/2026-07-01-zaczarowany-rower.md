@@ -1,11 +1,11 @@
 ---
 title: "\"Zaczarowany rower\""
 author: 'Michal'
-image:
-  path: /assets/img/posts/2026/06/30/welcome.png
-  object_fit: scale
-  aspect_ratio: 1/1
-  max_width: 400px
+# image:
+#   path: /assets/img/posts/2026/06/30/welcome.png
+#   object_fit: scale
+#   aspect_ratio: 1/1
+#   max_width: 400px
 ---
 <p align=center>
 W moim domu jest piwnica,<br>
@@ -32,4 +32,4 @@ Lotem strzały w Tatry leci,<br>
 Rower i ja cały,<br>
 Bo mój rower drogie dzieci,<br>
 Jest zaczarowany.<br>
-<br></p>
+</p>

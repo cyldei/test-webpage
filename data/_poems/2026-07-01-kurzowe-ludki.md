@@ -1,11 +1,11 @@
 ---
 title: "\"Kurzowe Ludki\""
 author: 'Michal'
-image:
-  path: /assets/img/posts/2026/06/30/welcome.png
-  object_fit: scale
-  aspect_ratio: 1/1
-  max_width: 400px
+# image:
+#   path: /assets/img/posts/2026/06/30/welcome.png
+#   object_fit: scale
+#   aspect_ratio: 1/1
+#   max_width: 400px
 ---
 <p align=center>
 Znalazłem w domu, na parapecie,<br>
@@ -27,4 +27,4 @@ Kurzowy ludek, uciekł na szafę,<br>
 Biorę odkurzacz, zaraz go złapię,<br>
 Kurz się rozpierzchnął, w każdym kierunku,<br>
 Wołam o pomoc, ludzie ratunku!<br>
-<br></p>
+</p>

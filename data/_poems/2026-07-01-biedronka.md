@@ -1,11 +1,11 @@
 ---
 title: "\"Biedronka\""
 author: 'Michal'
-image:
-  path: /assets/img/posts/2026/06/30/welcome.png
-  object_fit: scale
-  aspect_ratio: 1/1
-  max_width: 400px
+# image:
+#   path: /assets/img/posts/2026/06/30/welcome.png
+#   object_fit: scale
+#   aspect_ratio: 1/1
+#   max_width: 400px
 ---
 <p align=center>
 Raz biedronka siedmiokropka,<br>
@@ -49,4 +49,4 @@ skrzydełkami pomachała,<br>
 i na łączkę w dół pognała,<br>
 do biedronek dołączyła,<br>
 swą historią je raczyła.<br>
-<br></p>
+</p>

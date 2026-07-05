@@ -1,11 +1,11 @@
 ---
 title: "\"„WODA” czyli Wszystko zaczyna się w chmurach\""
 author: 'Michal'
-image:
-  path: /assets/img/posts/2026/06/30/welcome.png
-  object_fit: scale
-  aspect_ratio: 1/1
-  max_width: 400px
+# image:
+#   path: /assets/img/posts/2026/06/30/welcome.png
+#   object_fit: scale
+#   aspect_ratio: 1/1
+#   max_width: 400px
 ---
 <p align=center>
 Mała chmurka zapłakała,<br>
@@ -22,4 +22,4 @@ Wodę, piją także dzieci,<br>
 Taką co ze źródła leci,<br>
 Bo by rosnąć, aby żyć,<br>
 Trzeba czystą wodę pić.<br>
-<br></p>
+</p>

@@ -1,11 +1,11 @@
 ---
 title: "\"Jedenasty Listopada\""
 author: 'Michal'
-image:
-  path: /assets/img/posts/2026/06/30/welcome.png
-  object_fit: scale
-  aspect_ratio: 1/1
-  max_width: 400px
+# image:
+#   path: /assets/img/posts/2026/06/30/welcome.png
+#   object_fit: scale
+#   aspect_ratio: 1/1
+#   max_width: 400px
 ---
 <p align=center>
 Jest w kalendarzu data,<br>
@@ -28,4 +28,4 @@ Mówił mi tata.<br>
 Na mapach Świata,<br>
 A święto to wypada,<br>
 Jedenastego listopada.<br>
-<br></p>
+</p>

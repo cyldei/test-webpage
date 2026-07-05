@@ -35,10 +35,21 @@ tabs:
   tags: Tagi
 
 poems:
+  poem: Wiersz
   return:
     arrow: "Wszystkie wiersze"
     footer: "Powrót do listy wierszy"
     title: "Powrót do listy wierszy"
+  
+book:
+  chapter: Rozdział
+  return:
+    arrow: "Pies Karambus"
+    footer: "Powrót do listy rozdziałów"
+    title: "Powrót do listy rozdziałów"
+  button:
+    next: Następny rozdział
+    previous: Poprzedni rozdział
 
 # the text displayed in the search bar & search results
 search:

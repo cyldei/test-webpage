@@ -1,11 +1,11 @@
 ---
 title: "\"Wiewiórka\""
 author: 'Michal'
-image:
-  path: /assets/img/posts/2026/06/30/welcome.png
-  object_fit: scale
-  aspect_ratio: 1/1
-  max_width: 400px
+# image:
+#   path: /assets/img/posts/2026/06/30/welcome.png
+#   object_fit: scale
+#   aspect_ratio: 1/1
+#   max_width: 400px
 ---
 <p align=center>
 Rudy ogon, ząbki długie,<br>
@@ -27,4 +27,4 @@ Ta wiewiórka ta malutka,<br>
 Tańczy w koło wesolutka,<br>
 Kitą macha tu i tam,<br>
 Nawet fruwa, mówię wam.<br>
-<br></p>
+</p>

@@ -1,11 +1,11 @@
 ---
 title: "\"Pufinek i Papinka\""
 author: 'Michal'
-image:
-  path: /assets/img/posts/2026/06/30/welcome.png
-  object_fit: scale
-  aspect_ratio: 1/1
-  max_width: 400px
+# image:
+#   path: /assets/img/posts/2026/06/30/welcome.png
+#   object_fit: scale
+#   aspect_ratio: 1/1
+#   max_width: 400px
 ---
 <p align=center>
 Milion kropel rosy, na polanie drży,<br>
@@ -37,4 +37,4 @@ Bez słów porozumiał, swą gwiazdeczkę Pufo,<br>
 W nocy z nią opuścił, naszą Ziemię UFO,<br>
 Pełno tu nad ranem, bielusieńkiej mgły.<br>
 Milion może więcej, kropeleczek dżdży.<br>
-<br></p>
+</p>

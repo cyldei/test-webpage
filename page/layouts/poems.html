@@ -15,7 +15,7 @@ layout: page
   {% capture poem_idx %}{% increment poem_counter %}{% endcapture %}
   {% assign page_num = poem_idx | strip | plus: per_page | divided_by: per_page %}
   <li class="d-flex justify-content-between pl-md-3 pr-md-3 poem-item" data-page="{{ page_num }}"{% unless page_num == 1 %} style="display: none;"{% endunless %}>
-    <a href="{{ poem.url | relative_url }}">{{ poem.title }}</a>
+    <a href="{{ poem.url | relative_url }}">{{ site.data.locales[site.lang].poems.poem }} {{ poem.title }}</a>
     <span class="dash flex-grow-1"></span>
     {% include datetime.html date=poem.date wrap='span' class='text-muted small' %}
   </li>

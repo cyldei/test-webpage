@@ -1,11 +1,11 @@
 ---
 title: "\"Baśń o Trolinku (fragment)\""
 author: 'Michal'
-image:
-  path: /assets/img/posts/2026/06/30/welcome.png
-  object_fit: scale
-  aspect_ratio: 1/1
-  max_width: 400px
+# image:
+#   path: /assets/img/posts/2026/06/30/welcome.png
+#   object_fit: scale
+#   aspect_ratio: 1/1
+#   max_width: 400px
 ---
 <p align=center>
 <strong>ROZDZIAŁ 1. DOMEK TROLINKOWY</strong><br>
@@ -422,4 +422,4 @@ Wysiądź na tej wyspie i uciekaj w las !"<br>
 <strong>ROZDZIAŁ 10. WYSPA PUŁAPEK</strong><br>
 <br>
 <i>(ciąg dalszy w książce…)</i><br>
-<br></p>
+</p>

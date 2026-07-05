@@ -1,11 +1,11 @@
 ---
 title: "\"Wielkanoc\""
 author: 'Michal'
-image:
-  path: /assets/img/posts/2026/06/30/welcome.png
-  object_fit: scale
-  aspect_ratio: 1/1
-  max_width: 400px
+# image:
+#   path: /assets/img/posts/2026/06/30/welcome.png
+#   object_fit: scale
+#   aspect_ratio: 1/1
+#   max_width: 400px
 ---
 <p align=center>
 Dziś są święta Wielkiej Nocy,<br>
@@ -47,4 +47,4 @@ Leją nimi koleżanki.<br>
 Coś wam w tajemnicy powiem,<br>
 Wielkanocy czas się skończy,<br>
 Nić rodzinną nam połączy<br>
-<br></p>
+</p>
