@@ -59,14 +59,17 @@
 <script type="text/javascript">
   (function () {
     var pagination = document.getElementById('{{ include.id }}-pagination');
-    var items = document.querySelectorAll('#{{ include.id }} [data-page]');
-    var totalPages = parseInt("{{ total_pages }}", 10);
-    var current = 1;
+    var totalPages = parseInt('{{ total_pages }}', 10);
+
+    function currentPage() {
+      var active = pagination.querySelector('[data-page-btn].active');
+      return active ? parseInt(active.getAttribute('data-page-btn'), 10) : 1;
+    }
 
     function showPage(page) {
-      items.forEach(function (item) {
-        // 'd-flex' is `display: flex !important` in Bootstrap, so hiding must be !important too
-        if (item.getAttribute('data-page') == page) {
+      document.querySelectorAll('#{{ include.id }} [data-page]').forEach(function (item) {
+        /* 'd-flex' is `display: flex !important` in Bootstrap, so hiding must be !important too */
+        if (parseInt(item.getAttribute('data-page'), 10) === page) {
           item.style.removeProperty('display');
         } else {
           item.style.setProperty('display', 'none', 'important');
@@ -74,31 +77,31 @@
       });
 
       pagination.querySelectorAll('[data-page-btn]').forEach(function (btn) {
-        btn.classList.toggle('active', btn.getAttribute('data-page-btn') == page);
+        btn.classList.toggle('active', parseInt(btn.getAttribute('data-page-btn'), 10) === page);
       });
 
-      pagination.querySelector('[data-role="prev"]').classList.toggle('disabled', page == 1);
-      pagination.querySelector('[data-role="next"]').classList.toggle('disabled', page == totalPages);
+      pagination.querySelector('[data-role="prev"]').classList.toggle('disabled', page === 1);
+      pagination.querySelector('[data-role="next"]').classList.toggle('disabled', page === totalPages);
 
-      document.getElementById('{{ include.id }}-page-current').textContent = page;
-      current = page;
+      var index = document.getElementById('{{ include.id }}-page-current');
+      if (index) index.textContent = page;
     }
 
-    pagination.querySelectorAll('[data-page-btn]').forEach(function (btn) {
-      btn.addEventListener('click', function (e) {
-        e.preventDefault();
+    pagination.addEventListener('click', function (e) {
+      var btn = e.target.closest('[data-page-btn], [data-role]');
+      if (!btn || !pagination.contains(btn)) return;
+
+      e.preventDefault();
+      var page = currentPage();
+      var role = btn.getAttribute('data-role');
+
+      if (btn.hasAttribute('data-page-btn')) {
         showPage(parseInt(btn.getAttribute('data-page-btn'), 10));
-      });
-    });
-
-    pagination.querySelector('[data-role="prev"]').addEventListener('click', function (e) {
-      e.preventDefault();
-      if (current > 1) showPage(current - 1);
-    });
-
-    pagination.querySelector('[data-role="next"]').addEventListener('click', function (e) {
-      e.preventDefault();
-      if (current < totalPages) showPage(current + 1);
+      } else if (role === 'prev' && page > 1) {
+        showPage(page - 1);
+      } else if (role === 'next' && page < totalPages) {
+        showPage(page + 1);
+      }
     });
   })();
 </script>
