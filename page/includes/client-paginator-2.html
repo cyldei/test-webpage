@@ -71,6 +71,59 @@
     var pagination = document.getElementById('{{ include.id }}-pagination');
     var totalPages = parseInt('{{ total_pages }}', 10);
 
+    /* full horizontal footprint of an element, margins included */
+    function outerWidth(el) {
+      if (!el) return 0;
+      var style = window.getComputedStyle(el);
+      return el.offsetWidth + (parseFloat(style.marginLeft) || 0) + (parseFloat(style.marginRight) || 0);
+    }
+
+    /* how many numbered buttons (incl. first and last) fit in the row,
+       leaving room for prev/next, the two ellipses and the page index */
+    function maxNumberedButtons() {
+      /* the last button carries the widest label and is always visible */
+      var btnWidth = outerWidth(pagination.querySelector('[data-page-btn="' + totalPages + '"]')) || 40;
+
+      /* the ul itself grows with its content, so measure the parent instead */
+      var available = 0;
+      if (pagination.parentElement) {
+        var parentStyle = window.getComputedStyle(pagination.parentElement);
+        available = pagination.parentElement.clientWidth
+                  - (parseFloat(parentStyle.paddingLeft) || 0)
+                  - (parseFloat(parentStyle.paddingRight) || 0);
+      }
+      var ulStyle = window.getComputedStyle(pagination);
+      available -= (parseFloat(ulStyle.paddingLeft) || 0) + (parseFloat(ulStyle.paddingRight) || 0)
+                 + (parseFloat(ulStyle.marginLeft) || 0) + (parseFloat(ulStyle.marginRight) || 0);
+
+      var reserved = outerWidth(pagination.querySelector('[data-role="prev"]'))
+                   + outerWidth(pagination.querySelector('[data-role="next"]'))
+                   + outerWidth(pagination.querySelector('.page-index'))
+                   + btnWidth * 2  /* the two ellipses */
+                   + 16;           /* slack */
+
+      return Math.min(totalPages, Math.max(3, Math.floor((available - reserved) / btnWidth)));
+    }
+
+    /* show first, last and `span` buttons around `page`; hide the rest behind the ellipses */
+    function applyButtonWindow(page, span) {
+      var lo = Math.max(2, page - Math.floor((span - 1) / 2));
+      var hi = Math.min(totalPages - 1, lo + span - 1);
+      lo = Math.max(2, hi - span + 1);
+
+      pagination.querySelectorAll('[data-page-btn]').forEach(function (btn) {
+        var i = parseInt(btn.getAttribute('data-page-btn'), 10);
+        btn.classList.toggle('active', i === page);
+        btn.classList.toggle('d-none', !(i === 1 || i === totalPages || (i >= lo && i <= hi)));
+      });
+
+      var ellipses = pagination.querySelectorAll('[data-role="ellipsis"]');
+      if (ellipses.length === 2) {
+        ellipses[0].classList.toggle('d-none', lo <= 2);                /* between 1 and window */
+        ellipses[1].classList.toggle('d-none', hi >= totalPages - 1);  /* between window and last */
+      }
+    }
+
     function currentPage() {
       var active = pagination.querySelector('[data-page-btn].active');
       return active ? parseInt(active.getAttribute('data-page-btn'), 10) : 1;
@@ -86,20 +139,16 @@
         }
       });
 
-      /* show only first, last and the current page's neighbours: (<) (1) (2) ... (40) (>) */
-      var lo = Math.max(2, page - 1);
-      var hi = Math.min(totalPages - 1, page + 1);
+      /* show only first, last and a window around the current page: (<) (1) ... (16) (17) (18) ... (40) (>)
+         the window grows/shrinks with the available width */
+      var span = Math.max(1, maxNumberedButtons() - 2);
+      applyButtonWindow(page, span);
 
-      pagination.querySelectorAll('[data-page-btn]').forEach(function (btn) {
-        var i = parseInt(btn.getAttribute('data-page-btn'), 10);
-        btn.classList.toggle('active', i === page);
-        btn.classList.toggle('d-none', !(i === 1 || i === totalPages || (i >= lo && i <= hi)));
-      });
-
-      var ellipses = pagination.querySelectorAll('[data-role="ellipsis"]');
-      if (ellipses.length === 2) {
-        ellipses[0].classList.toggle('d-none', lo <= 2);                /* between 1 and window */
-        ellipses[1].classList.toggle('d-none', hi >= totalPages - 1);  /* between window and last */
+      /* estimation can be off (custom fonts, box shadows, ...) — shrink until it truly fits */
+      var parent = pagination.parentElement;
+      while (span > 1 && parent && pagination.scrollWidth > parent.clientWidth) {
+        span--;
+        applyButtonWindow(page, span);
       }
 
       pagination.querySelector('[data-role="prev"]').classList.toggle('disabled', page === 1);
@@ -125,6 +174,15 @@
         showPage(page + 1);
       }
     });
+
+    var resizeTimer;
+    window.addEventListener('resize', function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function () { showPage(currentPage()); }, 150);
+    });
+
+    /* widen the initial window to whatever fits the screen */
+    showPage(currentPage());
   })();
 </script>
 {% endif %}
