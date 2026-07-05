@@ -3,13 +3,20 @@ layout: page
 # The Book collection page
 ---
 
+{% assign per_page = page.limit_items | default: 999 %}
+{% assign all_book = site.book | where_exp: "item", "item.hidden != true" %}
+{% assign total_book = all_book | size %}
+{% assign total_pages = total_book | plus: per_page | minus: 1 | divided_by: per_page %}
+
 <div id="book" class="pl-xl-3">
-{% assign book = site.book | where_exp: "item", "item.hidden != true" %}
-{% for page in book %}
-  <li class="d-flex justify-content-between pl-md-3 pr-md-3">
+{% for page in all_book %}
+  {% capture page_idx %}{% increment book_counter %}{% endcapture %}
+  {% assign page_num = page_idx | strip | plus: per_page | divided_by: per_page %}
+  <li class="d-flex justify-content-between pl-md-3 pr-md-3" data-page="{{ page_num }}"{% unless page_num == 1 %} style="display: none !important;"{% endunless %}>
     <a href="{{ page.url | relative_url }}">Rozdział {{ page.order }}: {{ page.title }}</a>
     <span class="dash flex-grow-1"></span>
   </li>
 {% endfor %}
-
 </div>
+
+{% include client-paginator.html id="book" total_pages=total_pages %}

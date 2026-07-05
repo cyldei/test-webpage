@@ -1,0 +1,105 @@
+<!--
+  Client-side paginator for a pre-rendered list.
+
+  Usage:
+    {% assign per_page = page.limit_items | default: 999 %}
+    {% assign all_XYZ = site.XYZ | where_exp: "item", "item.hidden != true" %}
+    {% assign total_XYZ = all_XYZ | size %}
+    {% assign total_pages = total_XYZ | plus: per_page | minus: 1 | divided_by: per_page %}
+
+    {% for page in all_XYZ %}
+    {% capture page_idx %}{% increment XYZ_counter %}{% endcapture %}
+    {% assign page_num = page_idx | strip | plus: per_page | divided_by: per_page %}
+      DATA
+    {% endfor %}
+
+    {% raw %}{% include client-paginator.html id="XYZ" total_pages=total_pages %}{% endraw %}
+
+  Parameters:
+    id          - id of the container element holding the paginated items
+    total_pages - total number of pages
+
+  Expects every paginated item inside the container to carry a
+  `data-page="N"` attribute; items of pages other than 1 should be
+  rendered with `style="display: none !important;"`.
+
+  Renders nothing when there is a single page.
+-->
+
+{% assign total_pages = include.total_pages %}
+
+{% if total_pages > 1 %}
+<ul class="pagination align-items-center mt-4 pl-lg-2" id="{{ include.id }}-pagination">
+
+  <li class="page-item disabled" data-role="prev">
+    <a class="page-link btn-box-shadow" href="#" aria-label="previous-page">
+      <i class="fas fa-angle-left"></i>
+    </a>
+  </li>
+
+  {% for i in (1..total_pages) %}
+  <li class="page-item {% if i == 1 %}active{% endif %}" data-page-btn="{{ i }}">
+    <a class="page-link btn-box-shadow" href="#">{{ i }}</a>
+  </li>
+  {% endfor %}
+
+  <li class="page-index align-middle">
+    <span id="{{ include.id }}-page-current">1</span>
+    <span class="text-muted">/ {{ total_pages }}</span>
+  </li>
+
+  <li class="page-item" data-role="next">
+    <a class="page-link btn-box-shadow" href="#" aria-label="next-page">
+      <i class="fas fa-angle-right"></i>
+    </a>
+  </li>
+
+</ul> <!-- #{{ include.id }}-pagination -->
+
+<script type="text/javascript">
+  (function () {
+    var pagination = document.getElementById('{{ include.id }}-pagination');
+    var items = document.querySelectorAll('#{{ include.id }} [data-page]');
+    var totalPages = parseInt("{{ total_pages }}", 10);
+    var current = 1;
+
+    function showPage(page) {
+      items.forEach(function (item) {
+        // 'd-flex' is `display: flex !important` in Bootstrap, so hiding must be !important too
+        if (item.getAttribute('data-page') == page) {
+          item.style.removeProperty('display');
+        } else {
+          item.style.setProperty('display', 'none', 'important');
+        }
+      });
+
+      pagination.querySelectorAll('[data-page-btn]').forEach(function (btn) {
+        btn.classList.toggle('active', btn.getAttribute('data-page-btn') == page);
+      });
+
+      pagination.querySelector('[data-role="prev"]').classList.toggle('disabled', page == 1);
+      pagination.querySelector('[data-role="next"]').classList.toggle('disabled', page == totalPages);
+
+      document.getElementById('{{ include.id }}-page-current').textContent = page;
+      current = page;
+    }
+
+    pagination.querySelectorAll('[data-page-btn]').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        showPage(parseInt(btn.getAttribute('data-page-btn'), 10));
+      });
+    });
+
+    pagination.querySelector('[data-role="prev"]').addEventListener('click', function (e) {
+      e.preventDefault();
+      if (current > 1) showPage(current - 1);
+    });
+
+    pagination.querySelector('[data-role="next"]').addEventListener('click', function (e) {
+      e.preventDefault();
+      if (current < totalPages) showPage(current + 1);
+    });
+  })();
+</script>
+{% endif %}
