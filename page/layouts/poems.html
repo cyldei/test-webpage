@@ -4,13 +4,15 @@ layout: page
 ---
 
 <div id="poems" class="pl-xl-3">
-{% assign poems = site.poems | where_exp: "item", "item.hidden != true" | sort | reverse %}
-{% for poem in poems %}
+{% assign poems = site.poems | where_exp: "item", "item.hidden != true" | sort: "title" | group_by: "date" | sort: "name" %}
+{% for date_group in poems reversed %}
+  {% for poem in date_group.items %}
   <li class="d-flex justify-content-between pl-md-3 pr-md-3">
     <a href="{{ poem.url | relative_url }}">{{ poem.title }}</a>
     <span class="dash flex-grow-1"></span>
     {% include datetime.html date=poem.date wrap='span' class='text-muted small' %}
   </li>
+  {% endfor %}
 {% endfor %}
 
 </div>
