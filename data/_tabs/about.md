@@ -5,9 +5,13 @@ order: 6
 ---
 Michał Jankowiak (ur. 28 września 1972 r. w Tychach) to absolwent Wyższej Szkoły Policji w Szczytnie, który policyjny mundur z sukcesem zamienił na pióro. Pisaniem poezji dla dzieci zajmuje się od 2012 roku, a największą literacką inspiracją do tworzenia niezwykłych, rymowanych światów były dla niego jego córki – Oliwia i Amelia. 
 
-Na rynku wydawniczym zadebiutował w 2014 roku tomikiem poezji zatytułowanym „Dzieciaki Zwierzaki”, w 2018 roku ukazał się jego kolejny utwór –„Baśń o Trolinku”, wydany przez Wydawnictwo PETRUS w Krakowie, natomiast w lutym 2026 roku nakładem Wydawnictwa Poligraf wydano jego najnowszy, rozbudowany poemat pt. „Pies Karambus”.
+Na rynku wydawniczym zadebiutował w 2014 roku tomikiem poezji zatytułowanym **_„Dzieciaki Zwierzaki”_**, <br>
+w 2018 roku ukazał się jego kolejny utwór – **_„Baśń o Trolinku”_**, wydany przez Wydawnictwo PETRUS w Krakowie,<br>
+natomiast w lutym 2026 roku nakładem Wydawnictwa Poligraf wydano jego najnowszy, rozbudowany poemat pt. **_„Pies Karambus”_**.
 
-Obecnie twórczość Michała Jankowiaka dociera nie tylko do czytelników podczas licznych spotkań autorskich, ale zyskała również ogromne uznanie w systemie oświaty. Jego wiersze zostały włączone do podręcznika „Figlarna Kredka”, przeznaczonego dla polskich dzieci uczących się w Anglii. Z kolei w 2026 roku, za pośrednictwem Gdańskiego Wydawnictwa Oświatowego (GWO), wiersz autora pt. „Woda” znalazł się w oficjalnych podręcznikach dla uczniów klas pierwszych szkół podstawowych w całej Polsce. 
+Obecnie twórczość Michała Jankowiaka dociera nie tylko do czytelników podczas licznych spotkań autorskich, ale zyskała również ogromne uznanie w systemie oświaty.<br>
+Jego wiersze zostały włączone do podręcznika _„Figlarna Kredka”_, przeznaczonego dla polskich dzieci uczących się w Anglii.<br>
+Z kolei w 2026 roku, za pośrednictwem Gdańskiego Wydawnictwa Oświatowego (GWO), [wiersz autora pt. „Woda”]({{ site.baseurl }}/poems/woda-czyli-wszystko-zaczyna-sie-w-chmurach) znalazł się w oficjalnych podręcznikach dla uczniów klas pierwszych szkół podstawowych w całej Polsce. 
 
 To kolejne, prestiżowe wyróżnienie ostatecznie potwierdza, że jego twórczość jest z powodzeniem wykorzystywana w formalnej edukacji najmłodszych, ucząc ich wrażliwości i miłości do ojczystego języka.
 
