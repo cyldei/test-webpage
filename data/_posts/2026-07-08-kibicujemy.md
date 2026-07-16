@@ -1,7 +1,6 @@
 ---
 title: "Razem kibicujmy!"
 date: 2026-07-08 14:23:00 +0200
-author: 'Michal'
 image: 
   path: /assets/img/posts/2026/07/09/pies-gks.png
   alt: "Obrazek wygenerowany poprzez AI"

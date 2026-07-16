@@ -22,24 +22,24 @@
 <div class="post-navigation d-flex justify-content-between">
   {% if nav_previous.url %}
   <a href="{{ site.baseurl }}{{ nav_previous.url }}" class="btn btn-outline-primary"
-    prompt="{{ site.data.locales[site.lang].book.button.previous }}">
+    prompt="{{ site.data.locales[site.lang].titles.chapter.previous }}">
     <p>{{ nav_previous.title }}</p>
   </a>
   {% else %}
   <div class="btn btn-outline-primary disabled"
-    prompt="{{ site.data.locales[site.lang].book.button.previous }}">
+    prompt="{{ site.data.locales[site.lang].titles.chapter.previous }}">
     <p>-</p>
   </div>
   {% endif %}
 
   {% if nav_next.url %}
   <a href="{{ site.baseurl }}{{ nav_next.url }}" class="btn btn-outline-primary"
-    prompt="{{ site.data.locales[site.lang].book.button.next }}">
+    prompt="{{ site.data.locales[site.lang].titles.chapter.next }}">
     <p>{{ nav_next.title }}</p>
   </a>
   {% else %}
   <div class="btn btn-outline-primary disabled"
-    prompt="{{ site.data.locales[site.lang].book.button.next }}">
+    prompt="{{ site.data.locales[site.lang].titles.chapter.next }}">
     <p>-</p>
   </div>
   {% endif %}

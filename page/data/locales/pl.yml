@@ -25,7 +25,7 @@ layout:
 # The tabs of sidebar
 tabs:
   # format: <filename_without_extension>: <value>
-  archive: Archiwum
+  archive: Oś czasu
   about: O autorze
   home: Strona Główna
   bibliography: Bibliografia 
@@ -36,26 +36,29 @@ tabs:
   categories: Kategorie
   tags: Tagi
 
-poems:
-  poem: Wiersz
-  return:
-    arrow: "Wszystkie wiersze"
-    footer: "Powrót do listy wierszy"
-    title: "Powrót do listy wierszy"
+
+archives: "Z archiwum"
   
-book:
-  chapter: Rozdział
-  return:
-    arrow: 
-      pies: "Pies Karambus"
-      trolinek: "Baśń o Trolinku"
-      general: "Wszystkie książki"
-      poems: "Wszystkie wiersze"
-    footer: "Powrót do listy rozdziałów"
-    title: "Powrót do listy rozdziałów"
-  button:
+return:
+  arrow: 
+    pies: "Pies Karambus"
+    trolinek: "Baśń o Trolinku"
+    general: "Wszystkie książki"
+    poems: "Wszystkie wiersze"
+  chapters: "Powrót do listy rozdziałów"
+  poems: "Powrót do listy wierszy"
+  books: "Powrót do listy ksiązek"
+
+titles:
+  poem:
+    singular: Wiersz
+
+
+  chapter:
+    singular: Rozdział
     next: Następny rozdział
     previous: Poprzedni rozdział
+  
 
 # the text displayed in the search bar & search results
 search:

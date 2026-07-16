@@ -1,7 +1,6 @@
 ---
 title: "Recenzja Psa Karambusa"
 date: 2026-07-02 20:00:00 +0200
-author: 'Michal'
 # categories:
 #   - Recenzja
 image: 

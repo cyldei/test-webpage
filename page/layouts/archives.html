@@ -8,24 +8,41 @@ layout: page
 
 <div id="archives" class="pl-xl-3">
 
-{% assign archived_posts = site.posts | concat: site.poems | where_exp: "item", "item.hidden != true" %}
+{% assign archived_posts = site.posts | concat: site.poems | where_exp: "item", "item.hidden != true" | sort: "date" | reverse %}
 {% for post in archived_posts %}
   {% capture cur_year %}{{ post.date | date: "%Y" }}{% endcapture %}
+  {% capture cur_date %}{{ post.date | date: "%Y-%m-%d" }}{% endcapture %}
+  {% if cur_date == '2000-01-01' %}
+    {% assign cur_group = cur_date %}
+    {% assign cur_page = "2" %}
+  {% else %}
+    {% assign cur_group = cur_year %}
+    {% assign cur_page = "1" %}
+  {% endif %}
 
-  {% if cur_year != last_year %}
+  {% if cur_group != last_group %}
     {% unless forloop.first %}</ul>{% endunless %}
-    <div class="year lead">{{ cur_year }}</div>
-    <ul class="list-unstyled">
-    {% assign last_year = cur_year %}
+    {% if cur_date == '2000-01-01' %}
+    <div class="year lead year-archives" data-page="2" style="display: none !important;"><span>{{ site.data.locales[site.lang].archives }}</span></div>
+    {% else %}
+    <div class="year lead" data-page="1">{{ cur_year }}</div>
+    {% endif %}
+    <ul class="list-unstyled" data-page="{{ cur_page }}"{% if cur_page == "2" %} style="display: none !important;"{% endif %}>
+    {% assign last_group = cur_group %}
   {% endif %}
 
   <li>
   {% assign ts = post.date | date: '%s' %}
+    {% if cur_date == '2000-01-01' %}
+    <span class="date day"></span>
+    <span class="date month small text-muted ml-1">N/A</span>
+    {% else %}
     <span class="date day" data-ts="{{ ts }}" data-df="DD">{{ post.date | date: "%d" }}</span>
     <span class="date month small text-muted ml-1" data-ts="{{ ts }}" data-df="{{ df_dayjs_m }}">
       {{ post.date | date: df_strftime_m }}
     </span>
-    <a href="{{ post.url | relative_url }}">{% if post.collection == 'poems' %}{{ site.data.locales[site.lang].poems.poem }} {% endif %}{{ post.title }}</a>
+    {% endif %}
+    <a href="{{ post.url | relative_url }}">{% if post.collection == 'poems' %}{{ site.data.locales[site.lang].titles.poem.singular }} {% endif %}{{ post.title }}</a>
   </li>
 
   {% if forloop.last %}</ul>{% endif %}
@@ -33,3 +50,40 @@ layout: page
 {% endfor %}
 
 </div>
+
+<div class="d-flex justify-content-center mt-4 mb-2">
+  <ul id="archives-pagination" class="pagination archives-pagination">
+    <li class="page-item active" data-page-btn="1">
+      <a class="page-link btn-box-shadow" href="#">{{ site.data.locales[site.lang].archives_pages.current | default: "Current" }}</a>
+    </li>
+    <li class="page-item" data-page-btn="2">
+      <a class="page-link btn-box-shadow" href="#">{{ site.data.locales[site.lang].archives_pages.older | default: "Older" }}</a>
+    </li>
+  </ul>
+</div>
+
+<script>
+(function () {
+  var pagination = document.getElementById('archives-pagination');
+
+  function showPage(page) {
+    document.querySelectorAll('#archives [data-page]').forEach(function (el) {
+      if (el.getAttribute('data-page') === String(page)) {
+        el.style.removeProperty('display');
+      } else {
+        el.style.setProperty('display', 'none', 'important');
+      }
+    });
+    pagination.querySelectorAll('li[data-page-btn]').forEach(function (btn) {
+      btn.classList.toggle('active', btn.getAttribute('data-page-btn') === String(page));
+    });
+  }
+
+  pagination.querySelectorAll('li[data-page-btn] a').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      showPage(parseInt(a.closest('[data-page-btn]').getAttribute('data-page-btn'), 10));
+    });
+  });
+})();
+</script>

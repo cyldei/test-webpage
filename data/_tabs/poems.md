@@ -1,5 +1,5 @@
 ---
-layout: poems
+layout: poem-index
 icon: fas fa-quote-right
 order: 1
 limit_items: 20

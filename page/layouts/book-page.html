@@ -7,7 +7,7 @@ tail_includes:
   - book-nav
 ---
 
-<h1 data-toc-skip class="mt-0">{{ site.data.locales[site.lang].book.chapter }} {{ page.order }}: {{ page.title }}</h1>
+<h1 data-toc-skip class="mt-0">{{ site.data.locales[site.lang].titles.chapter.singular }} {{ page.order }}: {{ page.title }}</h1>
 
 <div class="post-meta text-muted">
 
@@ -99,9 +99,9 @@ tail_includes:
       <div class="post-tail-bottom
         d-flex justify-content-between align-items-center mt-2 pb-2">
         <div class="license-wrapper">
-          <a href="{{ page.return.url | relative_url }}" class="text-muted" aria-label="{{ site.data.locales[site.lang].book.return.title }}" title="{{ site.data.locales[site.lang].book.return.title }}">
+          <a href="{{ page.return.url | relative_url }}" class="text-muted" aria-label="{{ site.data.locales[site.lang].return.chapters }}" title="{{ site.data.locales[site.lang].return.chapters }}">
             <i class="fas fa-arrow-left mr-2"></i>
-            {{ site.data.locales[site.lang].book.return.footer }}
+            {{ site.data.locales[site.lang].return.chapters }}
           </a>
         </div>
 

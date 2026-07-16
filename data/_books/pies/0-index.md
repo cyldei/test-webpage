@@ -1,5 +1,5 @@
 ---
-layout: book-pies
+layout: book-index
 icon: fas fa-paw
 limit_items: 20
 title: "Pies Karambus"
@@ -9,4 +9,5 @@ permalink: /books/pies/
 return:
   arrow: general
   url: /books
+hidden: true
 ---

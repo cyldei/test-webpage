@@ -7,12 +7,6 @@ tail_includes:
   - post-nav
 ---
 
-<div class="d-flex justify-content-start my-3">
-    <a href="{{ '/poems' | relative_url }}" class="text-muted poems-return" aria-label="{{ site.data.locales[site.lang].poems.return.title }}" title="{{ site.data.locales[site.lang].poems.return.title }}">
-    <i class="fas fa-arrow-left fa-xs mr-1 poems-return-button"></i>{{ site.data.locales[site.lang].poems.return.arrow }}
-    </a>
-</div>
-
 <h1 data-toc-skip class="mt-0">{{ page.title }}</h1>
 
 <div class="post-meta text-muted">
@@ -121,9 +115,9 @@ tail_includes:
       <div class="post-tail-bottom
         d-flex justify-content-between align-items-center mt-2 pb-2">
         <div class="license-wrapper">
-          <a href="{{ '/poems' | relative_url }}" class="text-muted poems-return" aria-label="{{ site.data.locales[site.lang].poems.return.title }}" title="{{ site.data.locales[site.lang].poems.return.title }}">
+          <a href="{{ '/poems' | relative_url }}" class="text-muted poems-return" aria-label="{{ site.data.locales[site.lang].return.poems }}" title="{{ site.data.locales[site.lang].return.poems }}">
             <i class="fas fa-arrow-left fa-sm mr-2"></i>
-            {{ site.data.locales[site.lang].poems.return.footer }}
+            {{ site.data.locales[site.lang].return.poems }}
           </a>
         </div>
 

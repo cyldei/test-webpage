@@ -22,14 +22,15 @@ layout: default
 
     {% if page.return %}
     <div class="d-flex justify-content-start my-3">
-        <a href="{{ page.return.url | relative_url }}" class="text-muted poems-return" aria-label="{{ site.data.locales[site.lang].book.return.title }}" title="{{ site.data.locales[site.lang].book.return.title }}">
-        <i class="fas fa-arrow-left fa-xs mr-1 poems-return-button"></i>{{ site.data.locales[site.lang].book.return.arrow[page.return.arrow] }}
+        <a href="{{ page.return.url | relative_url }}" class="text-muted poems-return" aria-label="{{ site.data.locales[site.lang].return.arrow[page.return.arrow] }}" title="{{ site.data.locales[site.lang].return.arrow[page.return.arrow] }}">
+        <i class="fas fa-arrow-left fa-xs mr-1 poems-return-button"></i>{{ site.data.locales[site.lang].return.arrow[page.return.arrow] }}
         </a>
     </div>
     {% endif %}
 
     {% if page.layout == 'page' or page.collection == 'tabs'
-        or page.layout == 'book-pies' or page.layout == 'book-trolinek' %}
+        or page.layout == 'book-pies' or page.layout == 'book-trolinek'
+        or page.layout == 'book-index' %}
       {% assign tab_key = page.title | downcase %}
       {% assign _display_title = page.display_title | default: page.title %}
       {% assign title = site.data.locales[site.lang].tabs[tab_key] | default: _display_title %}

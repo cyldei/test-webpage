@@ -1,5 +1,5 @@
 ---
-layout: book-trolinek
+layout: book-index
 icon: fas fa-paw
 limit_items: 20
 title: "Baśń o Trolinku"
@@ -8,4 +8,5 @@ permalink: /books/trolinek/
 return:
   arrow: general
   url: /books
+hidden: true
 ---
