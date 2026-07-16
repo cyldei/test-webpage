@@ -1,0 +1,39 @@
+---
+layout: page
+---
+
+<div class="book-list">
+  {% for book in site.data.books %}
+  <div class="book-entry d-flex mb-4 pb-4" style="border-bottom: 1px solid var(--border-color, #e0e0e0);">
+
+    {% if book.image %}
+    <div class="book-cover flex-shrink-0 mr-4" style="width: 120px;">
+      <img src="{{ book.image | relative_url }}" alt="{{ book.title }}" style="width: 100%; border-radius: 4px;">
+    </div>
+    {% endif %}
+
+    <div class="book-info d-flex flex-column justify-content-between flex-grow-1">
+      <div>
+        <h3 class="mt-0 mb-1">{{ book.title }}</h3>
+        {% if book.description and book.description != "" %}
+        <p class="text-muted mb-2">{{ book.description }}</p>
+        {% endif %}
+      </div>
+
+      <div class="book-links d-flex flex-wrap" style="gap: 0.5rem;">
+        {% if book.internal_url %}
+        <a href="{{ book.internal_url | relative_url }}" class="btn btn-sm btn-outline-primary">
+          <i class="fas fa-list mr-1"></i>{{ site.data.locales[site.lang].books.read | default: "Czytaj" }}
+        </a>
+        {% endif %}
+        {% if book.external_url %}
+        <a href="{{ book.external_url }}" class="btn btn-sm btn-outline-secondary" target="_blank" rel="noopener">
+          <i class="fas fa-external-link-alt mr-1"></i>{{ site.data.locales[site.lang].books.external | default: "Strona zewnętrzna" }}
+        </a>
+        {% endif %}
+      </div>
+    </div>
+
+  </div>
+  {% endfor %}
+</div>

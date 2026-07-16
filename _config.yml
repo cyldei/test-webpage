@@ -119,12 +119,9 @@ collections:
   poems:
     output: true
     sort_by: date
-  book-pies:
+  books:
     output: true
-    sort_by: order 
-  book-trolinek:
-    output: true
-    sort_by: order 
+    sort_by: order
 
 collections_dir: data
 
@@ -152,22 +149,44 @@ defaults:
       comments: false
       toc: false
       permalink: /poems/:title/
+      return:
+        arrow: poems
+        url: /poems
+      author: 'Michal'
   - scope:
-      path: ''
-      type: book-pies
+      path: data/_books/pies
     values:
-      layout: book-pies-page
+      layout: book-page
       comments: false
       toc: false
-      permalink: /book-pies/:title/
+      permalink: /books/pies/:title/
+      return:
+        arrow: pies
+        url: /books/pies
+      book: pies
+      author: 'Michal'
+      image:
+        path:  /assets/img/books/pies/cover.png
+        aspect_ratio: 3/4
+        object_fit: cover
+        max_width: 400px
   - scope:
-      path: ''
-      type: book-trolinek
+      path: data/_books/trolinek
     values:
-      layout: book-trolinek-page
+      layout: book-page
       comments: false
-      toc: false
-      permalink: /book-trolinek/:title/
+      toc: true
+      permalink: /books/trolinek/:title/
+      return:
+        arrow: trolinek
+        url: /books/trolinek
+      book: trolinek
+      author: 'Michal'
+      image:
+        path:  /assets/img/books/trolinek/cover.png
+        aspect_ratio: 3/4
+        object_fit: cover
+        max_width: 400px
   - scope:
       path: ''
       type: tabs             # see `site.collections`

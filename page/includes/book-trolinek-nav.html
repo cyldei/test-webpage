@@ -4,7 +4,7 @@
   instead of `date`.
 -->
 
-{% assign visible_chapters = site.book-trolinek | where_exp: "item", "item.hidden != true" | sort: "order" %}
+{% assign visible_chapters = site.books | where: "book", "trolinek" | where_exp: "item", "item.hidden != true" | sort: "order" %}
 {% assign nav_previous = nil %}
 {% assign nav_next = nil %}
 

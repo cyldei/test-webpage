@@ -2,6 +2,7 @@
 layout: page
 icon: fas fa-book
 order: 3
+no_sidebar: true
 ---
 ## Ksiązki wydane przez autora:
 

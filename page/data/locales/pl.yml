@@ -29,6 +29,7 @@ tabs:
   about: O autorze
   home: Strona Główna
   bibliography: Bibliografia 
+  books: Książki
   book-pies: Pies Karambus
   book-trolinek: Baśń o Trolinku
   poems: Wiersze
@@ -48,6 +49,8 @@ book:
     arrow: 
       pies: "Pies Karambus"
       trolinek: "Baśń o Trolinku"
+      general: "Wszystkie książki"
+      poems: "Wszystkie wiersze"
     footer: "Powrót do listy rozdziałów"
     title: "Powrót do listy rozdziałów"
   button:

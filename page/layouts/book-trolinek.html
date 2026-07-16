@@ -4,7 +4,7 @@ layout: page
 ---
 
 {% assign per_page = page.limit_items | default: 999 %}
-{% assign all_book = site.book-trolinek | where_exp: "item", "item.hidden != true" %}
+{% assign all_book = site.books | where: "book", "trolinek" | where_exp: "item", "item.hidden != true" %}
 {% assign total_book = all_book | size %}
 {% assign total_pages = total_book | plus: per_page | minus: 1 | divided_by: per_page %}
 
