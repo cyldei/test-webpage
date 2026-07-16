@@ -4,7 +4,7 @@ layout: page
 
 <div class="book-list">
   {% for book in site.data.books %}
-  <div class="book-entry d-flex mb-4 pb-4" style="border-bottom: 1px solid var(--border-color, #e0e0e0);">
+  <div class="book-entry d-flex mb-4 pb-4" style="border-bottom: 1px solid var(--main-border-color);">
 
     {%assign book_image = book.image | default: "/assets/img/books/generic-cover.png" %}
     <div class="book-cover flex-shrink-0 mr-4" style="width: 120px;">
