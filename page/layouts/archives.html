@@ -42,7 +42,12 @@ layout: page
       {{ post.date | date: df_strftime_m }}
     </span>
     {% endif %}
-    <a href="{{ post.url | relative_url }}">{% if page.icons.enabled %}{% if post.collection == 'poems' %}{% assign _icon = page.icons.poems %}{% else %}{% assign _icon = page.icons.posts %}{% endif %}<i class="fas {{ _icon }} fa-fw small mr-1" style="color: {{ page.icons.colour }};"></i>{% endif %}{{ post.title }}</a>
+    {% if post.collection == 'poems' %}
+        {% assign _icon = page.icons.poems %}
+    {% elsif post.collection == 'posts'%}
+        {% assign _icon = page.icons.posts %}
+    {% endif %}
+    <a href="{{ post.url | relative_url }}">{% if page.icons.enabled %}<i class="{{ _icon | default: 'fa fa-file' }} fa-fw small mr-1" style="color: {{ page.icons.colour }};"></i>{% endif %}{{ post.title }}</a>
   </li>
 
   {% if forloop.last %}</ul>{% endif %}

@@ -913,6 +913,21 @@ $sidebar-display: "sidebar-display";
       &:hover > i {
         color: var(--sidebar-active-color);
       }
+
+      .mode-dark { display: none; }
+      .mode-light { display: inline; }
+
+      html[data-mode="dark"] & {
+        .mode-dark { display: inline; }
+        .mode-light { display: none; }
+      }
+
+      @media (prefers-color-scheme: dark) {
+        html:not([data-mode]) & {
+          .mode-dark { display: inline; }
+          .mode-light { display: none; }
+        }
+      }
     }
 
     .icon-border {

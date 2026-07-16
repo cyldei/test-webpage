@@ -5,7 +5,7 @@
 <div id="sidebar" class="d-flex flex-column align-items-end">
   <div class="profile-wrapper text-center">
     <div id="avatar" style="--avatar-object-fit: {{ site.avatar_fit | default: 'cover' }};">
-      <a href="{{ '/' | relative_url }}" class="mx-auto">
+      <a href="{{ site.avatar_redirect | relative_url }}" class="mx-auto">
         {% if site.avatar != empty and site.avatar %}
           {% capture avatar_url %}
             {% if site.avatar contains '://' %}
@@ -58,16 +58,19 @@
   <div class="sidebar-bottom mt-auto d-flex flex-wrap justify-content-center align-items-center">
 
     {% unless site.theme_mode %}
-      <button class="mode-toggle btn" aria-label="Switch Mode">
-        <i class="fas fa-adjust"></i>
+      <button class="mode-toggle btn" aria-label="Switch Mode" title="{{ site.data.locales[site.lang].switch_mode }}">
+        <i class="far fa-moon mode-light"></i>
+        <i class="far fa-sun mode-dark"></i>
       </button>
 
-      {% if site.data.contact.size > 0 %}
-        <span class="icon-border"></span>
-      {% endif %}
+      <!-- {% if site.data.contact.size > 0 %} -->
+        <!-- <span class="icon-border"></span> -->
+      <!-- {% endif %} -->
     {% endunless %}
 
     {% for entry in site.data.contact %}
+      
+        <span class="icon-border"></span>
       {% capture url %}
         {%- if entry.type == 'github' -%}
           https://github.com/{{ site.github.username }}

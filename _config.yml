@@ -9,6 +9,7 @@ baseurl: '/test-webpage'
 
 url: 'https://cyldei.github.io'
 
+
 # The language of the webpage › http://www.lingoes.net/en/translator/langcode.htm
 # If it has the same name as one of the files in folder `_data/locales`, the layout language will also be changed,
 # otherwise, the layout language will use the default value of 'en'.
@@ -55,10 +56,11 @@ img_cdn:
 avatar: '/assets/img/author.png'
 # avatar image fit mode for sidebar frame: cover | contain | scale-down
 avatar_fit: cover
+avatar_redirect: '/about'
 bar_image:
   light:
-    # url: "https://picsum.photos/id/1073/2000/1000"
-    url: "/assets/img/background.png"
+    url: "https://picsum.photos/id/1073/2000/1000"
+    # url: "/assets/img/background.png"
     position: "top"
     fit: cover  # image fit mode for topbar image: cover | contain | scale-down
   # dark:

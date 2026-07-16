@@ -22,6 +22,8 @@ layout:
   category: Kategoria
   tag: Tag
 
+switch_mode: Przełącz tryb 
+
 # The tabs of sidebar
 tabs:
   # format: <filename_without_extension>: <value>
