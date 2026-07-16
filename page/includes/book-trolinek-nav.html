@@ -1,0 +1,47 @@
+<!--
+  Navigation buttons at the bottom of a book chapter.
+  Unlike post-nav, this navigates by the `order` front matter field
+  instead of `date`.
+-->
+
+{% assign visible_chapters = site.book-trolinek | where_exp: "item", "item.hidden != true" | sort: "order" %}
+{% assign nav_previous = nil %}
+{% assign nav_next = nil %}
+
+{% for chapter in visible_chapters %}
+  {% if chapter.url == page.url %}
+    {% if forloop.index0 > 0 %}
+      {% assign prev_idx = forloop.index0 | minus: 1 %}
+      {% assign nav_previous = visible_chapters[prev_idx] %}
+    {% endif %}
+    {% assign next_idx = forloop.index0 | plus: 1 %}
+    {% assign nav_next = visible_chapters[next_idx] %}
+  {% endif %}
+{% endfor %}
+
+<div class="post-navigation d-flex justify-content-between">
+  {% if nav_previous.url %}
+  <a href="{{ site.baseurl }}{{ nav_previous.url }}" class="btn btn-outline-primary"
+    prompt="{{ site.data.locales[site.lang].book.button.previous }}">
+    <p>{{ nav_previous.title }}</p>
+  </a>
+  {% else %}
+  <div class="btn btn-outline-primary disabled"
+    prompt="{{ site.data.locales[site.lang].book.button.previous }}">
+    <p>-</p>
+  </div>
+  {% endif %}
+
+  {% if nav_next.url %}
+  <a href="{{ site.baseurl }}{{ nav_next.url }}" class="btn btn-outline-primary"
+    prompt="{{ site.data.locales[site.lang].book.button.next }}">
+    <p>{{ nav_next.title }}</p>
+  </a>
+  {% else %}
+  <div class="btn btn-outline-primary disabled"
+    prompt="{{ site.data.locales[site.lang].book.button.next }}">
+    <p>-</p>
+  </div>
+  {% endif %}
+
+</div>

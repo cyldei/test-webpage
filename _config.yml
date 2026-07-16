@@ -119,7 +119,10 @@ collections:
   poems:
     output: true
     sort_by: date
-  book:
+  book-pies:
+    output: true
+    sort_by: order 
+  book-trolinek:
     output: true
     sort_by: order 
 
@@ -151,12 +154,20 @@ defaults:
       permalink: /poems/:title/
   - scope:
       path: ''
-      type: book
+      type: book-pies
     values:
-      layout: book-page
+      layout: book-pies-page
       comments: false
       toc: false
-      permalink: /book/:title/
+      permalink: /book-pies/:title/
+  - scope:
+      path: ''
+      type: book-trolinek
+    values:
+      layout: book-trolinek-page
+      comments: false
+      toc: false
+      permalink: /book-trolinek/:title/
   - scope:
       path: ''
       type: tabs             # see `site.collections`
