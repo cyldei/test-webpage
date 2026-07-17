@@ -1,5 +1,5 @@
 ---
-title: "\"Zaczarowany rower\""
+title: "Zaczarowany rower"
 author: 'Michal'
 # image:
 #   path: /assets/img/posts/2026/06/30/welcome.png

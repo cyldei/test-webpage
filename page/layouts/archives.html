@@ -8,15 +8,16 @@ layout: page
 
 <div id="archives" class="pl-xl-3">
 
-{% assign all_posts = site.posts | concat: site.poems | where_exp: "item", "item.hidden != true" %}
-{% assign page1_posts = all_posts | where_exp: "item", "item.date.year != 2000" | sort: "title" | reverse | sort: "date" | reverse %}
-{% assign page2_posts = all_posts | where_exp: "item", "item.date.year == 2000" | sort: "title" | reverse %}
-{% assign archived_posts = page1_posts | concat: page2_posts %}
+{% assign archived_posts = site.posts | concat: site.poems | where_exp: "item", "item.hidden != true" | sort: "date" | reverse %}
+
+<!-- DEBUG: page1_posts: {{ page1_posts | size }}<br>
+DEBUG: page2_posts: {{ page2_posts | size }}<br> -->
+
 {% for post in archived_posts %}
   {% capture cur_year %}{{ post.date | date: "%Y" }}{% endcapture %}
   {% capture cur_date %}{{ post.date | date: "%Y-%m-%d" }}{% endcapture %}
   {% if cur_date == '2000-01-01' %}
-    {% assign cur_group = cur_date %}
+    {% assign cur_group = 'archive' %}
     {% assign cur_page = "2" %}
   {% else %}
     {% assign cur_group = cur_year %}
@@ -25,7 +26,7 @@ layout: page
 
   {% if cur_group != last_group %}
     {% unless forloop.first %}</ul>{% endunless %}
-    {% if cur_date == '2000-01-01' %}
+    {% if cur_group == 'archive' %}
     <div class="year lead year-archives" data-page="2" style="display: none !important;"><span>{{ site.data.locales[site.lang].archives }}</span></div>
     {% else %}
     <div class="year lead" data-page="1">{{ cur_year }}</div>
@@ -36,7 +37,7 @@ layout: page
 
   <li>
   {% assign ts = post.date | date: '%s' %}
-    {% if cur_date == '2000-01-01' %}
+    {% if cur_group == 'archive' %}
     <span class="date day" style="visibility: hidden;">n/a</span>
     <span class="date month small text-muted ml-1"></span>
     {% else %}
@@ -50,7 +51,8 @@ layout: page
     {% elsif post.collection == 'posts'%}
         {% assign _icon = page.icons.posts %}
     {% endif %}
-    <a href="{{ post.url | relative_url }}">{% if page.icons.enabled %}<i class="{{ _icon | default: 'fa fa-file' }} fa-fw small mr-1" style="color: {{ page.icons.colour }};"></i>{% endif %}{{ post.title }}</a>
+
+    <a href="{{ post.url | relative_url }}">{% if page.icons.enabled %}<i class="{{ _icon | default: 'fa fa-file' }} fa-fw small mr-1" style="color: {{ page.icons.colour }};"></i>{% endif %}{{ _title | default: post.title }}</a>
   </li>
 
   {% if forloop.last %}</ul>{% endif %}

@@ -1,5 +1,5 @@
 ---
-title: "\"Dzieciaki Zwierzaki\""
+title: "Dzieciaki Zwierzaki"
 author: 'Michal'
 # image:
 #   path: /assets/img/posts/2026/06/30/welcome.png
