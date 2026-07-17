@@ -52,7 +52,7 @@
       colour: "#0d6efd"
       icon: fa fa-external-link-alt
     "Nakład wyczerpany":
-      url: "#"
+      url: "/books"
       colour: lightgray
       icon: fa-shopping-cart
 
