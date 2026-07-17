@@ -1,0 +1,16 @@
+{%- comment -%}
+  Shared "return" link, used by posts, poems and books.
+
+  Params:
+    url    – destination (required; passed through relative_url)
+    label  – link text, also used as aria-label / title (required)
+    class  – optional extra classes for the wrapper div (e.g. "mt-1 pb-2")
+{%- endcomment -%}
+<div class="post-return{% if include.class %} {{ include.class }}{% endif %}">
+  <a href="{{ include.url | relative_url }}" class="text-muted poems-return"
+     aria-label="{{ include.label }}" title="{{ include.label }}">
+    <i class="fas fa-angles-left fa-sm mr-2 poems-return-button"></i>
+    <!-- <i class="fas fa-arrow-left fa-sm mr-2 poems-return-button"></i> -->
+    {{ include.label }}
+  </a>
+</div>

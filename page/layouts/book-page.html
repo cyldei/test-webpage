@@ -85,12 +85,8 @@ tail_includes:
     <div class="post-tail-wrapper text-muted">
       <div class="post-tail-bottom
         d-flex justify-content-between align-items-center mt-2 pb-2">
-        <div class="license-wrapper">
-          <a href="{{ page.return.url | relative_url }}" class="text-muted" aria-label="{{ site.data.locales[site.lang].return.chapters }}" title="{{ site.data.locales[site.lang].return.chapters }}">
-            <i class="fas fa-arrow-left mr-2"></i>
-            {{ site.data.locales[site.lang].return.chapters }}
-          </a>
-        </div>
+        {% assign return_label = site.data.locales[site.lang].return.footer.chapters %}
+        {% include post-return.html url=page.return.url label=return_label %}
 
         {% include post-sharing.html %}
       </div><!-- .post-tail-bottom -->

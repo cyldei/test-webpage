@@ -111,7 +111,7 @@ tail_includes:
   <div class="post-tail-bottom
     d-flex justify-content-between align-items-center mt-2 pb-2">
 
-    <!-- tags  -->
+    <!-- tags -->
     {% if page.tags.size > 0 %}
     <div class="post-tags">
       <i class="fa fa-tags fa-fw mr-1"></i>
@@ -123,11 +123,15 @@ tail_includes:
         {% endfor %}
     </div>
     {% else %}
-    <div class="license-wrapper"></div>
+    <div class="post-tags"></div>
     {% endif %}
 
     {% include post-sharing.html %}
 
   </div><!-- .post-tail-bottom -->
+
+  <!-- return: always below the sharing/tags row -->
+  {% assign return_label = site.data.locales[site.lang].return.footer.posts %}
+  {% include post-return.html url='/' label=return_label class='mt-1 pb-2' %}
 
 </div><!-- div.post-tail-wrapper -->

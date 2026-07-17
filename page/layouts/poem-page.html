@@ -105,12 +105,8 @@ tail_includes:
     <div class="post-tail-wrapper text-muted">
       <div class="post-tail-bottom
         d-flex justify-content-between align-items-center mt-2 pb-2">
-        <div class="license-wrapper">
-          <a href="{{ '/poems' | relative_url }}" class="text-muted poems-return" aria-label="{{ site.data.locales[site.lang].return.poems }}" title="{{ site.data.locales[site.lang].return.poems }}">
-            <i class="fas fa-arrow-left fa-sm mr-2"></i>
-            {{ site.data.locales[site.lang].return.poems }}
-          </a>
-        </div>
+        {% assign return_label = site.data.locales[site.lang].return.footer.poems %}
+        {% include post-return.html url='/poems' label=return_label %}
 
         {% include post-sharing.html %}
       </div><!-- .post-tail-bottom -->

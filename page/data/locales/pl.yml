@@ -48,10 +48,11 @@ return:
     general: "Wszystkie książki"
     poems: "Wszystkie wiersze"
     posts: "Strona główna"
-  posts: "Powrót do strony głównej"
-  chapters: "Powrót do listy rozdziałów"
-  poems: "Powrót do listy wierszy"
-  books: "Powrót do listy ksiązek"
+  footer: 
+    posts: "Powrót do strony głównej"
+    chapters: "Powrót do listy rozdziałów"
+    poems: "Powrót do listy wierszy"
+    books: "Powrót do listy ksiązek"
 
 titles:
   poem:
@@ -136,7 +137,10 @@ post:
   pin_prompt: Przypięty post
   return:
     arrow: "Strona Główna"
-    footer: "Powrót do strony głównej"
+    footer:
+      posts: "Powrót do strony głównej"
+      poems: "Powrót do wierszy"
+      chapters: "Powrót do spisu treści"
     title: "Powrót do strony głównej"
 
 # Date time format.
