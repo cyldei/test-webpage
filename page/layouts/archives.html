@@ -8,10 +8,12 @@ layout: page
 
 <div id="archives" class="pl-xl-3">
 
-{% assign archived_posts = site.posts | concat: site.poems | where_exp: "item", "item.hidden != true" | sort: "date" | reverse %}
-
-<!-- DEBUG: page1_posts: {{ page1_posts | size }}<br>
-DEBUG: page2_posts: {{ page2_posts | size }}<br> -->
+{% 
+    assign archived_posts = site.posts | concat: site.poems | 
+    where_exp: "item", "item.hidden != true" | 
+    sort: "title" | reverse | 
+    sort: "date" | reverse 
+%}
 
 {% for post in archived_posts %}
   {% capture cur_year %}{{ post.date | date: "%Y" }}{% endcapture %}
