@@ -55,7 +55,7 @@ layout: page
         {% assign _icon = page.icons.posts %}
     {% endif %}
 
-    <a href="{{ post.url | relative_url }}">{% if page.icons.enabled %}<i class="{{ _icon | default: 'fa fa-file' }} fa-fw small mr-1" style="color: {{ page.icons.colour }};"></i>{% endif %}{{ _title | default: post.title }}</a>
+    <a href="{{ post.url | relative_url }}">{% if page.icons.enabled %}<i class="{{ _icon | default: 'fa fa-file' }} fa-fw small mr-1" style="color: {{ page.icons.color }};"></i>{% endif %}{{ _title | default: post.title }}</a>
   </li>
 
   {% if forloop.last %}</ul>{% endif %}

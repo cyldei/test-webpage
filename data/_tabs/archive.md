@@ -4,7 +4,7 @@ icon: fas fa-archive
 order: 4
 icons:
   enabled: true
-  colour: lightgray
+  color: lightgray
   poems: fa-solid fa-feather
 #   posts: fa-regular fa-file-lines
 #   posts: "fa-solid fa-newspaper"

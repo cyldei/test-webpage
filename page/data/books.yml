@@ -11,12 +11,12 @@
   links:
     "Czytaj Online":
       url: /books/pies/
-      colour: "#0d6efd"
+      color: "#0d6efd"
       # icon: fa fa-list
       icon: fa fa-external-link-alt
     "inbook.pl":
       url: https://inbook.pl/pies-karambus,id473840.html
-      colour: "darkred"
+      color: "darkred"
       icon: fa fa-shopping-cart
     "Empik.com":
       url: https://www.empik.com/pies-karambus-jankowiak-michal,p1730192698,ksiazka-p
@@ -53,15 +53,17 @@
   links:
     "Czytaj Online":
       url: /books/trolinek/
-      colour: "#0d6efd"
+      color: "#0d6efd"
       icon: fa fa-external-link-alt
     "inbook.pl":
       url: https://inbook.pl/basn-o-trolinku-dzielnym-stworku,id239035.html
-      colour: "darkred"
+      color: "darkred"
+      color_dark: "red"
       icon: fa fa-shopping-cart
     "Nakład wyczerpany":
       url: "/books"
-      colour: lightgray
+      color: lightgray
+      color_dark: "#6c757e"
       icon: fa-shopping-cart
 
 - title: "Dzieciaki Zwierzaki"

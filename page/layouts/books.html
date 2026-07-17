@@ -40,14 +40,15 @@ layout: page
         {% assign link_name = link[0] %}
         {% assign link_data = link[1] %}
         {% if link_data.url and link_data.url != "" %}
-        {% assign link_colour = link_data.colour | default: "#6c757d" %}
+        {% assign link_color = link_data.color | default: "#6c757d" %}
+        {% assign link_color_dark = link_data.color_dark | default: link_color %}
         {% assign link_icon = link_data.icon | default: "fa-link" %}
         {% if link_data.url contains "://" %}
-        <a href="{{ link_data.url }}" class="btn btn-sm" style="color: {{ link_colour }}; border-color: {{ link_colour }};" target="_blank" rel="noopener">
+        <a href="{{ link_data.url }}" class="btn btn-sm book-link" style="--book-link-color: {{ link_color }}; --book-link-color-dark: {{ link_color_dark }};" target="_blank" rel="noopener">
             <i class="{{ link_icon }} mr-1"></i>{{ link_name }}
         </a>
         {% else %}
-        <a href="{{ link_data.url | relative_url }}" class="btn btn-sm" style="color: {{ link_colour }}; border-color: {{ link_colour }};">
+        <a href="{{ link_data.url | relative_url }}" class="btn btn-sm book-link" style="--book-link-color: {{ link_color }}; --book-link-color-dark: {{ link_color_dark }};">
           <i class="fas {{ link_icon }} mr-1"></i>{{ link_name }}
         </a>
         {% endif %}
@@ -62,6 +63,26 @@ layout: page
 </div>
 
 <style>
+  .book-link {
+    color: var(--book-link-color);
+    border-color: var(--book-link-color);
+  }
+  /* Mirror the theme's dark-mode resolution (see commons.scss): the <html>
+     element has no data-mode until the user manually toggles, so we must also
+     honour the OS preference. */
+  @media (prefers-color-scheme: dark) {
+    html:not([data-mode]) .book-link,
+    html[data-mode="dark"] .book-link {
+      color: var(--book-link-color-dark);
+      border-color: var(--book-link-color-dark);
+    }
+  }
+  @media (prefers-color-scheme: light) {
+    html[data-mode="dark"] .book-link {
+      color: var(--book-link-color-dark);
+      border-color: var(--book-link-color-dark);
+    }
+  }
   .book-date {
     font-size: 0.9rem;
   }
