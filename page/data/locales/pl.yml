@@ -37,6 +37,7 @@ tabs:
   poems: Wiersze
   categories: Kategorie
   tags: Tagi
+  meetings: Spotkania z autorem
 
 
 archives: "Z archiwum"
@@ -48,6 +49,7 @@ return:
     general: "Wszystkie książki"
     poems: "Wszystkie wiersze"
     posts: "Strona główna"
+  
   footer: 
     posts: "Powrót do strony głównej"
     chapters: "Powrót do listy rozdziałów"

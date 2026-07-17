@@ -17,6 +17,7 @@
     "inbook.pl":
       url: https://inbook.pl/pies-karambus,id473840.html
       color: "darkred"
+      color_dark: "#c50000"
       icon: fa fa-shopping-cart
     "Empik.com":
       url: https://www.empik.com/pies-karambus-jankowiak-michal,p1730192698,ksiazka-p
@@ -58,13 +59,13 @@
     "inbook.pl":
       url: https://inbook.pl/basn-o-trolinku-dzielnym-stworku,id239035.html
       color: "darkred"
-      color_dark: "red"
+      color_dark: "#c50000"
       icon: fa fa-shopping-cart
-    "Nakład wyczerpany":
-      url: "/books"
-      color: lightgray
-      color_dark: "#6c757e"
-      icon: fa-shopping-cart
+    # "Nakład wyczerpany":
+    #   url: "/books"
+    #   color: lightgray
+    #   color_dark: "#3a3d42"
+    #   icon: fa-shopping-cart
 
 - title: "Dzieciaki Zwierzaki"
   description: |

@@ -6,11 +6,14 @@ tags:
   - recenzja
 image: 
   path: /assets/img/posts/2026/07/02/pies-karambus.png
-  alt: "Okładka ksiązki \"Pies Karambus\""
+  alt: "Okładka książki \"Pies Karambus\""
 pin: true
 ---
 
-Zapraszam was na recenzję mojej ksiązki pt. **_"Pies Karambus"_**. Recenzja została opublikowana w ramach portalu [taniaksiązka.pl](https://www.taniaksiazka.pl/pies-karambus-p-2446237.html)
+Zapraszam was na recenzję mojej książki pt. **_"Pies Karambus"_**. Recenzja została opublikowana w ramach portalu **_[taniaksiązka.pl](https://www.taniaksiazka.pl)_**
+
+Pełną treść recenzji znaleźć mozna na stronie taniaksiążka pod wskazanym linkiem: https://www.taniaksiazka.pl/pies-karambus-p-2446237.html
+
 
 ## "Pies Karambus"...
 

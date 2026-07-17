@@ -63,9 +63,13 @@ layout: page
 </div>
 
 <style>
+  /* The theme adds `border-bottom: 1px solid var(--link-underline-color)` to
+     every `.post-content a` (see %link-underline in commons.scss), which
+     overrides just the bottom edge of the button and leaves a mismatched line.
+     `!important` forces the link's own colour onto all four borders. */
   .book-link {
     color: var(--book-link-color);
-    border-color: var(--book-link-color);
+    border-color: var(--book-link-color) !important;
   }
   /* Mirror the theme's dark-mode resolution (see commons.scss): the <html>
      element has no data-mode until the user manually toggles, so we must also
@@ -74,13 +78,13 @@ layout: page
     html:not([data-mode]) .book-link,
     html[data-mode="dark"] .book-link {
       color: var(--book-link-color-dark);
-      border-color: var(--book-link-color-dark);
+      border-color: var(--book-link-color-dark) !important;
     }
   }
   @media (prefers-color-scheme: light) {
     html[data-mode="dark"] .book-link {
       color: var(--book-link-color-dark);
-      border-color: var(--book-link-color-dark);
+      border-color: var(--book-link-color-dark) !important;
     }
   }
   .book-date {

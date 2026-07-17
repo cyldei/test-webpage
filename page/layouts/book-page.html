@@ -40,8 +40,13 @@ tail_includes:
 
   </div> <!-- .d-flex -->
     <!-- Image variables-->
-  {% if page.image %}
-    {% capture src %}src="{{ page.image.path | default: page.image }}"{% endcapture %}
+  {% assign preview_src = page.image.path | default: page.image | append: '' %}
+  {%- comment -%} `image` may be a string (image: /x.png) or a mapping
+      (image: { path: ..., ... }). A mapping without a `path` stringifies to a
+      Ruby hash dump containing "=>", which would leak into the <img> tag as
+      broken markup — so treat that (and an empty value) as "no image". {%- endcomment -%}
+  {% if preview_src != '' and preview_src != empty %}{% unless preview_src contains '=>' %}
+    {% capture src %}src="{{ preview_src }}"{% endcapture %}
     {% capture class %}class="preview-img{% if page.image.no_bg %}{{ ' no-bg' }}{% endif %}"{% endcapture %}
     {% capture alt %}alt="{{ page.image.alt | default: "Preview Image" }}"{% endcapture %}
 
@@ -72,7 +77,7 @@ tail_includes:
         <figcaption class="text-center pt-2 pb-2">{{ page.image.alt }}</figcaption>
       {%- endif -%}
     </div>
-  {% endif %}
+  {% endunless %}{% endif %}
 
 
 </div> <!-- .post-meta -->
