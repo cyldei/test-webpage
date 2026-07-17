@@ -24,8 +24,7 @@ layout: page
         {% if book.description and book.description != "" %}
         {% if page.collapsable %}
         <div class="book-description-wrapper">
-          <p class="text-muted mb-1 book-description">{{ book.description }}</p>
-          <button class="book-description-toggle btn btn-link btn-sm p-0 mb-2" style="display:none;">Rozwiń</button>
+          <p class="text-muted mb-2 book-description">{{ book.description }}</p>
         </div>
         {% else %}
         <p class="text-muted mb-2">{{ book.description }}</p>
@@ -61,21 +60,12 @@ layout: page
 </div>
 
 <style>
-  .book-description {
-    display: -webkit-box;
-    -webkit-line-clamp: 4;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    transition: none;
-  }
-  .book-description.expanded {
-    display: block;
-    -webkit-line-clamp: unset;
-  }
   .book-description-toggle {
-    font-size: 0.8rem;
+    white-space: nowrap;
+    margin-left: 0.1rem;
     text-decoration: none;
     color: var(--link-color, #007bff);
+    cursor: pointer;
   }
   .book-description-toggle:hover {
     text-decoration: underline;
@@ -83,15 +73,71 @@ layout: page
 </style>
 
 <script>
+  var MAX_LINES = 4;
+
   document.querySelectorAll('.book-description-wrapper').forEach(function(wrapper) {
     var desc = wrapper.querySelector('.book-description');
-    var btn = wrapper.querySelector('.book-description-toggle');
-    if (desc.scrollHeight > desc.clientHeight) {
-      btn.style.display = 'inline-block';
+    var fullText = desc.textContent.trim();
+    var words = fullText.split(/\s+/);
+
+    var textNode = document.createTextNode('');
+    var ellipsis = document.createTextNode('');
+    var toggle = document.createElement('a');
+    toggle.href = '#';
+    toggle.className = 'book-description-toggle';
+
+    desc.textContent = '';
+    desc.appendChild(textNode);
+    desc.appendChild(ellipsis);
+    desc.appendChild(toggle);
+
+    // Max height the collapsed description may occupy (MAX_LINES lines).
+    var lineHeight = parseFloat(getComputedStyle(desc).lineHeight) || 20;
+    var maxHeight = lineHeight * MAX_LINES + lineHeight * 0.25;
+
+    function fits() {
+      return desc.scrollHeight <= maxHeight;
     }
-    btn.addEventListener('click', function() {
-      var expanded = desc.classList.toggle('expanded');
-      btn.textContent = expanded ? 'Zwiń' : 'Rozwiń';
+
+    // If the whole text already fits within MAX_LINES, no toggle needed.
+    textNode.textContent = fullText;
+    ellipsis.textContent = '';
+    if (fits()) {
+      desc.removeChild(toggle);
+      return;
+    }
+
+    // Fill as many whole words as fit alongside the "… Rozwiń" toggle,
+    // so the collapsed block uses the full width of every line.
+    ellipsis.textContent = '… ';
+    toggle.textContent = 'Rozwiń';
+    var lo = 1, hi = words.length, best = 1;
+    while (lo <= hi) {
+      var mid = (lo + hi) >> 1;
+      textNode.textContent = words.slice(0, mid).join(' ').replace(/[.,;:\s]+$/, '');
+      if (fits()) { best = mid; lo = mid + 1; }
+      else { hi = mid - 1; }
+    }
+    var shortText = words.slice(0, best).join(' ').replace(/[.,;:\s]+$/, '');
+
+    var expanded = false;
+    function render() {
+      if (expanded) {
+        textNode.textContent = fullText + ' ';
+        ellipsis.textContent = '';
+        toggle.textContent = 'Zwiń';
+      } else {
+        textNode.textContent = shortText;
+        ellipsis.textContent = '… ';
+        toggle.textContent = 'Rozwiń';
+      }
+    }
+    render();
+
+    toggle.addEventListener('click', function(e) {
+      e.preventDefault();
+      expanded = !expanded;
+      render();
     });
   });
 </script>

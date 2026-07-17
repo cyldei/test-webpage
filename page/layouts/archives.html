@@ -50,6 +50,7 @@ layout: page
     {% endif %}
     {% if post.collection == 'poems' %}
         {% assign _icon = page.icons.poems %}
+        {% capture _title %}"{{ post.title }}"{% endcapture %}
     {% elsif post.collection == 'posts'%}
         {% assign _icon = page.icons.posts %}
     {% endif %}
