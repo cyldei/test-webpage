@@ -116,6 +116,9 @@ layout: page
   var COLLAPSE_DESKTOP = {{ page.collapsable | default: false | jsonify }};
   var COLLAPSE_MOBILE = {{ page.collapsable_mobile | default: false | jsonify }};
 
+  // How many descriptions may be expanded at once. 0 (or negative) = unlimited.
+  var MAX_EXPANDED = {{ page.collapsable_max_expanded | default: 0 | jsonify }};
+
   function isMobile() {
     return window.matchMedia('(max-width: ' + MOBILE_BREAKPOINT + 'px)').matches;
   }
@@ -123,6 +126,10 @@ layout: page
   function collapseActive() {
     return isMobile() ? COLLAPSE_MOBILE : COLLAPSE_DESKTOP;
   }
+
+  // Currently-expanded descriptions, in the order they were expanded. Used to
+  // enforce MAX_EXPANDED by collapsing the oldest when the limit is exceeded.
+  var expandedOrder = [];
 
   document.querySelectorAll('.book-description-wrapper').forEach(function(wrapper) {
     var desc = wrapper.querySelector('.book-description');
@@ -136,6 +143,9 @@ layout: page
     toggle.className = 'book-description-toggle';
 
     var expanded = false;
+
+    // Exposed to the registry; re-pointed at the live render() on each apply().
+    var controller = { collapse: function() {} };
 
     // (Re)build the collapsed/expanded state for the current viewport. Called on
     // load and on resize so switching between desktop and mobile re-measures the
@@ -196,9 +206,32 @@ layout: page
       }
       render();
 
+      // Collapsing this description resets its state, re-renders, and drops it
+      // from the expanded-order queue.
+      controller.collapse = function() {
+        if (expanded) {
+          expanded = false;
+          var i = expandedOrder.indexOf(controller);
+          if (i !== -1) expandedOrder.splice(i, 1);
+          render();
+        }
+      };
+
       toggle.onclick = function(e) {
         e.preventDefault();
         expanded = !expanded;
+        if (expanded) {
+          expandedOrder.push(controller);
+          // Enforce the limit by collapsing the oldest still-expanded ones.
+          if (MAX_EXPANDED > 0) {
+            while (expandedOrder.length > MAX_EXPANDED) {
+              expandedOrder[0].collapse();
+            }
+          }
+        } else {
+          var i = expandedOrder.indexOf(controller);
+          if (i !== -1) expandedOrder.splice(i, 1);
+        }
         render();
       };
     }
