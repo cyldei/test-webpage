@@ -16,7 +16,6 @@ layout: page
 
   {% assign sorted_tags = tags | sort_natural %}
   {% if sorted_tags.size > 0 %}
-    <div class="text-muted">No tags found.</div>
   {% for t in sorted_tags %}
     {% assign visible_posts = site.tags[t] | where_exp: "item", "item.hidden != true and item.hidden != 'true'" %}
     <div>

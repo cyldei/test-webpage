@@ -47,6 +47,8 @@ return:
     trolinek: "Baśń o Trolinku"
     general: "Wszystkie książki"
     poems: "Wszystkie wiersze"
+    posts: "Strona główna"
+  posts: "Powrót do strony głównej"
   chapters: "Powrót do listy rozdziałów"
   poems: "Powrót do listy wierszy"
   books: "Powrót do listy ksiązek"

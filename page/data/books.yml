@@ -12,10 +12,26 @@
     "Czytaj Online":
       url: /books/pies/
       colour: "#0d6efd"
-      icon: fa-list
-    "Kup książkę":
+      # icon: fa fa-list
+      icon: fa fa-external-link-alt
+    "Empik.com":
       url: https://www.empik.com/pies-karambus-jankowiak-michal,p1730192698,ksiazka-p
-      icon: fa-external-link-alt
+      icon: fa fa-shopping-cart
+    "Bonito.pl":
+      url: https://bonito.pl/produkt/pies-karambus
+      icon: fa fa fa-shopping-cart
+    "taniaksiążka.pl":
+      url: https://www.taniaksiazka.pl/pies-karambus-p-2446237.html
+      icon: fa fa fa-shopping-cart
+    "czytam.pl":
+      url: https://czytam.pl/pies-karambus-michal-jankowiak-1325608?
+      icon: fa fa fa-shopping-cart
+    "MegaKsiążki.pl":
+      url: https://www.megaksiazki.pl/hodowla-zwierzat-literatura/26251971-pies-karambus.html
+      icon: fa fa fa-shopping-cart
+    "znak.com.pl":
+      url: https://www.znak.com.pl/p/pies-karambus-michal-jankowiak-454386
+      icon: fa fa fa-shopping-cart
 
 - title: "Baśń o Trolinku"
   description: |
@@ -34,10 +50,11 @@
     "Czytaj Online":
       url: /books/trolinek/
       colour: "#0d6efd"
-      icon: fa-list
-    "Kup książkę":
-      url: https://www.empik.com/pies-karambus-jankowiak-michal,p1730192698,ksiazka-p
-      icon: fa-external-link-alt
+      icon: fa fa-external-link-alt
+    "Nakład wyczerpany":
+      url: "/books"
+      colour: lightgray
+      icon: fa-shopping-cart
 
 - title: "Dzieciaki Zwierzaki"
   description: |
@@ -49,4 +66,4 @@
   links:
     "Kup książkę":
       url: https://wfw.com.pl/ksiazki/dzieciaki-zwierzaki/
-      icon: fa-external-link-alt
+      icon: fa fa-shopping-cart

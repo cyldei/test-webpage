@@ -11,18 +11,21 @@ tail_includes:
 
 <div class="post-meta text-muted">
     
-    <!-- published date -->
-    <span>
-      {{ site.data.locales[site.lang].post.posted }}
-      {% include datetime.html date=page.date tooltip=true %}
-    </span>
+    {% assign page_date_str = page.date | date: "%Y-%m-%d" %}
+    {% if page_date_str != "2000-01-01" %}
+        <!-- published date -->
+        <span>
+        {{ site.data.locales[site.lang].post.posted }}
+        {% include datetime.html date=page.date tooltip=true %}
+        </span>
 
-    <!-- lastmod date -->
-    {% if page.updated_at %}
-    <span>
-      {{ site.data.locales[site.lang].post.updated }}
-      {% include datetime.html date=page.updated_at tooltip=true %}
-    </span>
+        <!-- lastmod date -->
+        {% if page.updated_at %}
+        <span>
+        {{ site.data.locales[site.lang].post.updated }}
+        {% include datetime.html date=page.updated_at tooltip=true %}
+        </span>
+        {% endif %}
     {% endif %}
 
   <div class="d-flex justify-content-between">

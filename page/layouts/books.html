@@ -44,7 +44,7 @@ layout: page
         {% assign link_icon = link_data.icon | default: "fa-link" %}
         {% if link_data.url contains "://" %}
         <a href="{{ link_data.url }}" class="btn btn-sm" style="color: {{ link_colour }}; border-color: {{ link_colour }};" target="_blank" rel="noopener">
-            <i class="fas {{ link_icon }} mr-1"></i>{{ link_name }}
+            <i class="{{ link_icon }} mr-1"></i>{{ link_name }}
         </a>
         {% else %}
         <a href="{{ link_data.url | relative_url }}" class="btn btn-sm" style="color: {{ link_colour }}; border-color: {{ link_colour }};">

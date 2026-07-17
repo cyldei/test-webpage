@@ -6,6 +6,9 @@ image:
   alt: "Obrazek wygenerowany poprzez AI"
   aspect_ratio: 40/28
   object_fit: scale 
+tags:
+  - Artykuł
+  - Offtopic
 pin: false
 ---
 
