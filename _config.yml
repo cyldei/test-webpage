@@ -138,6 +138,10 @@ defaults:
       # DO NOT modify the following parameter unless you are confident enough
       # to update the code of all other post links in this project.
       permalink: /posts/:year/:month/:day/:slug/
+
+      image: 
+        aspect_ratio: 40/28
+        object_fit: scale 
       return:
         arrow: posts
         footer: posts

@@ -1,16 +1,12 @@
 ---
 title: "Recenzja Psa Karambusa"
 date: 2026-07-02 20:00:00 +0200
-# categories:
-#   - Recenzja
 tags:
-  - Artykuł
-  - Recenzja
+  - artykuł
+  - recenzja
 image: 
   path: /assets/img/posts/2026/07/02/pies-karambus.png
   alt: "Okładka ksiązki \"Pies Karambus\""
-  aspect_ratio: 40/28
-  object_fit: scale 
 pin: true
 ---
 
