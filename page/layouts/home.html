@@ -42,13 +42,88 @@ layout: page
   #core-wrapper {
     margin-top:-10px;
   }
+
+  /* Make pinned posts stand out: an accent left border, a faint themed card
+     tint, and a visible "pinned" badge (the label is hidden by default). */
+  /* #post-list .post-preview.pinned {
+    background: var(--pin-bg);
+    border-left: 3px solid #d2603a;
+    border-radius: 8px;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+  #post-list .post-preview.pinned .pin i {
+    color: #d2603a;
+  }
+  #post-list .post-preview.pinned .pin span {
+    display: inline;
+    margin-left: 0.3rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #d2603a;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  } */
+  /* Make pinned posts stand out: a neutral accent left border, a faint themed
+     card tint, and a visible bordered "pinned" badge (hidden by default). The
+     card is pulled outward with negative margins so its text still lines up
+     with the non-pinned posts. */
+  #post-list .post-preview.pinned {
+    --pin-accent: #555;                 /* dark gray in light mode */
+    --pin-text-accent: #d2603a;  /* orange-red for the pin icon and label */
+    background: var(--pin-bg);
+    border-left: 4px solid var(--pin-accent);
+    border-radius: 8px;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    margin-left: calc(-1.25rem - 4px);  /* offset border + padding so titles align */
+    margin-right: -1.25rem;
+    margin-bottom: 0.5rem;
+  }
+  #post-list .post-preview.pinned .pin i {
+    /* color: var(--pin-accent); */
+    color: var(--pin-text-accent);
+  }
+  #post-list .post-preview.pinned .pin {
+    display: inline;
+    margin-left: 0.3rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--pin-text-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  #post-list .post-preview.pinned .pin span {
+    display: inline;
+    margin-left: 0.3rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    /* color: var(--pin-accent); */
+    color: var(--pin-text-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  /* Light gray accent in dark mode (mirrors the theme's dark-mode resolution). */
+  @media (prefers-color-scheme: dark) {
+    html:not([data-mode]) #post-list .post-preview.pinned,
+    html[data-mode="dark"] #post-list .post-preview.pinned {
+      --pin-accent: #b0b0b0;
+    }
+  }
+  /* @media (prefers-color-scheme: light) {
+    html[data-mode="dark"] #post-list .post-preview.pinned {
+      --pin-accent: #b0b0b0;
+    }
+  } */
 </style>
 
 <div id="post-list">
 
 {% for post in posts %}
 
-  <div class="post-preview">
+  <div class="post-preview{% if post.pin %} pinned{% endif %}">
+  <!-- <div class="post-preview"> -->
     <h1>
       <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
     </h1>
