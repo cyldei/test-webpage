@@ -8,6 +8,6 @@
 #   icon: 'fas fa-phone'
 #   url:  tel:+48123123123
 #   noblank: true
-- type: rss
-  icon: 'fas fa-rss'
-  noblank: true
+# - type: rss
+#   icon: 'fas fa-rss'
+#   noblank: true

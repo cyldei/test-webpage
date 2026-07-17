@@ -38,19 +38,7 @@ tail_includes:
       {% endif %}
 
 
-      {% if authors %}
-        {% if authors.size == 1 %}
-            {{ site.data.locales[site.lang].post.written_by.singular }}
-        {% else %}
-            {{ site.data.locales[site.lang].post.written_by.plural | default: site.data.locales[site.lang].post.written_by.singular }}
-        {% endif %}
-        <em>  
-        {% for author in authors %}
-          <a href="{{ site.data.authors[author].url }}">{{ site.data.authors[author].name }}</a>
-          {% unless forloop.last %}</em>, <em>{% endunless %}
-        {% endfor %}
-      {% endif %}
-      </em>
+      {% include authors.html authors=authors %}
     </span>
 
     <div>

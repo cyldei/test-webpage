@@ -1,0 +1,19 @@
+{% if authors %}
+    {% if authors.size == 1 %}
+        {{ site.data.locales[site.lang].post.written_by.singular }}
+    {% else %}
+        {{ site.data.locales[site.lang].post.written_by.plural | default: site.data.locales[site.lang].post.written_by.singular }}
+    {% endif %}
+    <em>  
+    {% for author in authors %}
+        {% if site.data.authors[author].url and site.data.authors[author].url contains 'http' %}
+            {% assign _url = site.data.authors[author].url %}
+        {% else %}
+            {% assign _url = site.baseurl | append: site.data.authors[author].url %}
+        {% endif %}
+
+        <a href="{{ _url }}">{{ site.data.authors[author].name }}</a>
+        {% unless forloop.last %}</em>, <em>{% endunless %}
+    {% endfor %}
+    </em>
+{% endif %}
