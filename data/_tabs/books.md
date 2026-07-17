@@ -5,4 +5,5 @@ order: 2
 title: "Książki"
 display_title: "Bibliografia"
 collapsable: true
+collapsable_mobile: true
 ---

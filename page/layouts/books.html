@@ -14,17 +14,17 @@ layout: page
     <div class="book-info d-flex flex-column justify-content-between flex-grow-1">
       <div class="book-info-top">
         <div class="book-meta">
-          <h3 class="mt-0 mb-1">{{ book.title }}</h3>
+          <h3 class="mt-0 mb-2"><b>{{ book.title }}</b></h3>
 
-          {% if book.date and book.date != "" %}
-          <p class="text-muted mb-2">{{ book.date }}</p>
-          {% endif %}
           {% if book.publisher and book.publisher != "" %}
-          <p class="text-muted mb-2">{{ book.publisher }}</p>
+          <p class="text-muted mb-0 book-publisher"><i>{{ book.publisher }}</i></p>
+          {% endif %}
+          {% if book.date and book.date != "" %}
+          <p class="text-muted mb-2 book-date"><i>{{ book.date }}</i></p>
           {% endif %}
         </div>
         {% if book.description and book.description != "" %}
-        {% if page.collapsable %}
+        {% if page.collapsable or page.collapsable_mobile %}
         <div class="book-description-wrapper book-desc-area">
           <p class="text-muted mb-2 book-description">{{ book.description }}</p>
         </div>
@@ -62,6 +62,12 @@ layout: page
 </div>
 
 <style>
+  .book-date {
+    font-size: 0.9rem;
+  }
+  .book-publisher {
+    font-size: 0.9rem;
+  }
   .book-description-toggle {
     white-space: nowrap;
     margin-left: 0.1rem;
@@ -83,10 +89,16 @@ layout: page
         "desc  desc"
         "links links";
       column-gap: 1.5rem;
+      row-gap: .5rem;
     }
     .book-cover {
       grid-area: cover;
       margin-right: 0 !important;
+    }
+    .book-cover img {
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      object-position: center;
     }
     .book-info { display: contents !important; }
     .book-info-top { display: contents; }
@@ -98,6 +110,19 @@ layout: page
 
 <script>
   var MAX_LINES = 4;
+  var MOBILE_BREAKPOINT = 576; // keep in sync with the @media rule above
+
+  // Which viewports should collapse the description, driven by front matter.
+  var COLLAPSE_DESKTOP = {{ page.collapsable | default: false | jsonify }};
+  var COLLAPSE_MOBILE = {{ page.collapsable_mobile | default: false | jsonify }};
+
+  function isMobile() {
+    return window.matchMedia('(max-width: ' + MOBILE_BREAKPOINT + 'px)').matches;
+  }
+
+  function collapseActive() {
+    return isMobile() ? COLLAPSE_MOBILE : COLLAPSE_DESKTOP;
+  }
 
   document.querySelectorAll('.book-description-wrapper').forEach(function(wrapper) {
     var desc = wrapper.querySelector('.book-description');
@@ -110,58 +135,80 @@ layout: page
     toggle.href = '#';
     toggle.className = 'book-description-toggle';
 
-    desc.textContent = '';
-    desc.appendChild(textNode);
-    desc.appendChild(ellipsis);
-    desc.appendChild(toggle);
-
-    // Max height the collapsed description may occupy (MAX_LINES lines).
-    var lineHeight = parseFloat(getComputedStyle(desc).lineHeight) || 20;
-    var maxHeight = lineHeight * MAX_LINES + lineHeight * 0.25;
-
-    function fits() {
-      return desc.scrollHeight <= maxHeight;
-    }
-
-    // If the whole text already fits within MAX_LINES, no toggle needed.
-    textNode.textContent = fullText;
-    ellipsis.textContent = '';
-    if (fits()) {
-      desc.removeChild(toggle);
-      return;
-    }
-
-    // Fill as many whole words as fit alongside the "… Rozwiń" toggle,
-    // so the collapsed block uses the full width of every line.
-    ellipsis.textContent = '… ';
-    toggle.textContent = 'Rozwiń';
-    var lo = 1, hi = words.length, best = 1;
-    while (lo <= hi) {
-      var mid = (lo + hi) >> 1;
-      textNode.textContent = words.slice(0, mid).join(' ').replace(/[.,;:\s]+$/, '');
-      if (fits()) { best = mid; lo = mid + 1; }
-      else { hi = mid - 1; }
-    }
-    var shortText = words.slice(0, best).join(' ').replace(/[.,;:\s]+$/, '');
-
     var expanded = false;
-    function render() {
-      if (expanded) {
-        textNode.textContent = fullText + ' ';
-        ellipsis.textContent = '';
-        toggle.textContent = 'Zwiń';
-      } else {
-        textNode.textContent = shortText;
-        ellipsis.textContent = '… ';
-        toggle.textContent = 'Rozwiń';
-      }
-    }
-    render();
 
-    toggle.addEventListener('click', function(e) {
-      e.preventDefault();
-      expanded = !expanded;
+    // (Re)build the collapsed/expanded state for the current viewport. Called on
+    // load and on resize so switching between desktop and mobile re-measures the
+    // text against the width it is actually rendered at.
+    function apply() {
+      desc.textContent = '';
+      desc.appendChild(textNode);
+      desc.appendChild(ellipsis);
+      desc.appendChild(toggle);
+
+      // Collapsing disabled for this viewport: show the full text, no toggle.
+      if (!collapseActive()) {
+        textNode.textContent = fullText;
+        ellipsis.textContent = '';
+        desc.textContent = fullText;
+        return;
+      }
+
+      // Max height the collapsed description may occupy (MAX_LINES lines).
+      var lineHeight = parseFloat(getComputedStyle(desc).lineHeight) || 20;
+      var maxHeight = lineHeight * MAX_LINES + lineHeight * 0.25;
+
+      function fits() {
+        return desc.scrollHeight <= maxHeight;
+      }
+
+      // If the whole text already fits within MAX_LINES, no toggle needed.
+      textNode.textContent = fullText;
+      ellipsis.textContent = '';
+      if (fits()) {
+        if (toggle.parentNode) desc.removeChild(toggle);
+        return;
+      }
+
+      // Fill as many whole words as fit alongside the "… Rozwiń" toggle,
+      // so the collapsed block uses the full width of every line.
+      ellipsis.textContent = '… ';
+      toggle.textContent = 'Rozwiń';
+      var lo = 1, hi = words.length, best = 1;
+      while (lo <= hi) {
+        var mid = (lo + hi) >> 1;
+        textNode.textContent = words.slice(0, mid).join(' ').replace(/[.,;:\s]+$/, '');
+        if (fits()) { best = mid; lo = mid + 1; }
+        else { hi = mid - 1; }
+      }
+      var shortText = words.slice(0, best).join(' ').replace(/[.,;:\s]+$/, '');
+
+      function render() {
+        if (expanded) {
+          textNode.textContent = fullText + ' ';
+          ellipsis.textContent = '';
+          toggle.textContent = 'Zwiń';
+        } else {
+          textNode.textContent = shortText;
+          ellipsis.textContent = '… ';
+          toggle.textContent = 'Rozwiń';
+        }
+      }
       render();
+
+      toggle.onclick = function(e) {
+        e.preventDefault();
+        expanded = !expanded;
+        render();
+      };
+    }
+
+    apply();
+
+    var resizeTimer;
+    window.addEventListener('resize', function() {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(apply, 150);
     });
   });
 </script>
