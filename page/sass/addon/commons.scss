@@ -1076,6 +1076,63 @@ $sidebar-display: "sidebar-display";
   object-position: center;
 }
 
+/* `bar_image.bottom_fill`: the home top image extends down through the topbar
+   bar. The bar is pulled up over the bottom of the image and made transparent,
+   so its controls float over the image. The existing `bottom_gradient` still
+   fades the image bottom, which also aids legibility of the floating controls. */
+#topbar-image[data-bottom-fill="true"] ~ #topbar-wrapper-home {
+  margin-top: -$topbar-height;
+  background: transparent;
+  border-bottom: 0;
+}
+
+/* Desktop: the search becomes a floating pill on the right; title/breadcrumb
+   get a shadow so they stay readable over the image. */
+@media all and (min-width: 850px) {
+  #topbar-image[data-bottom-fill="true"] ~ #topbar-wrapper-home {
+    #topbar-title,
+    #breadcrumb {
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
+    }
+
+    #search-wrapper {
+      width: auto;
+      min-width: 12rem;
+      max-width: 16rem;
+      margin-left: auto;
+      border-radius: 999px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+  }
+}
+
+/* Mobile: menu, search and title all float over the image, each with a subtle
+   backdrop / shadow for legibility. */
+@media all and (max-width: 849px) {
+  #topbar-image[data-bottom-fill="true"] ~ #topbar-wrapper-home {
+    #sidebar-trigger,
+    #search-trigger {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.4);
+      color: #fff;
+    }
+
+    #topbar-title {
+      color: #fff;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+    }
+
+    #topbar i {
+      color: #fff;
+    }
+  }
+}
+
 #topbar {
   i { /* icons */
     color: #999999;

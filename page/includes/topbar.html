@@ -42,9 +42,10 @@
     {% assign _tg_desktop = site.bar_image.top_gradient.desktop | default: 0 %}
     {% assign _bg_mobile = site.bar_image.bottom_gradient.mobile | default: 0 %}
     {% assign _bg_desktop = site.bar_image.bottom_gradient.desktop | default: 0 %}
+    {% assign _bottom_fill = site.bar_image.bottom_fill %}
     {% capture tg_style %}{% if _tg_mobile > 0 %}--top-gradient-mobile: {{ _tg_mobile }}%;{% endif %}{% if _tg_desktop > 0 %}--top-gradient-desktop: {{ _tg_desktop }}%;{% endif %}{% if _bg_mobile > 0 %}--bottom-gradient-mobile: {{ _bg_mobile }}%;{% endif %}{% if _bg_desktop > 0 %}--bottom-gradient-desktop: {{ _bg_desktop }}%;{% endif %}{% endcapture %}
     {% if site.enable.bar_image %}
-  <div id="topbar-image" data-bar-mode="{{ bar_mode }}"{% if site.bar_image.extend_mobile %} data-extend-mobile="true"{% endif %}{% if _tg_mobile > 0 %} data-top-gradient-mobile="true"{% endif %}{% if _tg_desktop > 0 %} data-top-gradient-desktop="true"{% endif %}{% if _bg_mobile > 0 %} data-bottom-gradient-mobile="true"{% endif %}{% if _bg_desktop > 0 %} data-bottom-gradient-desktop="true"{% endif %}{% if tg_style != '' %} style="{{ tg_style }}"{% endif %}>
+  <div id="topbar-image" data-bar-mode="{{ bar_mode }}"{% if site.bar_image.extend_mobile %} data-extend-mobile="true"{% endif %}{% if _tg_mobile > 0 %} data-top-gradient-mobile="true"{% endif %}{% if _tg_desktop > 0 %} data-top-gradient-desktop="true"{% endif %}{% if _bg_mobile > 0 %} data-bottom-gradient-mobile="true"{% endif %}{% if _bg_desktop > 0 %} data-bottom-gradient-desktop="true"{% endif %}{% if _bottom_fill %} data-bottom-fill="true"{% endif %}{% if tg_style != '' %} style="{{ tg_style }}"{% endif %}>
     <!-- <img src="{{ site.baseurl }}/assets/img/bar.jpeg" alt="bar" id="bar-image"> -->
 
       {% assign bar_image_light = site.bar_image.light.url | default: 'https://picsum.photos/id/1074/2000/1000' %}
