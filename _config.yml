@@ -58,10 +58,11 @@ avatar: '/assets/img/author.png'
 avatar_fit: cover
 avatar_redirect: '/about'
 bar_image:
-  # Controls the home-page top image on mobile (desktop always shows it,
-  # except in `disabled`):
-  #   disabled - hide the image on mobile
+  # Controls the home-page top image:
+  #   disabled - hide the image everywhere (mobile and desktop)
   #   always   - always show the image (default)
+  #   desktop  - show on desktop only (hidden on mobile)
+  #   mobile   - show on mobile only (hidden on desktop)
   #   active   - hide the image on load; reveal it by scrolling up to the top
   #   spring   - like `active`, but springs back to hidden once you scroll away
   #              from the top
