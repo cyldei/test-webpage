@@ -65,7 +65,7 @@ bar_image:
   #   active   - hide the image on load; reveal it by scrolling up to the top
   #   spring   - like `active`, but springs back to hidden once you scroll away
   #              from the top
-  mode: disabled
+  mode: active
   light:
     url: "https://picsum.photos/id/1073/2000/1000"
     # url: "/assets/img/background.png"
