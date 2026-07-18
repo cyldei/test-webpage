@@ -85,9 +85,9 @@ bar_image:
   pinned_posts_home:
     new_version:
       # true  -> styled "new" pinned cards; false -> the previous simple version
-      enable: false
+      enable: true
       # gradient background for the new version (true | false)
-      gradient: false
+      gradient: true
     
   # Make the top image taller on mobile (doubles its height).
   extend_mobile: true

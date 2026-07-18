@@ -103,29 +103,10 @@ layout: page
     {% if pin_gradient %}background: linear-gradient(to bottom, rgb(48, 49, 53), rgb(28, 29, 31));{% endif %}
   }
   {% else %}
-  /* OLD VERSION of the pinned-post styling (used when
-     pinned_posts_home.new_version.enable is false): a simple flat tint with an
-     orange accent border and orange pin label. */
-  #post-list .post-preview.pinned {
-    background: var(--pin-bg);
-    border-left: 3px solid #d2603a;
-    border-radius: 8px;
-    padding-left: 1.25rem;
-    padding-right: 1.25rem;
-    margin-bottom: 0.5rem;
-  }
-  #post-list .post-preview.pinned .pin i {
-    color: #d2603a;
-  }
-  #post-list .post-preview.pinned .pin span {
-    display: inline;
-    margin-left: 0.3rem;
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: #d2603a;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-  }
+  /* OLD VERSION (pinned_posts_home.new_version.enable = false): no custom
+     styling at all. Pinned posts look like normal posts, with the theme's
+     default pin indicator (thumbtack icon) in the bottom-right of the post
+     meta — matching the original pre-customisation behaviour (commit 462cb75). */
   {% endif %}
 
   /* Mobile fixes (phones). The theme's mobile rule
