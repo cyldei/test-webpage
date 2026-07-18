@@ -1422,6 +1422,11 @@ $sidebar-display: "sidebar-display";
     &[data-bar-mode="desktop"] {
       display: none;
     }
+
+    /* `spring` uses a taller image on mobile. */
+    &[data-bar-mode="spring"] {
+      height: 340px;
+    }
   }
 
   #bar-image {

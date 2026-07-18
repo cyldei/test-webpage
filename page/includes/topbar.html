@@ -143,6 +143,11 @@
       var isMobile = function () { return window.matchMedia('(max-width: 849px)').matches; };
       var imageHeight = function () { return topbarImage.offsetHeight; };
 
+      /* In "spring" mode leave a strip of the image peeking when hidden, so it
+         is visible on load and invites a pull. "active" hides it fully. */
+      var PEEK = (mode === 'spring') ? 90 : 0;
+      var hiddenTarget = function () { return Math.max(0, imageHeight() - PEEK); };
+
       /* Read/write scroll position in a way that works across Safari versions
          (some use documentElement, some use body as the scrolling element). */
       var getScrollTop = function () {
@@ -183,12 +188,13 @@
 
       var hideImage = function (smooth) {
         if (!isMobile()) return;
-        var h = imageHeight();
-        if (h <= 0 || getScrollTop() >= h - 1) return;
+        if (imageHeight() <= 0) return;
+        var target = hiddenTarget();
+        if (getScrollTop() >= target - 1) return;
         if (smooth) {
-          animateScrollTo(h);
+          animateScrollTo(target);
         } else {
-          setScrollTop(h);
+          setScrollTop(target);
         }
       };
 
