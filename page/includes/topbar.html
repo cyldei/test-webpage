@@ -130,10 +130,11 @@
     });
   </script>
 
-  <!-- "active"/"spring" bar-image modes: on mobile, start scrolled past the
-       image so it is hidden on load and only revealed when scrolling to the
-       top. In "spring" mode, once revealed it springs back to the hidden
-       position as soon as the user scrolls away from the top. -->
+  <!-- "active"/"spring"/"spring-gap" bar-image modes: on mobile, start scrolled
+       past the image so it is hidden on load and only revealed when scrolling to
+       the top. In "spring" and "spring-gap" modes, once revealed it springs back
+       to the hidden position as soon as the user scrolls away from the top;
+       "spring-gap" leaves a small strip peeking, "spring" hides it fully. -->
   <script type="text/javascript">
     /* NOTE: use only block comments here. In production the `compress_html`
        layout collapses this script onto a single line, which turns any `//`
@@ -143,14 +144,15 @@
       if (!topbarImage) return;
 
       var mode = topbarImage.dataset.barMode;
-      if (mode !== 'active' && mode !== 'spring') return;
+      if (mode !== 'active' && mode !== 'spring' && mode !== 'spring-gap') return;
 
       var isMobile = function () { return window.matchMedia('(max-width: 849px)').matches; };
       var imageHeight = function () { return topbarImage.offsetHeight; };
 
-      /* In "spring" mode leave a strip of the image peeking when hidden, so it
-         is visible on load and invites a pull. "active" hides it fully. */
-      var PEEK = (mode === 'spring') ? 90 : 0;
+      /* In "spring-gap" mode leave a strip of the image peeking when hidden, so
+         it is visible on load and invites a pull. "spring" and "active" hide it
+         fully. */
+      var PEEK = (mode === 'spring-gap') ? 90 : 0;
       var hiddenTarget = function () { return Math.max(0, imageHeight() - PEEK); };
 
       /* Read/write scroll position in a way that works across Safari versions
@@ -228,12 +230,12 @@
       [0, 60, 150, 300, 500, 800].forEach(function (t) { setTimeout(enforceHidden, t); });
       enforceHidden();
 
-      /* "spring": watch the scroll, not a timer schedule. While the user is
+      /* "spring"/"spring-gap": watch the scroll, not a timer schedule. While the user is
          actively holding/dragging (finger down, or mouse button held on the
          scrollbar) the image stays exactly where they leave it. The instant
          scrolling stops it retracts to the hidden (peek) position. Works for
          touch, wheel and scrollbar dragging. */
-      if (mode === 'spring') {
+      if (mode === 'spring' || mode === 'spring-gap') {
         var idleTimer = null;
         var holding = false;
 

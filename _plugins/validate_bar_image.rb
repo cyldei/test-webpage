@@ -3,7 +3,7 @@
 # page/includes/topbar.html. An empty/unset value is allowed — the template
 # falls back to 'always'.
 Jekyll::Hooks.register :site, :after_init do |site|
-  allowed = %w[disabled always desktop mobile active spring]
+  allowed = %w[disabled always desktop mobile active spring spring-gap]
   bar_image = site.config["bar_image"]
   next unless bar_image.is_a?(Hash)
 

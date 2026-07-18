@@ -63,10 +63,12 @@ bar_image:
   #   always   - always show the image (default)
   #   desktop  - show on desktop only (hidden on mobile)
   #   mobile   - show on mobile only (hidden on desktop)
-  #   active   - hide the image on load; reveal it by scrolling up to the top
-  #   spring   - like `active`, but springs back to hidden once you scroll away
-  #              from the top
-  mode: spring
+  #   active     - hide the image on load; reveal it by scrolling up to the top
+  #   spring     - like `active`, but springs back to hidden once you scroll away
+  #                from the top
+  #   spring-gap - like `spring`, but leaves a small strip of the image peeking
+  #                when hidden
+  mode: spring-gap
   # Fade the top/bottom of the image into the page background color (white in light
   # mode, dark in dark mode);  
   # Value is thepercent of the image height the fade covers set per viewport.
@@ -82,7 +84,7 @@ bar_image:
 
   pinned_posts_home:
     # old | new | none
-    version: old 
+    # version: old 
     # true | false (only for new version)
     gradient: true
     
