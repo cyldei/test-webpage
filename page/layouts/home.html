@@ -43,37 +43,19 @@ layout: page
     margin-top:-10px;
   }
 
-  /* Make pinned posts stand out: an accent left border, a faint themed card
-     tint, and a visible "pinned" badge (the label is hidden by default). */
-  /* #post-list .post-preview.pinned {
-    background: var(--pin-bg);
-    border-left: 3px solid #d2603a;
-    border-radius: 8px;
-    padding-left: 1.25rem;
-    padding-right: 1.25rem;
-    margin-bottom: 0.5rem;
-  }
-  #post-list .post-preview.pinned .pin i {
-    color: #d2603a;
-  }
-  #post-list .post-preview.pinned .pin span {
-    display: inline;
-    margin-left: 0.3rem;
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: #d2603a;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-  } */
   /* Make pinned posts stand out: a neutral accent left border, a faint themed
      card tint, and a visible bordered "pinned" badge (hidden by default). The
      card is pulled outward with negative margins so its text still lines up
      with the non-pinned posts. */
+  {% assign pin_new = site.bar_image.pinned_posts_home.new_version.enable %}
+  {% assign pin_gradient = site.bar_image.pinned_posts_home.new_version.gradient %}
+  {% if pin_new %}
   #post-list .post-preview.pinned {
     --pin-accent: #555;                 /* dark gray in light mode */
     --pin-text-accent: #d2603a;  /* orange-red for the pin icon and label */
-    /* Gradient colours inlined (light mode); dark values set in the blocks below. */
-    background: linear-gradient(to bottom, #e0e0e4, #fafafa);
+    /* With pinned_posts_home.gradient enabled, use the inlined light gradient;
+       otherwise fall back to the previous flat tint (var(--pin-bg), theme-aware). */
+    background: {% if pin_gradient %}linear-gradient(to bottom, #e0e0e4, #fafafa){% else %}var(--pin-bg){% endif %};
     border-left: 4px solid var(--pin-accent);
     border-radius: 8px;
     padding-left: 1.25rem;
@@ -113,13 +95,38 @@ layout: page
   @media (prefers-color-scheme: dark) {
     html:not([data-mode]) #post-list .post-preview.pinned {
       --pin-accent: #b0b0b0;
-      background: linear-gradient(to bottom, rgb(48, 49, 53), rgb(28, 29, 31));
+      {% if pin_gradient %}background: linear-gradient(to bottom, rgb(48, 49, 53), rgb(28, 29, 31));{% endif %}
     }
   }
   html[data-mode="dark"] #post-list .post-preview.pinned {
     --pin-accent: #b0b0b0;
-    background: linear-gradient(to bottom, rgb(48, 49, 53), rgb(28, 29, 31));
+    {% if pin_gradient %}background: linear-gradient(to bottom, rgb(48, 49, 53), rgb(28, 29, 31));{% endif %}
   }
+  {% else %}
+  /* OLD VERSION of the pinned-post styling (used when
+     pinned_posts_home.new_version.enable is false): a simple flat tint with an
+     orange accent border and orange pin label. */
+  #post-list .post-preview.pinned {
+    background: var(--pin-bg);
+    border-left: 3px solid #d2603a;
+    border-radius: 8px;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+  #post-list .post-preview.pinned .pin i {
+    color: #d2603a;
+  }
+  #post-list .post-preview.pinned .pin span {
+    display: inline;
+    margin-left: 0.3rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #d2603a;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  {% endif %}
 
   /* Mobile fixes (phones). The theme's mobile rule
      `#core-wrapper h1 { margin-top: 2.2rem; font-size: 1.75rem }` is meant for
@@ -142,11 +149,12 @@ layout: page
       /* margin-top: -2.5rem; */
     }
 
-    /* Full-bleed pinned highlight on mobile: the tint spans the whole
-       viewport width (edge to edge). Negative margins pull the card out to
-       the screen edges, while matching padding pushes its text back so it
-       still lines up with the non-pinned posts. No border/rounded corners so
+    /* Full-bleed pinned highlight on mobile (new version only): the tint spans
+       the whole viewport width (edge to edge). Negative margins pull the card
+       out to the screen edges, while matching padding pushes its text back so
+       it still lines up with the non-pinned posts. No border/rounded corners so
        there's no clipped sliver artifact. */
+    {% if pin_new %}
     #post-list .post-preview.pinned {
       border-left: none;
       border-radius: 0;
@@ -155,6 +163,7 @@ layout: page
       padding-left: calc(50vw - 50%);
       padding-right: calc(50vw - 50%);
     }
+    {% endif %}
   }
 </style>
 
