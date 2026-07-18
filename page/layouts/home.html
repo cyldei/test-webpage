@@ -47,15 +47,19 @@ layout: page
      card tint, and a visible bordered "pinned" badge (hidden by default). The
      card is pulled outward with negative margins so its text still lines up
      with the non-pinned posts. */
-  {% assign pin_new = site.bar_image.pinned_posts_home.new_version.enable %}
-  {% assign pin_gradient = site.bar_image.pinned_posts_home.new_version.gradient %}
+  {% assign pin_new = site.pinned_posts_home.new_version.enable %}
+  {% assign pin_grad_mobile = site.pinned_posts_home.new_version.gradient.mobile %}
+  {% assign pin_grad_desktop = site.pinned_posts_home.new_version.gradient.desktop %}
   {% if pin_new %}
   #post-list .post-preview.pinned {
     --pin-accent: #555;                 /* dark gray in light mode */
     --pin-text-accent: #d2603a;  /* orange-red for the pin icon and label */
-    /* With pinned_posts_home.gradient enabled, use the inlined light gradient;
-       otherwise fall back to the previous flat tint (var(--pin-bg), theme-aware). */
-    background: {% if pin_gradient %}linear-gradient(to bottom, #e0e0e4, #fafafa){% else %}var(--pin-bg){% endif %};
+    /* --pin-grad holds the (mode-aware) gradient; --pin-fill picks gradient vs
+       the flat tint per viewport — desktop here, mobile in the @media below —
+       driven by pinned_posts_home.new_version.gradient.{desktop,mobile}. */
+    --pin-grad: linear-gradient(to bottom, #e0e0e4, #fafafa);
+    --pin-fill: {% if pin_grad_desktop %}var(--pin-grad){% else %}var(--pin-bg){% endif %};
+    background: var(--pin-fill);
     border-left: 4px solid var(--pin-accent);
     border-radius: 8px;
     padding-left: 1.25rem;
@@ -95,12 +99,12 @@ layout: page
   @media (prefers-color-scheme: dark) {
     html:not([data-mode]) #post-list .post-preview.pinned {
       --pin-accent: #b0b0b0;
-      {% if pin_gradient %}background: linear-gradient(to bottom, rgb(48, 49, 53), rgb(28, 29, 31));{% endif %}
+      --pin-grad: linear-gradient(to bottom, rgb(48, 49, 53), rgb(28, 29, 31));
     }
   }
   html[data-mode="dark"] #post-list .post-preview.pinned {
     --pin-accent: #b0b0b0;
-    {% if pin_gradient %}background: linear-gradient(to bottom, rgb(48, 49, 53), rgb(28, 29, 31));{% endif %}
+    --pin-grad: linear-gradient(to bottom, rgb(48, 49, 53), rgb(28, 29, 31));
   }
   {% else %}
   /* OLD VERSION (pinned_posts_home.new_version.enable = false): no custom
@@ -126,8 +130,9 @@ layout: page
        tinted area the same height as every other post (leave its padding-top
        at the default 1.5rem). */
     #post-list {
-      margin-top: -1.85rem;
-      /* margin-top: -2.5rem; */
+      /* Pull the list flush to the topbar so the first pinned card sits right
+         under it — no gap above, and the card stays the same size as the rest. */
+      margin-top: -2.4rem;
     }
 
     /* Full-bleed pinned highlight on mobile (new version only): the tint spans
@@ -137,10 +142,13 @@ layout: page
        there's no clipped sliver artifact. */
     {% if pin_new %}
     #post-list .post-preview.pinned {
+      --pin-fill: {% if pin_grad_mobile %}var(--pin-grad){% else %}var(--pin-bg){% endif %};
       border-left: none;
       border-radius: 0;
       margin-left: calc(50% - 50vw);
       margin-right: calc(50% - 50vw);
+      /* No untinted gap below the card: the tint fills flush to the next post. */
+      margin-bottom: 0;
       padding-left: calc(50vw - 50%);
       padding-right: calc(50vw - 50%);
     }

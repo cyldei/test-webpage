@@ -82,15 +82,9 @@ bar_image:
     mobile: 0
     desktop: 0
 
-  pinned_posts_home:
-    new_version:
-      # true  -> styled "new" pinned cards; false -> the previous simple version
-      enable: true
-      # gradient background for the new version (true | false)
-      gradient: true
-    
   # Make the top image taller on mobile (doubles its height).
   extend_mobile: true
+
   # bottom_fill: gradient  # gradient | solid | none
 
   light:
@@ -98,10 +92,20 @@ bar_image:
     # url: "/assets/img/background.png"
     position: "top"
     fit: cover  # image fit mode for topbar image: cover | contain | scale-down
-  # dark:
-  #   url: "https://picsum.photos/id/1073/2000/1000?grayscale"
-  #   position: "top"
-  #   fit: cover  # falls back to bar_image.light.fit when unset
+  dark:
+    # url: "https://picsum.photos/id/1073/2000/1000?grayscale"
+    position: "top"
+    fit: cover  # falls back to bar_image.light.fit when unset
+
+# Home-page pinned posts styling.
+pinned_posts_home:
+  new_version:
+    # true  -> styled "new" pinned cards; false -> the previous simple version
+    enable: true
+    # gradient background for the new version, per viewport (true | false)
+    gradient:
+      mobile: true
+      desktop: true
 
 comments:
   active:         # The global switch for posts comments, e.g., 'disqus'.  Keep it empty means disable
