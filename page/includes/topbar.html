@@ -37,8 +37,9 @@
 {% endif %}
 
 {% if page.layout == 'home' %}
+    {% assign bar_mode = site.bar_image_mode | default: 'always' %}
     {% if site.enable.bar_image %}
-  <div id="topbar-image">
+  <div id="topbar-image" data-bar-mode="{{ bar_mode }}">
     <!-- <img src="{{ site.baseurl }}/assets/img/bar.jpeg" alt="bar" id="bar-image"> -->
 
       {% assign bar_image_light = site.bar_image.light.url | default: 'https://picsum.photos/id/1074/2000/1000' %}
@@ -122,5 +123,33 @@
         }
       });
     });
+  </script>
+
+  <!-- "active" bar-image mode: on mobile, start scrolled past the image so it
+       is hidden on load and only revealed when the user scrolls to the top. -->
+  <script type="text/javascript">
+    (function () {
+      const topbarImage = document.getElementById('topbar-image');
+      if (!topbarImage || topbarImage.dataset.barMode !== 'active') return;
+
+      const isMobile = () => window.matchMedia('(max-width: 849px)').matches;
+
+      const hideImage = () => {
+        if (!isMobile()) return;
+        const h = topbarImage.offsetHeight;
+        if (h > 0 && window.scrollY < h) {
+          window.scrollTo(0, h);
+        }
+      };
+
+      // Don't let the browser restore a previous scroll position over ours.
+      if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+      }
+
+      window.addEventListener('load', hideImage);
+      // Run once now in case `load` already fired.
+      hideImage();
+    })();
   </script>
 {% endif %}

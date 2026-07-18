@@ -1404,6 +1404,12 @@ $sidebar-display: "sidebar-display";
     left: 0;
     width: 100%;
     height: 170px;
+
+    /* `bar_image_mode: disabled` hides the home top image on mobile only;
+       desktop keeps showing it. */
+    &[data-bar-mode="disabled"] {
+      display: none;
+    }
   }
 
   #bar-image {

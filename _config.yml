@@ -57,6 +57,11 @@ avatar: '/assets/img/author.png'
 # avatar image fit mode for sidebar frame: cover | contain | scale-down
 avatar_fit: cover
 avatar_redirect: '/about'
+# Controls the home-page top image on mobile:
+#   disabled - never show the image
+#   always   - always show the image (default)
+#   active   - hide the image on load; reveal it by scrolling up to the top
+bar_image_mode: active
 bar_image:
   light:
     url: "https://picsum.photos/id/1073/2000/1000"
