@@ -1050,14 +1050,8 @@ $sidebar-display: "sidebar-display";
   }
 }
 
-/* Bottom fade of the topbar image (single value, mobile + desktop). Uses
-   ::before so it doesn't collide with the top gradient's ::after. */
-#topbar-image[data-bottom-gradient="true"]::before {
-  @include topbar-bottom-gradient(var(--bottom-gradient));
-}
-
 /* `mobile` shows the home top image on mobile only — hide it on desktop;
-   the desktop top-gradient also lives here. */
+   the desktop top/bottom gradients also live here. */
 @media all and (min-width: 850px) {
   #topbar-image[data-bar-mode="mobile"] {
     display: none;
@@ -1065,6 +1059,11 @@ $sidebar-display: "sidebar-display";
 
   #topbar-image[data-top-gradient-desktop="true"]::after {
     @include topbar-top-gradient(var(--top-gradient-desktop));
+  }
+
+  /* Bottom fade uses ::before so it doesn't collide with the top ::after. */
+  #topbar-image[data-bottom-gradient-desktop="true"]::before {
+    @include topbar-bottom-gradient(var(--bottom-gradient-desktop));
   }
 }
 
@@ -1480,6 +1479,11 @@ $sidebar-display: "sidebar-display";
     /* `bar_image.top_gradient.mobile` fades the image top into the bg color. */
     &[data-top-gradient-mobile="true"]::after {
       @include topbar-top-gradient(var(--top-gradient-mobile));
+    }
+
+    /* `bar_image.bottom_gradient.mobile` fades the image bottom into the bg. */
+    &[data-bottom-gradient-mobile="true"]::before {
+      @include topbar-bottom-gradient(var(--bottom-gradient-mobile));
     }
   }
 
