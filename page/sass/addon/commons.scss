@@ -1086,6 +1086,19 @@ $sidebar-display: "sidebar-display";
   border-bottom: 0;
 }
 
+/* Keep the search field opaque while focused. The theme's `.input-focus` sets
+   `background: center` (transparent), which is fine inside a solid bar but makes
+   the field — and its text — vanish over the image. */
+#topbar-image[data-bottom-fill="true"] ~ #topbar-wrapper-home #search-wrapper.input-focus {
+  background: var(--search-wrapper-bg) !important;
+}
+
+/* Tighten the gap between the floating search bar and the results / trending
+   tags (the theme's default top offset is oversized once the bar floats). */
+#topbar-image[data-bottom-fill="true"] ~ #main-wrapper #search-result-wrapper .post-content {
+  margin-top: 0.5rem;
+}
+
 /* Desktop: the search becomes a floating pill on the right; title/breadcrumb
    get a shadow so they stay readable over the image. */
 @media all and (min-width: 850px) {
@@ -1110,6 +1123,12 @@ $sidebar-display: "sidebar-display";
    backdrop / shadow for legibility. */
 @media all and (max-width: 849px) {
   #topbar-image[data-bottom-fill="true"] ~ #topbar-wrapper-home {
+    /* Floating controls: dark text on a light backdrop in light mode, white on
+       a dark backdrop in dark mode (resolved like the theme's other dark vars). */
+    --float-fg: #1b1b1e;
+    --float-backdrop: rgba(255, 255, 255, 0.6);
+    --float-shadow: 0 1px 3px rgba(255, 255, 255, 0.75);
+
     #sidebar-trigger,
     #search-trigger {
       display: flex;
@@ -1118,18 +1137,38 @@ $sidebar-display: "sidebar-display";
       width: 2rem;
       height: 2rem;
       border-radius: 50%;
-      background: rgba(0, 0, 0, 0.4);
-      color: #fff;
+      background: var(--float-backdrop);
+      color: var(--float-fg);
     }
 
     #topbar-title {
-      color: #fff;
-      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+      color: var(--float-fg);
+      text-shadow: var(--float-shadow);
     }
 
     #topbar i {
-      color: #fff;
+      color: var(--float-fg);
     }
+
+    #search-cancel {
+      color: var(--float-fg);
+      text-shadow: var(--float-shadow);
+    }
+  }
+
+  /* Dark mode: light text on a dark backdrop. Covers OS-dark (no toggle) and the
+     explicit theme toggle, matching the rest of the site's dark resolution. */
+  @media (prefers-color-scheme: dark) {
+    html:not([data-mode]) #topbar-image[data-bottom-fill="true"] ~ #topbar-wrapper-home {
+      --float-fg: #fff;
+      --float-backdrop: rgba(0, 0, 0, 0.4);
+      --float-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+    }
+  }
+  html[data-mode="dark"] #topbar-image[data-bottom-fill="true"] ~ #topbar-wrapper-home {
+    --float-fg: #fff;
+    --float-backdrop: rgba(0, 0, 0, 0.4);
+    --float-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
   }
 }
 
