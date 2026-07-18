@@ -3,6 +3,12 @@
 -->
 
 <div id="sidebar" class="d-flex flex-column align-items-end">
+  <button id="sidebar-close" class="btn" type="button"
+    aria-label="{{ site.data.locales[site.lang].close | default: 'Close menu' }}"
+    title="{{ site.data.locales[site.lang].close | default: 'Close menu' }}">
+    <i class="fas fa-arrow-left"></i>
+  </button>
+
   <div class="profile-wrapper text-center">
     <div id="avatar" style="--avatar-object-fit: {{ site.avatar_fit | default: 'cover' }};">
       <a href="{{ site.avatar_redirect | relative_url }}" class="mx-auto">
@@ -105,3 +111,19 @@
   </div> <!-- .sidebar-bottom -->
 
 </div><!-- #sidebar -->
+
+<script type="text/javascript">
+  /* NOTE: use only block comments here — the compress_html layout collapses
+     this script onto a single line, which would turn any `//` comment into one
+     that swallows the rest of the script. */
+  (function () {
+    var closeBtn = document.getElementById('sidebar-close');
+    if (!closeBtn) return;
+    /* Reuse the topbar hamburger's toggle so the open/close state stays in
+       sync instead of tracking a second, separate state here. */
+    closeBtn.addEventListener('click', function () {
+      var trigger = document.getElementById('sidebar-trigger');
+      if (trigger) trigger.click();
+    });
+  })();
+</script>

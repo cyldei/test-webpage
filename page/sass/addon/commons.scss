@@ -718,6 +718,24 @@ $sidebar-display: "sidebar-display";
   z-index: 99;
   background: var(--sidebar-bg);
 
+  /* Return/close arrow — only visible on mobile (shown via the max-width
+     media query below), where the sidebar is an overlay panel. */
+  #sidebar-close {
+    display: none;
+    position: absolute;
+    top: 0.5rem;
+    right: 0.75rem;
+    z-index: 100;
+    padding: 0.25rem 0.5rem;
+    font-size: 1.25rem;
+    line-height: 1;
+    color: var(--sidebar-muted-color);
+
+    &:hover {
+      color: var(--sidebar-active-color);
+    }
+  }
+
   /* Hide scrollbar for Chrome, Safari and Opera */
   &::-webkit-scrollbar {
     display: none;
@@ -1611,6 +1629,10 @@ $sidebar-display: "sidebar-display";
 
     transform: translateX(-#{$sidebar-width}); /* hide */
     -webkit-transform: translateX(-#{$sidebar-width});
+
+    #sidebar-close {
+      display: block;
+    }
 
     .cursor {
       transition: none;
