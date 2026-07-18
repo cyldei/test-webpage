@@ -37,7 +37,7 @@
 {% endif %}
 
 {% if page.layout == 'home' %}
-    {% assign bar_mode = site.bar_image_mode | default: 'always' %}
+    {% assign bar_mode = site.bar_image.mode | default: 'always' %}
     {% if site.enable.bar_image %}
   <div id="topbar-image" data-bar-mode="{{ bar_mode }}">
     <!-- <img src="{{ site.baseurl }}/assets/img/bar.jpeg" alt="bar" id="bar-image"> -->
@@ -125,20 +125,26 @@
     });
   </script>
 
-  <!-- "active" bar-image mode: on mobile, start scrolled past the image so it
-       is hidden on load and only revealed when the user scrolls to the top. -->
+  <!-- "active"/"spring" bar-image modes: on mobile, start scrolled past the
+       image so it is hidden on load and only revealed when scrolling to the
+       top. In "spring" mode, once revealed it springs back to the hidden
+       position as soon as the user scrolls away from the top. -->
   <script type="text/javascript">
     (function () {
       const topbarImage = document.getElementById('topbar-image');
-      if (!topbarImage || topbarImage.dataset.barMode !== 'active') return;
+      if (!topbarImage) return;
+
+      const mode = topbarImage.dataset.barMode;
+      if (mode !== 'active' && mode !== 'spring') return;
 
       const isMobile = () => window.matchMedia('(max-width: 849px)').matches;
+      const imageHeight = () => topbarImage.offsetHeight;
 
-      const hideImage = () => {
+      const hideImage = (smooth) => {
         if (!isMobile()) return;
-        const h = topbarImage.offsetHeight;
+        const h = imageHeight();
         if (h > 0 && window.scrollY < h) {
-          window.scrollTo(0, h);
+          window.scrollTo({ top: h, left: 0, behavior: smooth ? 'smooth' : 'auto' });
         }
       };
 
@@ -147,9 +153,41 @@
         history.scrollRestoration = 'manual';
       }
 
-      window.addEventListener('load', hideImage);
+      window.addEventListener('load', () => hideImage(false));
       // Run once now in case `load` already fired.
-      hideImage();
+      hideImage(false);
+
+      // "spring": while the user is touching the screen the image stays put, so
+      // it can be held revealed. Once the finger lifts and any momentum scroll
+      // settles, it automatically snaps back to the hidden view.
+      if (mode === 'spring') {
+        let timer = null;
+        let touching = false;
+
+        // hideImage already no-ops on desktop or when past the image.
+        const scheduleSettle = () => {
+          if (timer) clearTimeout(timer);
+          timer = setTimeout(() => {
+            if (!touching) hideImage(true);
+          }, 150);
+        };
+
+        window.addEventListener('touchstart', () => {
+          touching = true;
+          if (timer) clearTimeout(timer);
+        }, { passive: true });
+
+        window.addEventListener('touchend', () => {
+          touching = false;
+          scheduleSettle();
+        }, { passive: true });
+
+        window.addEventListener('scroll', () => {
+          // While a finger is down, leave the image wherever the user holds it.
+          if (touching) return;
+          scheduleSettle();
+        }, { passive: true });
+      }
     })();
   </script>
 {% endif %}
