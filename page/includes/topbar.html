@@ -166,7 +166,7 @@
          on iOS Safari, so animate ourselves for consistent behavior. */
       var animId = null;
       var animateScrollTo = function (target) {
-        if (animId) cancelAnimationFrame(animId);
+        if (animId) { cancelAnimationFrame(animId); animId = null; }
         var start = getScrollTop();
         var dist = target - start;
         if (Math.abs(dist) < 2) {
@@ -181,6 +181,8 @@
           setScrollTop(Math.round(start + dist * ease));
           if (p < 1) {
             animId = requestAnimationFrame(step);
+          } else {
+            animId = null;
           }
         };
         animId = requestAnimationFrame(step);
@@ -221,36 +223,52 @@
       [0, 60, 150, 300, 500, 800].forEach(function (t) { setTimeout(enforceHidden, t); });
       enforceHidden();
 
-      /* "spring": while the user is touching the screen the image stays put, so
-         it can be held revealed. Once the finger lifts and any momentum scroll
-         settles, it automatically snaps back to the hidden view. */
+      /* "spring": watch the scroll, not a timer schedule. While the user is
+         actively holding/dragging (finger down, or mouse button held on the
+         scrollbar) the image stays exactly where they leave it. The instant
+         scrolling stops it retracts to the hidden (peek) position. Works for
+         touch, wheel and scrollbar dragging. */
       if (mode === 'spring') {
-        var timer = null;
-        var touching = false;
+        var idleTimer = null;
+        var holding = false;
 
-        /* hideImage already no-ops on desktop or when past the image. */
-        var scheduleSettle = function () {
-          if (timer) clearTimeout(timer);
-          timer = setTimeout(function () {
-            if (!touching) hideImage(true);
-          }, 150);
+        var clearIdle = function () {
+          if (idleTimer) { clearTimeout(idleTimer); idleTimer = null; }
         };
 
-        window.addEventListener('touchstart', function () {
-          touching = true;
-          if (timer) clearTimeout(timer);
-          if (animId) cancelAnimationFrame(animId); /* let the finger take over */
-        }, { passive: true });
+        var retract = function () {
+          clearIdle();
+          hideImage(true);
+        };
 
-        window.addEventListener('touchend', function () {
-          touching = false;
-          scheduleSettle();
-        }, { passive: true });
+        var holdStart = function () {
+          holding = true;
+          clearIdle();
+          if (animId) { cancelAnimationFrame(animId); animId = null; } /* freeze */
+        };
 
+        var holdEnd = function () {
+          holding = false;
+          retract(); /* released -> retract immediately */
+        };
+
+        /* Touch and (where supported) pointer/mouse press = actively holding. */
+        window.addEventListener('touchstart', holdStart, { passive: true });
+        window.addEventListener('touchend', holdEnd, { passive: true });
+        window.addEventListener('touchcancel', holdEnd, { passive: true });
+        window.addEventListener('pointerdown', holdStart, { passive: true });
+        window.addEventListener('pointerup', holdEnd, { passive: true });
+        window.addEventListener('mousedown', holdStart, { passive: true });
+        window.addEventListener('mouseup', holdEnd, { passive: true });
+
+        /* Fallback for inputs with no press/release we can see (wheel, and
+           scrollbar dragging in most browsers): retract as soon as the scroll
+           stream goes quiet. Kept very short so it feels instant. */
         window.addEventListener('scroll', function () {
-          /* While a finger is down, leave the image wherever the user holds it. */
-          if (touching) return;
-          scheduleSettle();
+          if (holding) return;   /* holding: leave it where it is */
+          if (animId) return;    /* ignore scroll from our own retract anim */
+          clearIdle();
+          idleTimer = setTimeout(retract, 80);
         }, { passive: true });
       }
     })();
