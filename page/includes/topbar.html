@@ -38,8 +38,12 @@
 
 {% if page.layout == 'home' %}
     {% assign bar_mode = site.bar_image.mode | default: 'always' %}
+    {% assign tg_mobile = site.bar_image.top_gradient.mobile | default: 0 %}
+    {% assign tg_desktop = site.bar_image.top_gradient.desktop | default: 0 %}
+    {% assign bg_pct = site.bar_image.bottom_gradient | default: 0 %}
+    {% capture tg_style %}{% if tg_mobile > 0 %}--top-gradient-mobile: {{ tg_mobile }}%;{% endif %}{% if tg_desktop > 0 %}--top-gradient-desktop: {{ tg_desktop }}%;{% endif %}{% if bg_pct > 0 %}--bottom-gradient: {{ bg_pct }}%;{% endif %}{% endcapture %}
     {% if site.enable.bar_image %}
-  <div id="topbar-image" data-bar-mode="{{ bar_mode }}">
+  <div id="topbar-image" data-bar-mode="{{ bar_mode }}"{% if site.bar_image.extend_mobile %} data-extend-mobile="true"{% endif %}{% if tg_mobile > 0 %} data-top-gradient-mobile="true"{% endif %}{% if tg_desktop > 0 %} data-top-gradient-desktop="true"{% endif %}{% if bg_pct > 0 %} data-bottom-gradient="true"{% endif %}{% if tg_style != '' %} style="{{ tg_style }}"{% endif %}>
     <!-- <img src="{{ site.baseurl }}/assets/img/bar.jpeg" alt="bar" id="bar-image"> -->
 
       {% assign bar_image_light = site.bar_image.light.url | default: 'https://picsum.photos/id/1074/2000/1000' %}

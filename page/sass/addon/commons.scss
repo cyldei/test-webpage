@@ -998,6 +998,44 @@ $sidebar-display: "sidebar-display";
   }
 }
 
+/* `bar_image.top_gradient` fades the top of the image into the page
+   background color (white in light mode, dark in dark mode), leaving the
+   bottom of the image intact. */
+@mixin topbar-top-gradient($height) {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: $height;
+  background: linear-gradient(
+    to bottom,
+    rgba(var(--main-bg-rgb), 1) 0%,
+    rgba(var(--main-bg-rgb), 0) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* `bar_image.bottom_gradient` fades the bottom of the image into the page
+   background color, leaving the top of the image intact. Single value (percent
+   height), applied on both mobile and desktop. */
+@mixin topbar-bottom-gradient($height) {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: $height;
+  background: linear-gradient(
+    to top,
+    rgba(var(--main-bg-rgb), 1) 0%,
+    rgba(var(--main-bg-rgb), 0) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
 #topbar-image {
   /* background-image: url('../img/bar.jpeg'); */
   position: relative;
@@ -1012,10 +1050,21 @@ $sidebar-display: "sidebar-display";
   }
 }
 
-/* `mobile` shows the home top image on mobile only — hide it on desktop. */
+/* Bottom fade of the topbar image (single value, mobile + desktop). Uses
+   ::before so it doesn't collide with the top gradient's ::after. */
+#topbar-image[data-bottom-gradient="true"]::before {
+  @include topbar-bottom-gradient(var(--bottom-gradient));
+}
+
+/* `mobile` shows the home top image on mobile only — hide it on desktop;
+   the desktop top-gradient also lives here. */
 @media all and (min-width: 850px) {
   #topbar-image[data-bar-mode="mobile"] {
     display: none;
+  }
+
+  #topbar-image[data-top-gradient-desktop="true"]::after {
+    @include topbar-top-gradient(var(--top-gradient-desktop));
   }
 }
 
@@ -1423,9 +1472,14 @@ $sidebar-display: "sidebar-display";
       display: none;
     }
 
-    /* `spring` uses a taller image on mobile. */
-    &[data-bar-mode="spring"] {
+    /* `bar_image.extend_mobile` doubles the image height on mobile. */
+    &[data-extend-mobile="true"] {
       height: 340px;
+    }
+
+    /* `bar_image.top_gradient.mobile` fades the image top into the bg color. */
+    &[data-top-gradient-mobile="true"]::after {
+      @include topbar-top-gradient(var(--top-gradient-mobile));
     }
   }
 

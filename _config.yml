@@ -67,6 +67,29 @@ bar_image:
   #   spring   - like `active`, but springs back to hidden once you scroll away
   #              from the top
   mode: spring
+  # Fade the top/bottom of the image into the page background color (white in light
+  # mode, dark in dark mode);  
+  # Value is thepercent of the image height the fade covers set per viewport.
+  # (0 = off ... 100 = full image ... or more),
+  top_gradient:
+    # mobile: 80
+    # desktop: 55
+    mobile: 0
+    desktop: 0
+  # Fade the bottom of the image into the page background — single percent of
+  # the image height, applied on both mobile and desktop. 0 = off.
+  bottom_gradient: 55
+
+  pinned_posts_home:
+    # old | new | none
+    version: old 
+    # true | false (only for new version)
+    gradient: true
+    
+  # Make the top image taller on mobile (doubles its height).
+  extend_mobile: true
+  # bottom_fill: gradient  # gradient | solid | none
+
   light:
     url: "https://picsum.photos/id/1073/2000/1000"
     # url: "/assets/img/background.png"

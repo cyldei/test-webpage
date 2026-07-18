@@ -72,7 +72,8 @@ layout: page
   #post-list .post-preview.pinned {
     --pin-accent: #555;                 /* dark gray in light mode */
     --pin-text-accent: #d2603a;  /* orange-red for the pin icon and label */
-    background: var(--pin-bg);
+    /* Gradient colours inlined (light mode); dark values set in the blocks below. */
+    background: linear-gradient(to bottom, #e0e0e4, #fafafa);
     border-left: 4px solid var(--pin-accent);
     border-radius: 8px;
     padding-left: 1.25rem;
@@ -104,18 +105,21 @@ layout: page
     text-transform: uppercase;
     letter-spacing: 0.03em;
   }
-  /* Light gray accent in dark mode (mirrors the theme's dark-mode resolution). */
+  /* Dark-mode values. Two cases must be covered, because theme_mode is unset
+     (follows the OS) yet the toggle button sets data-mode explicitly:
+       1. OS dark, no manual toggle -> html has no data-mode attribute
+       2. manually toggled to dark  -> html[data-mode="dark"] (any OS)
+     Without case 2, the light gradient/accents leaked into toggled dark mode. */
   @media (prefers-color-scheme: dark) {
-    html:not([data-mode]) #post-list .post-preview.pinned,
-    html[data-mode="dark"] #post-list .post-preview.pinned {
+    html:not([data-mode]) #post-list .post-preview.pinned {
       --pin-accent: #b0b0b0;
+      background: linear-gradient(to bottom, rgb(48, 49, 53), rgb(28, 29, 31));
     }
   }
-  /* @media (prefers-color-scheme: light) {
-    html[data-mode="dark"] #post-list .post-preview.pinned {
-      --pin-accent: #b0b0b0;
-    }
-  } */
+  html[data-mode="dark"] #post-list .post-preview.pinned {
+    --pin-accent: #b0b0b0;
+    background: linear-gradient(to bottom, rgb(48, 49, 53), rgb(28, 29, 31));
+  }
 
   /* Mobile fixes (phones). The theme's mobile rule
      `#core-wrapper h1 { margin-top: 2.2rem; font-size: 1.75rem }` is meant for
