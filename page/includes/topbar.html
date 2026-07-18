@@ -130,45 +130,49 @@
        top. In "spring" mode, once revealed it springs back to the hidden
        position as soon as the user scrolls away from the top. -->
   <script type="text/javascript">
+    /* NOTE: use only block comments here. In production the `compress_html`
+       layout collapses this script onto a single line, which turns any `//`
+       line comment into a comment that swallows the rest of the script. */
     (function () {
-      const topbarImage = document.getElementById('topbar-image');
+      var topbarImage = document.getElementById('topbar-image');
       if (!topbarImage) return;
 
-      const mode = topbarImage.dataset.barMode;
+      var mode = topbarImage.dataset.barMode;
       if (mode !== 'active' && mode !== 'spring') return;
 
-      const isMobile = () => window.matchMedia('(max-width: 849px)').matches;
-      const imageHeight = () => topbarImage.offsetHeight;
+      var isMobile = function () { return window.matchMedia('(max-width: 849px)').matches; };
+      var imageHeight = function () { return topbarImage.offsetHeight; };
 
-      // Read/write scroll position in a way that works across Safari versions
-      // (some use documentElement, some use body as the scrolling element).
-      const getScrollTop = () =>
-        window.pageYOffset ||
-        (document.documentElement && document.documentElement.scrollTop) ||
-        (document.body && document.body.scrollTop) || 0;
+      /* Read/write scroll position in a way that works across Safari versions
+         (some use documentElement, some use body as the scrolling element). */
+      var getScrollTop = function () {
+        return window.pageYOffset ||
+          (document.documentElement && document.documentElement.scrollTop) ||
+          (document.body && document.body.scrollTop) || 0;
+      };
 
-      const setScrollTop = (y) => {
+      var setScrollTop = function (y) {
         window.scrollTo(0, y);
         if (document.documentElement) document.documentElement.scrollTop = y;
         if (document.body) document.body.scrollTop = y;
       };
 
-      // Manual rAF smooth scroll — `scrollTo({behavior:'smooth'})` is unreliable
-      // on iOS Safari, so animate ourselves for consistent behavior.
-      let animId = null;
-      const animateScrollTo = (target) => {
+      /* Manual rAF smooth scroll — scrollTo({behavior:'smooth'}) is unreliable
+         on iOS Safari, so animate ourselves for consistent behavior. */
+      var animId = null;
+      var animateScrollTo = function (target) {
         if (animId) cancelAnimationFrame(animId);
-        const start = getScrollTop();
-        const dist = target - start;
+        var start = getScrollTop();
+        var dist = target - start;
         if (Math.abs(dist) < 2) {
           setScrollTop(target);
           return;
         }
-        const duration = 300;
-        const t0 = (window.performance && performance.now) ? performance.now() : Date.now();
-        const step = (now) => {
-          const p = Math.min(1, (now - t0) / duration);
-          const ease = p < 0.5 ? 2 * p * p : -1 + (4 - 2 * p) * p; // easeInOutQuad
+        var duration = 300;
+        var t0 = (window.performance && performance.now) ? performance.now() : Date.now();
+        var step = function (now) {
+          var p = Math.min(1, (now - t0) / duration);
+          var ease = p < 0.5 ? 2 * p * p : -1 + (4 - 2 * p) * p; /* easeInOutQuad */
           setScrollTop(Math.round(start + dist * ease));
           if (p < 1) {
             animId = requestAnimationFrame(step);
@@ -177,9 +181,9 @@
         animId = requestAnimationFrame(step);
       };
 
-      const hideImage = (smooth) => {
+      var hideImage = function (smooth) {
         if (!isMobile()) return;
-        const h = imageHeight();
+        var h = imageHeight();
         if (h <= 0 || getScrollTop() >= h - 1) return;
         if (smooth) {
           animateScrollTo(h);
@@ -188,57 +192,57 @@
         }
       };
 
-      // Don't let the browser restore a previous scroll position over ours.
+      /* Don't let the browser restore a previous scroll position over ours. */
       if ('scrollRestoration' in history) {
         history.scrollRestoration = 'manual';
       }
 
-      // iOS Safari re-applies its own scroll position several times during and
-      // after load (layout, image load, URL-bar resize). Re-enforce the hidden
-      // position through the early window, but stop the moment the user
-      // actually interacts so we never fight a deliberate scroll/tap.
-      let userEngaged = false;
-      const markEngaged = () => { userEngaged = true; };
+      /* iOS Safari re-applies its own scroll position several times during and
+         after load (layout, image load, URL-bar resize). Re-enforce the hidden
+         position through the early window, but stop the moment the user
+         actually interacts so we never fight a deliberate scroll/tap. */
+      var userEngaged = false;
+      var markEngaged = function () { userEngaged = true; };
       window.addEventListener('touchstart', markEngaged, { passive: true, once: true });
       window.addEventListener('wheel', markEngaged, { passive: true, once: true });
       window.addEventListener('keydown', markEngaged, { once: true });
 
-      const enforceHidden = () => { if (!userEngaged) hideImage(false); };
+      var enforceHidden = function () { if (!userEngaged) hideImage(false); };
 
       window.addEventListener('pageshow', enforceHidden);
       window.addEventListener('load', enforceHidden);
       document.addEventListener('DOMContentLoaded', enforceHidden);
-      [0, 60, 150, 300, 500, 800].forEach((t) => setTimeout(enforceHidden, t));
+      [0, 60, 150, 300, 500, 800].forEach(function (t) { setTimeout(enforceHidden, t); });
       enforceHidden();
 
-      // "spring": while the user is touching the screen the image stays put, so
-      // it can be held revealed. Once the finger lifts and any momentum scroll
-      // settles, it automatically snaps back to the hidden view.
+      /* "spring": while the user is touching the screen the image stays put, so
+         it can be held revealed. Once the finger lifts and any momentum scroll
+         settles, it automatically snaps back to the hidden view. */
       if (mode === 'spring') {
-        let timer = null;
-        let touching = false;
+        var timer = null;
+        var touching = false;
 
-        // hideImage already no-ops on desktop or when past the image.
-        const scheduleSettle = () => {
+        /* hideImage already no-ops on desktop or when past the image. */
+        var scheduleSettle = function () {
           if (timer) clearTimeout(timer);
-          timer = setTimeout(() => {
+          timer = setTimeout(function () {
             if (!touching) hideImage(true);
           }, 150);
         };
 
-        window.addEventListener('touchstart', () => {
+        window.addEventListener('touchstart', function () {
           touching = true;
           if (timer) clearTimeout(timer);
-          if (animId) cancelAnimationFrame(animId); // let the finger take over
+          if (animId) cancelAnimationFrame(animId); /* let the finger take over */
         }, { passive: true });
 
-        window.addEventListener('touchend', () => {
+        window.addEventListener('touchend', function () {
           touching = false;
           scheduleSettle();
         }, { passive: true });
 
-        window.addEventListener('scroll', () => {
-          // While a finger is down, leave the image wherever the user holds it.
+        window.addEventListener('scroll', function () {
+          /* While a finger is down, leave the image wherever the user holds it. */
           if (touching) return;
           scheduleSettle();
         }, { passive: true });
