@@ -116,6 +116,41 @@ layout: page
       --pin-accent: #b0b0b0;
     }
   } */
+
+  /* Mobile fixes (phones). The theme's mobile rule
+     `#core-wrapper h1 { margin-top: 2.2rem; font-size: 1.75rem }` is meant for
+     page titles but also hits the post-preview titles here, adding a big gap
+     above the first post and oversizing the headings — restore the intended
+     post-list heading style. Also drop the pinned card's negative margins,
+     which otherwise push the card off the left edge (clipped by
+     overflow-x: hidden) and create the stray sliver/artifact. */
+  @media all and (max-width: 576px) {
+    #post-list .post-preview h1 {
+      margin-top: 0;
+      font-size: 1.4rem;
+    }
+
+    /* Tighten the white gap above the first post, but keep the first post's
+       tinted area the same height as every other post (leave its padding-top
+       at the default 1.5rem). */
+    #post-list {
+      margin-top: -2rem;
+    }
+
+    /* Full-bleed pinned highlight on mobile: the tint spans the whole
+       viewport width (edge to edge). Negative margins pull the card out to
+       the screen edges, while matching padding pushes its text back so it
+       still lines up with the non-pinned posts. No border/rounded corners so
+       there's no clipped sliver artifact. */
+    #post-list .post-preview.pinned {
+      border-left: none;
+      border-radius: 0;
+      margin-left: calc(50% - 50vw);
+      margin-right: calc(50% - 50vw);
+      padding-left: calc(50vw - 50%);
+      padding-right: calc(50vw - 50%);
+    }
+  }
 </style>
 
 <div id="post-list">
