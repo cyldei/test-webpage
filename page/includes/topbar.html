@@ -140,11 +140,38 @@
       const isMobile = () => window.matchMedia('(max-width: 849px)').matches;
       const imageHeight = () => topbarImage.offsetHeight;
 
+      // Manual rAF smooth scroll — `scrollTo({behavior:'smooth'})` is unreliable
+      // on iOS Safari, so animate ourselves for consistent behavior.
+      let animId = null;
+      const animateScrollTo = (target) => {
+        if (animId) cancelAnimationFrame(animId);
+        const start = window.pageYOffset;
+        const dist = target - start;
+        if (Math.abs(dist) < 2) {
+          window.scrollTo(0, target);
+          return;
+        }
+        const duration = 300;
+        const t0 = (window.performance && performance.now) ? performance.now() : Date.now();
+        const step = (now) => {
+          const p = Math.min(1, (now - t0) / duration);
+          const ease = p < 0.5 ? 2 * p * p : -1 + (4 - 2 * p) * p; // easeInOutQuad
+          window.scrollTo(0, Math.round(start + dist * ease));
+          if (p < 1) {
+            animId = requestAnimationFrame(step);
+          }
+        };
+        animId = requestAnimationFrame(step);
+      };
+
       const hideImage = (smooth) => {
         if (!isMobile()) return;
         const h = imageHeight();
-        if (h > 0 && window.scrollY < h) {
-          window.scrollTo({ top: h, left: 0, behavior: smooth ? 'smooth' : 'auto' });
+        if (h <= 0 || window.pageYOffset >= h) return;
+        if (smooth) {
+          animateScrollTo(h);
+        } else {
+          window.scrollTo(0, h); // two-arg form works everywhere, incl. old iOS
         }
       };
 
@@ -153,9 +180,17 @@
         history.scrollRestoration = 'manual';
       }
 
-      window.addEventListener('load', () => hideImage(false));
-      // Run once now in case `load` already fired.
-      hideImage(false);
+      // Hide on first show and on back/forward (bfcache) restore. iOS Safari
+      // applies its own scroll after layout, so defer a couple of frames.
+      const initialHide = () => {
+        requestAnimationFrame(() => {
+          hideImage(false);
+          requestAnimationFrame(() => hideImage(false));
+        });
+      };
+      window.addEventListener('pageshow', initialHide);
+      window.addEventListener('load', initialHide);
+      initialHide();
 
       // "spring": while the user is touching the screen the image stays put, so
       // it can be held revealed. Once the finger lifts and any momentum scroll
@@ -175,6 +210,7 @@
         window.addEventListener('touchstart', () => {
           touching = true;
           if (timer) clearTimeout(timer);
+          if (animId) cancelAnimationFrame(animId); // let the finger take over
         }, { passive: true });
 
         window.addEventListener('touchend', () => {
