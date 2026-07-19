@@ -61,11 +61,6 @@
       color: "darkred"
       color_dark: "#c50000"
       icon: fa fa-shopping-cart
-    # "Nakład wyczerpany":
-    #   url: "/books"
-    #   color: lightgray
-    #   color_dark: "#3a3d42"
-    #   icon: fa-shopping-cart
 
 - title: "Dzieciaki Zwierzaki"
   description: |
@@ -78,3 +73,22 @@
     "Kup książkę":
       url: https://wfw.com.pl/ksiazki/dzieciaki-zwierzaki/
       icon: fa fa-shopping-cart
+
+- title: "KOBIETY - Wierszykon imion żenskich"
+  description: |
+    Imię ma magiczną moc. Jest nieodłączną składową naszego wizerunku, nierzadko kształtuje nasz charakter i towarzyszy nam przez całe nasze życie. Jest naszą drogocenną i unikalną wizytówką. Spaja się z człowiekiem tak mocno, że nawet po śmierci pozostaje z nim już... na zawsze.
+
+    Od pełnej wdzięku Adrianny, poprzez tajemniczą Izabelę, śliczną Klaudię – aż do chimerycznej Żanety. 
+    Zbiór 160 krótkich, rymowanych fraszek o niemal każdej kobiecie w Polsce, okraszonych sporą dawką humoru i przenikliwości życiowej autora, który pisząc czasami z autopsji przeniósł charakter i cudowność Kobiet na papier. Epigramy zebrane w tomiku są jak kalejdoskop, w którego zwierciadłach mienią się cechy i osobowości naszych niewiast, ich zalety oraz wady. Każda jest inna i niepowtarzalna, każda na swój sposób piękna, wartościowa i urocza. Jeżeli chcesz rozsmakować się w wykwintnej uczcie  poezji, przepełnionej kobiecymi emocjami, figlarnymi epitetami, ekstrawagancką filuterią, czy wreszcie beztroskim jestestwem – siądź wygodnie na sofie, otwórz książkę i chłoń rytmiczną melodię każdego jej wersu...
+  # date: 2014
+  # publisher: Warszawska Firma Wydawnicza
+  image: /assets/img/books/kobiety/cover.png
+  links:
+    # "Kup książkę":
+    #   url: https://wfw.com.pl/ksiazki/dzieciaki-zwierzaki/
+    #   icon: fa fa-shopping-cart
+    "Nakład wyczerpany":
+      url: "/books"
+      color: lightgray
+      color_dark: "#3a3d42"
+      icon: fa-shopping-cart

@@ -1,5 +1,5 @@
 ---
-title: "Podsumowanie spotkania w MBP 2026-05-15"
+title: "Podsumowanie spotkania w MBP 2025-05-15"
 date: 2025-05-16 20:00:00 +0200
 image: 
 #   path: /assets/img/posts/2025/05/16/image-9.png
