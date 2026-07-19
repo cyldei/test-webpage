@@ -1099,6 +1099,10 @@ $sidebar-display: "sidebar-display";
    so its controls float over the image. The existing `bottom_gradient` still
    fades the image bottom, which also aids legibility of the floating controls. */
 #topbar-image[data-bottom-fill="true"] ~ #topbar-wrapper-home {
+  /* How far the floating controls are nudged up over the image, per viewport. */
+  --move-buttons-up-mobile: -0.4rem;
+  --move-buttons-up-desktop: -0.3rem;
+
   margin-top: -$topbar-height;
   background: transparent;
   border-bottom: 0;
@@ -1124,6 +1128,9 @@ $sidebar-display: "sidebar-display";
     #topbar-title,
     #breadcrumb {
       text-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
+      /* Nudge the floating controls up a little so they sit higher over the
+         image rather than centered in the (pulled-up) bar. */
+      transform: translateY(var(--move-buttons-up-desktop));
     }
 
     #search-wrapper {
@@ -1133,6 +1140,7 @@ $sidebar-display: "sidebar-display";
       margin-left: auto;
       border-radius: 999px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      transform: translateY(var(--move-buttons-up-desktop));
     }
   }
 }
@@ -1146,6 +1154,7 @@ $sidebar-display: "sidebar-display";
     --float-fg: #1b1b1e;
     --float-backdrop: rgba(255, 255, 255, 0.6);
     --float-shadow: 0 1px 3px rgba(255, 255, 255, 0.75);
+    
 
     #sidebar-trigger,
     #search-trigger {
@@ -1157,11 +1166,17 @@ $sidebar-display: "sidebar-display";
       border-radius: 50%;
       background: var(--float-backdrop);
       color: var(--float-fg);
+      /* Nudge the floating buttons up a little so they sit higher over the
+         image rather than centered in the (pulled-up) bar. */
+      transform: translateY(var(--move-buttons-up-mobile));
     }
 
     #topbar-title {
       color: var(--float-fg);
       text-shadow: var(--float-shadow);
+      /* Match the buttons' upward nudge so the title stays vertically centered
+         with them. */
+      transform: translateY(var(--move-buttons-up-mobile));
     }
 
     #topbar i {
