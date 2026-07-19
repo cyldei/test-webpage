@@ -7,7 +7,6 @@ image:
 tags:
   - artykuł
   - off-topic
-pin: true
 ---
 
 # **Pies Karambus też kibicuje!** 💚🖤❤️

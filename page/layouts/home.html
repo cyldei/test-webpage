@@ -50,6 +50,27 @@ layout: page
   {% assign pin_new = site.pinned_posts_home.new_version.enable %}
   {% assign pin_grad_mobile = site.pinned_posts_home.new_version.gradient.mobile %}
   {% assign pin_grad_desktop = site.pinned_posts_home.new_version.gradient.desktop %}
+  {% assign pin_grad_mobile_invert = site.pinned_posts_home.new_version.gradient.mobile_invert %}
+  {% assign pin_grad_desktop_invert = site.pinned_posts_home.new_version.gradient.desktop_invert %}
+  {% comment %} Gradient color stops, swapped (inverted) per viewport. {% endcomment %}
+  {% assign pin_grad_light_normal = 'linear-gradient(to bottom, #e0e0e4, #fafafa)' %}
+  {% assign pin_grad_light_invert = 'linear-gradient(to bottom, #fafafa, #e0e0e4)' %}
+  {% assign pin_grad_dark_normal = 'linear-gradient(to bottom, rgb(48, 49, 53), rgb(28, 29, 31))' %}
+  {% assign pin_grad_dark_invert = 'linear-gradient(to bottom, rgb(28, 29, 31), rgb(48, 49, 53))' %}
+  {% if pin_grad_desktop_invert %}
+    {% assign pin_grad_light_desktop = pin_grad_light_invert %}
+    {% assign pin_grad_dark_desktop = pin_grad_dark_invert %}
+  {% else %}
+    {% assign pin_grad_light_desktop = pin_grad_light_normal %}
+    {% assign pin_grad_dark_desktop = pin_grad_dark_normal %}
+  {% endif %}
+  {% if pin_grad_mobile_invert %}
+    {% assign pin_grad_light_mobile = pin_grad_light_invert %}
+    {% assign pin_grad_dark_mobile = pin_grad_dark_invert %}
+  {% else %}
+    {% assign pin_grad_light_mobile = pin_grad_light_normal %}
+    {% assign pin_grad_dark_mobile = pin_grad_dark_normal %}
+  {% endif %}
   {% if pin_new %}
   #post-list .post-preview.pinned {
     --pin-accent: #555;                 /* dark gray in light mode */
@@ -57,7 +78,7 @@ layout: page
     /* --pin-grad holds the (mode-aware) gradient; --pin-fill picks gradient vs
        the flat tint per viewport — desktop here, mobile in the @media below —
        driven by pinned_posts_home.new_version.gradient.{desktop,mobile}. */
-    --pin-grad: linear-gradient(to bottom, #e0e0e4, #fafafa);
+    --pin-grad: {{ pin_grad_light_desktop }};
     --pin-fill: {% if pin_grad_desktop %}var(--pin-grad){% else %}var(--pin-bg){% endif %};
     background: var(--pin-fill);
     border-left: 4px solid var(--pin-accent);
@@ -99,12 +120,12 @@ layout: page
   @media (prefers-color-scheme: dark) {
     html:not([data-mode]) #post-list .post-preview.pinned {
       --pin-accent: #b0b0b0;
-      --pin-grad: linear-gradient(to bottom, rgb(48, 49, 53), rgb(28, 29, 31));
+      --pin-grad: {{ pin_grad_dark_desktop }};
     }
   }
   html[data-mode="dark"] #post-list .post-preview.pinned {
     --pin-accent: #b0b0b0;
-    --pin-grad: linear-gradient(to bottom, rgb(48, 49, 53), rgb(28, 29, 31));
+    --pin-grad: {{ pin_grad_dark_desktop }};
   }
   {% else %}
   /* OLD VERSION (pinned_posts_home.new_version.enable = false): no custom
@@ -142,6 +163,9 @@ layout: page
        there's no clipped sliver artifact. */
     {% if pin_new %}
     #post-list .post-preview.pinned {
+      /* Mobile uses its own invert setting (mobile_invert), so re-pick the
+         gradient here rather than inheriting the desktop one. */
+      --pin-grad: {{ pin_grad_light_mobile }};
       --pin-fill: {% if pin_grad_mobile %}var(--pin-grad){% else %}var(--pin-bg){% endif %};
       border-left: none;
       border-radius: 0;
@@ -152,8 +176,22 @@ layout: page
       padding-left: calc(50vw - 50%);
       padding-right: calc(50vw - 50%);
     }
+    /* Manually toggled dark: always dark regardless of OS. */
+    html[data-mode="dark"] #post-list .post-preview.pinned {
+      --pin-grad: {{ pin_grad_dark_mobile }};
+    }
     {% endif %}
   }
+
+  {% if pin_new %}
+  /* OS dark with no manual toggle, on mobile: mirror the desktop
+     prefers-color-scheme rule but with the mobile invert setting. */
+  @media all and (max-width: 576px) and (prefers-color-scheme: dark) {
+    html:not([data-mode]) #post-list .post-preview.pinned {
+      --pin-grad: {{ pin_grad_dark_mobile }};
+    }
+  }
+  {% endif %}
 </style>
 
 <div id="post-list">
