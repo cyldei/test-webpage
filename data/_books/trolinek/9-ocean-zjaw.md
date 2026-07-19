@@ -5,7 +5,7 @@ image:
 order: 9
 ---
 <p align=center>
-Nie myśląc za wiele Trolinek tam wlazł,<br>
+Nie myśląc za wiele, Trolinek tam wlazł,<br>
 Kryptę czerń zalewa, tu blask światła zgasł,<br>
 Kolec po skorpionie wydobył z kieszeni,<br>
 Siła jego mocy, sprawia, że się mieni.<br>
@@ -19,7 +19,7 @@ Kadłub jak szkieletor, żebra zapleśniałe,<br>
 Dwie pirackie flagi dawno już sparciałe.<br>
 Po dziurawych schodach, na obślizły pokład,<br>
 Dostał się Trolinek, tam wszystkiego rozkład,<br>
-Pełno zardzewiałych haków, lin, łańcuchów,<br>
+Pełno zardzewiałych: haków, lin, łańcuchów,<br>
 Słychac dookoła, śpiew pirackich duchów.<br>
 Wdrapał się na mostek, dłońmi chwycił ster,<br>
 Statek się poruszył, zewsząd biegnie szmer,<br>

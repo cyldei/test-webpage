@@ -18,7 +18,7 @@ Stał na wielkim wężu, który w drogę ruszył.<br>
 "Witaj mały druhu" , wąż przemówił cicho,<br>
 "W bagnach lazurowych, czai się złe licho,<br>
 Usiądź na mym grzbiecie, popełzniemy w dal,<br>
-W lazurowe bagna, na tajemny bal".<br>
+W lazurowe bagna, na tajemny bal.”<br>
 Rozsiadł się Trolinek, na wężowej skórze,<br>
 A wąż leśny oszust, podły w swej naturze,<br>
 Porwał go i lezie poprzez ciemny jar,<br>
@@ -48,5 +48,5 @@ Usiadł na storczyku, mały cherubinek.<br>
 Kwiat do niego szeptem, cicho cichuteńko:<br>
 "Kołysz się i zaśnij, maleńka duszeńko,<br>
 Gdy otworzysz oczka, będziesz już daleko,<br>
-Za ogromną górą i rozwlekłą rzeką."<br>
+Za ogromną górą i rozwlekłą rzeką.”<br>
 </p>

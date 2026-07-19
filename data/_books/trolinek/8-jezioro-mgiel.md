@@ -43,7 +43,7 @@ Zerwał się na nogi, życie swe ratuje,<br>
 Resztką tlenu z płuc, mocą w gwizdek duje,<br>
 Usłyszały dźwięki gwizdka magicznego,<br>
 Wszystkie żywe liście drzewa czarownego ,<br>
-Pędem się zerwał tworząc wielką kiść,<br>
+Pędem się zerwałym, tworząc wielką kiść,<br>
 Mkną jak ptak po niebie, by na pomoc iść,<br>
 Liści wielka chmara teraz w dół pikuje,<br>
 I jak kamień w wodę głęboko nurkuje,<br>

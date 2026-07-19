@@ -20,11 +20,11 @@ Bardzo ciężkim głosem, jakby był potworem,<br>
 W każdej z pięciu szczelin wielkiej pajęczarni,<br>
 Świeci mroczna głowa, jak w starej latarni.<br>
 “Witaj przyjacielu”, oświadczyły głowy,<br>
-“Nie znam Ciebie wcale, jesteś tutaj nowy?,<br>
+“Nie znam Ciebie wcale, jesteś tutaj nowy?<br>
 Mam trudne zadanie, dziś uwolnię Ciebie,<br>
-Jeśli pięć zagadek rozwiążesz od siebie”.<br>
+Jeśli pięć zagadek rozwiążesz od siebie.”<br>
 Pierwsza głowa pyta, "Czyje są te głowy?"<br>
-"Właściciel jest jeden, pająk pięciogłowy".<br>
+"Właściciel jest jeden, pająk pięciogłowy.”<br>
 Odpowiedział śmiało na dalsze pytania,<br>
 Jeszcze tylko jedno i koniec zadania.<br>
 Piąta głowa wreszcie powiedziała; "Mam!<br>
@@ -33,7 +33,7 @@ Trolinek podrapał, mocno się po głowie,<br>
 To zadanie trudne, zaraz im odpowie:<br>
 "Każda z was jest mądra, lotna, błyskotliwa,<br>
 Lecz owe żądanie, rzecz niesprawiedliwa,<br>
-Należycie przeto do jednego pana",<br>
+Należycie przeto do jednego pana!”<br>
 Na to głowy znikły, rzecz to niesłychana,<br>
 Sieć pajęcza w trok napięta, z całej mocy,<br>
 Wystrzeliła hen Trolinka, niczym z procy,<br>

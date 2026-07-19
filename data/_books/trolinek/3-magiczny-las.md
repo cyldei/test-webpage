@@ -12,17 +12,17 @@ Skamieniały nagle jego małe nóżki.<br>
 Usiadł więc na wielkim, oślizłym kamieniu,<br>
 Ten przemówił głosem, ku jego zdziwieniu:<br>
 "Usiądź proszę, rozgość się na moim brzuchu,<br>
-Smutno mi bo tkwię tu, tysiąc lat bez ruchu".<br>
+Smutno mi, bo tkwię tu, tysiąc lat bez ruchu.”<br>
 Zadał sobie w myślach Trolinek pytanie,<br>
 "Cóż to są za czary, co się teraz stanie?"<br>
 Nie zdążył pomyśleć, a odpowiedź tuż,<br>
 Na kamieniu napis; więc przeczytał już:<br>
 "Takich jak ja tutaj, w lesie jest bez liku,<br>
 Zaklętych w kamieniach w każdym zagajniku,<br>
-Jeśli masz odwagę, Zmorę przywiedź w las, <br>
+Jeśli masz odwagę, Zmorę przywiedź w las,<br>
 Zdejmij z Nas zaklęcia i odczaruj nas."<br>
 Przyjrzał się dokładnie, bo podpis malutki,<br>
-I odczytał słowa; “leśne jeżoludki”.<br>
+I odczytał słowa; “Leśne Jeżoludki”.<br>
 Uratować wszystkich, nie lada zadanie,<br>
 Ale dla Trolinka brzmi to jak wyzwanie.<br>
 Ruszył więc Trolinek aby minąć las,<br>

@@ -32,13 +32,13 @@ Wyspa łapie oddech, parska nad brzegami,<br>
 " Przed zachodem słońca ukryć się musimy,<br>
 Schować gdzieś pod ziemią, gdyż się udusimy.”<br>
 Stoją nad kraterem, w którym kipą dymy,<br>
-Spytał psa Trolinek, "Czemu tu sterczymy<br>
+Spytał psa Trolinek, "Czemu tu sterczymy?”<br>
 "Oto wyjście z wyspy, wrota do wolności,<br>
 Skacz nie bacząc na nic, użyj swej śmiałości.”<br>
 "Wiesz; kudłaty psiaku, nie zostawię Ciebie,<br>
 Razem stąd czmychniemy, jak ptaki na niebie.”<br>
 Wbił Trolinek w skałę kolec od skorpiona,<br>
-Krater pęka wpół i o pomoc woła,<br>
+Krater pęka cały i o pomoc woła,<br>
 Trzęsie się straszliwie, wyspa ogniem zieje,<br>
 I ze wszystkich stron wiatr zniszczenia wieje.<br>
 Wziął magiczny gwizdek, teraz w niego dmucha,<br>

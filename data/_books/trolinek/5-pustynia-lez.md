@@ -20,7 +20,7 @@ Opuścił kapelusz przenikliwie w dół.<br>
 Znalazł się Trolinek w perłowym więzieniu,<br>
 Usiadł i zapłakał na zimnym kamieniu.<br>
 Łez nie widać końca, płynie łzawa rzeka,<br>
-Grzyb otwarł kapelusz, myśli "Eureka!,<br>
+Grzyb otwarł kapelusz, myśli "Eureka!<br>
 Łzy twe wielce słone, niczym piach pustyni,<br>
 Każda na policzku wolnym cię uczyni,<br>
 Szukasz gniewnej Zmory, idź korytem rzeki,<br>
@@ -33,7 +33,7 @@ Spojrzał wstecz Trolinek, właz otwarł się cały,<br>
 Wyszedł groźny skorpion ,biegnie krusząc skały,<br>
 Szczypce już napięte, kolec naostrzony,<br>
 W miejscu tkwi Trolinek, płacze utrapiony,<br>
-Łez nie widać końca, cała rzeka płynie,<br>
+Łez nie widać końca, rzeka łzami płynie,<br>
 Porwał prąd skorpiona, lada moment zginie,<br>
 Został po skorpionie, tylko ciemny cień,<br>
 I leżący w piachu naostrzony cierń,<br>
@@ -43,8 +43,8 @@ Spękana pustynia, skwierczy solna rafa,<br>
 Drepcze nią Trolinek i ogonkiem macha,<br>
 Stracił wszystkie siły, w głowie mu się kręci,<br>
 Już ma paść na ziemię, już go myśl ta nęci,<br>
-Wtem usłyszał głos pustynnego ducha:<br>
-"Ratuj się Trolinku, niech gwizdek zadmucha".<br>
+Wtem usłyszał głos, pustynnego ducha:<br>
+"Ratuj się Trolinku, niech gwizdek zadmucha,”<br>
 Świszczy po pustkowiu, fiuka z całej mocy,<br>
 Aż tęczowy motyl przybył ku pomocy,<br>
 Dosiadł go Trolinek, fruwają po niebie,<br>
