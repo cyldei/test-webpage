@@ -24,12 +24,19 @@ layout: page
           {% endif %}
         </div>
         {% if book.description and book.description != "" %}
-        {% if page.collapsable or page.collapsable_mobile %}
+        {% comment %} Render Markdown (so **bold** etc. work) while preserving the
+           authored line breaks: newline_to_br turns each newline into a <br>
+           before markdownify, and strip_newlines drops the stray literal
+           newlines so <br> alone controls the breaks (no double spacing). The
+           <p> wrapper markdownify adds is removed so the text sits directly in
+           the clamp/description element. {% endcomment %}
+        {% assign book_desc_html = book.description | newline_to_br | markdownify | remove: '<p>' | remove: '</p>' | strip_newlines | strip %}
+        {% if page.collapsable.desktop.enable or page.collapsable_mobile %}
         <div class="book-description-wrapper book-desc-area">
-          <p class="text-muted mb-2 book-description">{{ book.description }}</p>
+          <div class="text-muted mb-2 book-description">{{ book_desc_html }}</div>
         </div>
         {% else %}
-        <p class="text-muted mb-2 book-desc-area">{{ book.description }}</p>
+        <div class="text-muted mb-2 book-desc-area">{{ book_desc_html }}</div>
         {% endif %}
         {% endif %}
       </div>
@@ -95,13 +102,21 @@ layout: page
   }
   .book-description-toggle {
     white-space: nowrap;
-    margin-left: 0.1rem;
+    margin-left: 0.25rem;
     text-decoration: none;
     color: var(--link-color, #007bff);
     cursor: pointer;
   }
   .book-description-toggle:hover {
     text-decoration: underline;
+  }
+  /* Fade mode: the collapsed teaser is cut at a word boundary just like the
+     "… Rozwiń" mode, but the last word dissolves to the right (into the toggle)
+     instead of a literal ellipsis. The toggle stays inline right after it, so
+     it ends the line in the same place — not pinned to the far right. */
+  .desc-fade-tail {
+    -webkit-mask-image: linear-gradient(to right, #000 15%, transparent);
+    mask-image: linear-gradient(to right, #000 15%, transparent);
   }
 
   /* On mobile, drop the description (and links) below the image + title/date/publisher. */
@@ -134,15 +149,31 @@ layout: page
 </style>
 
 <script>
-  var MAX_LINES = 4;
+  // Max collapsed lines, per viewport.
+  var MAX_LINES_DESKTOP = {{ page.collapsable.desktop.max_lines | default: 4 | jsonify }};
+  var MAX_LINES_MOBILE = {{ page.collapsable.mobile.max_lines | default: 4 | jsonify }};
   var MOBILE_BREAKPOINT = 576; // keep in sync with the @media rule above
 
   // Which viewports should collapse the description, driven by front matter.
-  var COLLAPSE_DESKTOP = {{ page.collapsable | default: false | jsonify }};
-  var COLLAPSE_MOBILE = {{ page.collapsable_mobile | default: false | jsonify }};
+  var COLLAPSE_DESKTOP = {{ page.collapsable.desktop.enable | default: false | jsonify }};
+  var COLLAPSE_MOBILE = {{ page.collapsable.mobile.enable | default: false | jsonify }};
 
-  // How many descriptions may be expanded at once. 0 (or negative) = unlimited.
-  var MAX_EXPANDED = {{ page.collapsable_max_expanded | default: 0 | jsonify }};
+  // How many descriptions may be expanded at once, per viewport. 0 (or
+  // negative) = unlimited.
+  var MAX_EXPANDED_DESKTOP = {{ page.collapsable.desktop.max_expanded | default: 0 | jsonify }};
+  var MAX_EXPANDED_MOBILE = {{ page.collapsable.mobile.max_expanded | default: 0 | jsonify }};
+
+  // Collapsed truncation style, per viewport:
+  //   true  -> clamp to N lines and fade the text out under a floating "Rozwiń".
+  //   false -> cut the text at a word boundary and end the line with
+  //            "text… Rozwiń" inline.
+  {% comment %} The `default` filter treats false as "missing", so it can't
+     express a false override of a true default — use an explicit test instead
+     (unset -> true, explicit false -> false). {% endcomment %}
+  {% assign _text_fade_desktop = page.collapsable.desktop.text_fade %}
+  {% assign _text_fade_mobile = page.collapsable.mobile.text_fade %}
+  var TEXT_FADE_DESKTOP = {% if _text_fade_desktop == false %}false{% else %}true{% endif %};
+  var TEXT_FADE_MOBILE = {% if _text_fade_mobile == false %}false{% else %}true{% endif %};
 
   function isMobile() {
     return window.matchMedia('(max-width: ' + MOBILE_BREAKPOINT + 'px)').matches;
@@ -152,114 +183,197 @@ layout: page
     return isMobile() ? COLLAPSE_MOBILE : COLLAPSE_DESKTOP;
   }
 
+  function maxLines() {
+    return isMobile() ? MAX_LINES_MOBILE : MAX_LINES_DESKTOP;
+  }
+
+  function textFade() {
+    return isMobile() ? TEXT_FADE_MOBILE : TEXT_FADE_DESKTOP;
+  }
+
+  function maxExpanded() {
+    return isMobile() ? MAX_EXPANDED_MOBILE : MAX_EXPANDED_DESKTOP;
+  }
+
   // Currently-expanded descriptions, in the order they were expanded. Used to
-  // enforce MAX_EXPANDED by collapsing the oldest when the limit is exceeded.
+  // enforce maxExpanded() by collapsing the oldest when the limit is exceeded.
   var expandedOrder = [];
 
   document.querySelectorAll('.book-description-wrapper').forEach(function(wrapper) {
     var desc = wrapper.querySelector('.book-description');
-    var fullText = desc.textContent.trim();
-    var words = fullText.split(/\s+/);
 
-    var textNode = document.createTextNode('');
-    var ellipsis = document.createTextNode('');
+    // The description holds rendered Markdown (bold, <br> line breaks). Keep a
+    // pristine copy so we can re-render either the full text or an
+    // HTML-preserving, word-boundary truncation of it without losing formatting.
+    var fullClone = desc.cloneNode(true);
+    var totalWords = (fullClone.textContent.match(/\S+/g) || []).length;
+
     var toggle = document.createElement('a');
     toggle.href = '#';
     toggle.className = 'book-description-toggle';
 
     var expanded = false;
+    var shortWords = totalWords; // word budget for the non-fade collapsed teaser
 
     // Exposed to the registry; re-pointed at the live render() on each apply().
     var controller = { collapse: function() {} };
+
+    // Replace the description content with the full text (limit == null) or the
+    // first `limit` words, cloning nodes so <strong>/<br> survive the cut.
+    function fillDesc(limit) {
+      desc.innerHTML = '';
+      if (limit == null) {
+        for (var i = 0; i < fullClone.childNodes.length; i++) {
+          desc.appendChild(fullClone.childNodes[i].cloneNode(true));
+        }
+        return;
+      }
+      var remaining = limit;
+      (function walk(src, dst) {
+        for (var i = 0; i < src.childNodes.length && remaining > 0; i++) {
+          var child = src.childNodes[i];
+          if (child.nodeType === 3) {
+            var out = '';
+            var parts = child.textContent.split(/(\s+)/);
+            for (var p = 0; p < parts.length && remaining > 0; p++) {
+              if (parts[p] === '') continue;
+              if (/^\s+$/.test(parts[p])) { out += ' '; continue; }
+              out += parts[p];
+              remaining--;
+            }
+            dst.appendChild(document.createTextNode(out));
+          } else if (child.nodeType === 1) {
+            var clone = child.cloneNode(false);
+            dst.appendChild(clone);
+            if (child.tagName !== 'BR') walk(child, clone);
+          }
+        }
+      })(fullClone, desc);
+      // Drop trailing whitespace/punctuation so the "… " reads cleanly.
+      var last = desc.lastChild;
+      while (last && last.nodeType === 3 && !/\S/.test(last.textContent)) {
+        desc.removeChild(last);
+        last = desc.lastChild;
+      }
+      if (last && last.nodeType === 3) {
+        last.textContent = last.textContent.replace(/[\s.,;:]+$/, '');
+      }
+    }
+
+    // Expanded: full text with the toggle inline at the end.
+    function showFull() {
+      wrapper.classList.remove('is-collapsed');
+      fillDesc(null);
+      desc.appendChild(document.createTextNode(' '));
+      desc.appendChild(toggle);
+      toggle.textContent = 'Zwiń';
+    }
+
+    // Fade the last word of the collapsed teaser out to the right, so in fade
+    // mode the text dissolves into the toggle instead of ending with "… ".
+    function fadeLastWord() {
+      var node = desc;
+      while (node && node.lastChild) node = node.lastChild;
+      if (!node || node.nodeType !== 3) return;
+      var m = node.textContent.match(/(\S+)\s*$/);
+      if (!m) return;
+      node.textContent = node.textContent.slice(0, node.textContent.length - m[0].length);
+      var span = document.createElement('span');
+      span.className = 'desc-fade-tail';
+      span.textContent = m[1];
+      node.parentNode.appendChild(span);
+    }
+
+    // Collapsed teaser: the first `n` words, then the trailing decoration and
+    // the toggle — inline at the end of the line, in the same place for both
+    // modes. Fade mode dissolves the last word into the toggle; otherwise a
+    // literal "… " precedes it. Shared by the measuring search and final render.
+    function collapseTo(n) {
+      wrapper.classList.add('is-collapsed');
+      fillDesc(n);
+      if (textFade()) {
+        fadeLastWord();
+        desc.appendChild(document.createTextNode(' '));
+      } else {
+        desc.appendChild(document.createTextNode('… '));
+      }
+      desc.appendChild(toggle);
+      toggle.textContent = 'Rozwiń';
+    }
+
+    function showCollapsed() {
+      collapseTo(shortWords);
+    }
+
+    function render() {
+      if (expanded) showFull(); else showCollapsed();
+    }
 
     // (Re)build the collapsed/expanded state for the current viewport. Called on
     // load and on resize so switching between desktop and mobile re-measures the
     // text against the width it is actually rendered at.
     function apply() {
-      desc.textContent = '';
-      desc.appendChild(textNode);
-      desc.appendChild(ellipsis);
-      desc.appendChild(toggle);
-
       // Collapsing disabled for this viewport: show the full text, no toggle.
       if (!collapseActive()) {
-        textNode.textContent = fullText;
-        ellipsis.textContent = '';
-        desc.textContent = fullText;
+        wrapper.classList.remove('is-collapsed');
+        fillDesc(null);
+        if (toggle.parentNode) toggle.parentNode.removeChild(toggle);
         return;
       }
 
-      // Max height the collapsed description may occupy (MAX_LINES lines).
+      // If the full text already fits within N lines, no toggle needed.
+      fillDesc(null);
       var lineHeight = parseFloat(getComputedStyle(desc).lineHeight) || 20;
-      var maxHeight = lineHeight * MAX_LINES + lineHeight * 0.25;
-
-      function fits() {
-        return desc.scrollHeight <= maxHeight;
-      }
-
-      // If the whole text already fits within MAX_LINES, no toggle needed.
-      textNode.textContent = fullText;
-      ellipsis.textContent = '';
-      if (fits()) {
-        if (toggle.parentNode) desc.removeChild(toggle);
+      var maxHeight = lineHeight * maxLines() + lineHeight * 0.25;
+      if (desc.scrollHeight <= maxHeight) {
+        wrapper.classList.remove('is-collapsed');
+        if (toggle.parentNode) toggle.parentNode.removeChild(toggle);
         return;
       }
 
-      // Fill as many whole words as fit alongside the "… Rozwiń" toggle,
-      // so the collapsed block uses the full width of every line.
-      ellipsis.textContent = '… ';
+      // Binary-search the largest word budget that still fits within N lines,
+      // with the collapsed decoration + toggle sharing the last line.
       toggle.textContent = 'Rozwiń';
-      var lo = 1, hi = words.length, best = 1;
+      var lo = 1, hi = totalWords, best = 1;
       while (lo <= hi) {
         var mid = (lo + hi) >> 1;
-        textNode.textContent = words.slice(0, mid).join(' ').replace(/[.,;:\s]+$/, '');
-        if (fits()) { best = mid; lo = mid + 1; }
+        collapseTo(mid);
+        if (desc.scrollHeight <= maxHeight) { best = mid; lo = mid + 1; }
         else { hi = mid - 1; }
       }
-      var shortText = words.slice(0, best).join(' ').replace(/[.,;:\s]+$/, '');
+      shortWords = best;
+      render();
+    }
 
-      function render() {
-        if (expanded) {
-          textNode.textContent = fullText + ' ';
-          ellipsis.textContent = '';
-          toggle.textContent = 'Zwiń';
-        } else {
-          textNode.textContent = shortText;
-          ellipsis.textContent = '… ';
-          toggle.textContent = 'Rozwiń';
+    // Collapsing this description resets its state, re-renders, and drops it
+    // from the expanded-order queue.
+    controller.collapse = function() {
+      if (expanded) {
+        expanded = false;
+        var i = expandedOrder.indexOf(controller);
+        if (i !== -1) expandedOrder.splice(i, 1);
+        render();
+      }
+    };
+
+    toggle.onclick = function(e) {
+      e.preventDefault();
+      expanded = !expanded;
+      if (expanded) {
+        expandedOrder.push(controller);
+        // Enforce the (per-viewport) limit by collapsing the oldest ones.
+        var limit = maxExpanded();
+        if (limit > 0) {
+          while (expandedOrder.length > limit) {
+            expandedOrder[0].collapse();
+          }
         }
+      } else {
+        var i = expandedOrder.indexOf(controller);
+        if (i !== -1) expandedOrder.splice(i, 1);
       }
       render();
-
-      // Collapsing this description resets its state, re-renders, and drops it
-      // from the expanded-order queue.
-      controller.collapse = function() {
-        if (expanded) {
-          expanded = false;
-          var i = expandedOrder.indexOf(controller);
-          if (i !== -1) expandedOrder.splice(i, 1);
-          render();
-        }
-      };
-
-      toggle.onclick = function(e) {
-        e.preventDefault();
-        expanded = !expanded;
-        if (expanded) {
-          expandedOrder.push(controller);
-          // Enforce the limit by collapsing the oldest still-expanded ones.
-          if (MAX_EXPANDED > 0) {
-            while (expandedOrder.length > MAX_EXPANDED) {
-              expandedOrder[0].collapse();
-            }
-          }
-        } else {
-          var i = expandedOrder.indexOf(controller);
-          if (i !== -1) expandedOrder.splice(i, 1);
-        }
-        render();
-      };
-    }
+    };
 
     apply();
 

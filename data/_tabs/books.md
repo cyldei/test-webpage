@@ -4,7 +4,15 @@ icon: fas fa-book
 order: 2
 title: "Książki"
 display_title: "Bibliografia"
-collapsable: true
-collapsable_mobile: true
-collapsable_max_expanded: 0
+collapsable:
+  desktop:
+    enable: true
+    max_lines: 4
+    max_expanded: 2
+    text_fade: false
+  mobile:
+    enable: true
+    max_lines: 4
+    max_expanded: 0
+    text_fade: true
 ---

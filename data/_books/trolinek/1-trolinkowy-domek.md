@@ -8,11 +8,11 @@ order: 1
 Drogie dzieci; straszne historie lubicie?<br>
 Ta zdarzyła się naprawdę, uwierzycie?<br>
 To opowieść o Trolinku, leśnym stworku,<br>
-Co od dawien dawna mieszka w drzewnym domku.<br>
+Co od dawien dawna, mieszka w drzewnym domku.<br>
 Chatka sobie stoi w turkusowym lesie,<br>
 Wokół chłodna cisza, echo szept drzew niesie,<br>
 Ściany są lepione z kasztanowych łupinek,<br>
-Dach igliwiem wity a pośrodku kominek.<br>
+Dach igliwiem wity, a pośrodku kominek.<br>
 A sam Trolinek; jest taki malusieńki,<br>
 Zielony jak mech i cały mięciusieńki,<br>
 Sweterek utkany, ma z pajęczej sieci,<br>
