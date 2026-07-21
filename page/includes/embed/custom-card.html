@@ -1,0 +1,46 @@
+{% comment %}
+  Self-styled post card that follows the site's light/dark mode. Useful for
+  showing a static snapshot of a social-media post (or any quoted source) that
+  can't be themed via its own embed. Not a live widget.
+
+  Parameters:
+    author      - author / page / profile name
+    author_url  - link to the author (optional; defaults to href)
+    avatar      - avatar image URL (optional; falls back to the author's initial)
+    date        - human-readable date string (optional)
+    image       - post image URL (optional)
+    href        - link to the original post / source
+    link_text   - footer link label (optional; default 'Zobacz oryginał')
+    text        - post body; capture it first, then pass as text=<var>
+
+{% endcomment %}
+<div class="custom-card">
+  <div class="custom-card__header">
+    {% if include.avatar %}
+      <img class="custom-card__avatar" src="{{ include.avatar }}" alt="{{ include.author }}">
+    {% else %}
+      <span class="custom-card__avatar custom-card__avatar--placeholder" aria-hidden="true">{{ include.author | default: '?' | strip | slice: 0 | upcase }}</span>
+    {% endif %}
+    <div class="custom-card__meta">
+      <a class="custom-card__author" href="{{ include.author_url | default: include.href }}"
+         target="_blank" rel="noopener noreferrer">{{ include.author }}</a>
+      {% if include.date %}<span class="custom-card__date">{{ include.date }}</span>{% endif %}
+    </div>
+  </div>
+
+  {% if include.text %}
+    <div class="custom-card__text">{{ include.text | markdownify }}</div>
+  {% endif %}
+
+  {% if include.image %}
+    <a href="{{ include.href }}" target="_blank" rel="noopener noreferrer">
+      <img class="custom-card__image" src="{{ include.image }}" alt="{{ include.author }}" loading="lazy">
+    </a>
+  {% endif %}
+
+  {% if include.href %}
+    <a class="custom-card__footer" href="{{ include.href }}" target="_blank" rel="noopener noreferrer">
+      {{ include.link_text | default: 'Zobacz oryginał' }}
+    </a>
+  {% endif %}
+</div>

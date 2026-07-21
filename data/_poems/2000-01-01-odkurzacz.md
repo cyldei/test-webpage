@@ -28,6 +28,5 @@ Mama sprzątać już skończyła,<br>
 I odkurzacz wyłączyła.<br>
 </p>
 ---
-<br>
 <p align=center><strong>Posłuchaj tego wiersza na YouTube!</strong></p>
 {% include embed/youtube.html id='PEHWIG04zSc' %}

@@ -1,0 +1,19 @@
+{% comment %}
+  Facebook post/video embed.
+  Usage: {% include embed/facebook.html href='https://www.facebook.com/.../posts/...' %}
+  Optional: width (default 500), height (default 680), type ('post' | 'video', default 'post')
+{% endcomment %}
+{% assign fb_type = include.type | default: 'post' %}
+{% assign fb_width = include.width | default: 500 %}
+{% assign fb_height = include.height | default: 680 %}
+<div class="embed-facebook">
+  <iframe class="lazyload"
+    src="https://www.facebook.com/plugins/{{ fb_type }}.php?href={{ include.href | url_encode }}&show_text=true&width={{ fb_width }}&height={{ fb_height }}"
+    width="{{ fb_width }}"
+    height="{{ fb_height }}"
+    style="border:none;overflow:hidden"
+    scrolling="no"
+    frameborder="0"
+    allowfullscreen="true"
+    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+</div>

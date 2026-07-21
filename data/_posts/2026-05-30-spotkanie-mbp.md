@@ -18,4 +18,11 @@ Ogromnie dziękuję za zaproszenie, za świetną organizację i za każdą chwil
 
 Do zobaczenia na kolejnych spotkaniach!
 
-Oryginalny post: [MBP Tychy](https://www.facebook.com/MBPTychy/posts/pfbid0DDV5a6v3UrLDvZa13QbHPriXBKLSGdQiCGdRzNUhWHqJveDxTzbsDDUfhAYDZijol)
+---
+
+{% include embed/facebook.html href='https://www.facebook.com/MBPTychy/posts/pfbid0DDV5a6v3UrLDvZa13QbHPriXBKLSGdQiCGdRzNUhWHqJveDxTzbsDDUfhAYDZijol' %}
+
+<p align=center><a href="https://www.facebook.com/MBPTychy/posts/pfbid0DDV5a6v3UrLDvZa13QbHPriXBKLSGdQiCGdRzNUhWHqJveDxTzbsDDUfhAYDZijol">Oryginalny post MBP Tychy</a></p>
+<!-- ---
+ {% include embed/twitter.html href='https://x.com/user/status/1234567890' %}
+ --- -->

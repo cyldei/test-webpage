@@ -609,6 +609,134 @@ i { /* fontawesome icons */
   }
 }
 
+.embed-facebook,
+.embed-twitter {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+
+  iframe {
+    max-width: 100%;
+  }
+
+  .twitter-tweet {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}
+
+/*
+  Facebook's official embed has no dark theme, so in dark mode we just dim the
+  white card slightly to make it less harsh (photos keep their real colours).
+*/
+.embed-facebook iframe {
+  transition: filter 0.3s ease-in-out;
+}
+
+@media (prefers-color-scheme: light) {
+  html[data-mode="dark"] .embed-facebook iframe {
+    filter: brightness(0.85);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not([data-mode]) .embed-facebook iframe,
+  html[data-mode="dark"] .embed-facebook iframe {
+    filter: brightness(0.85);
+  }
+}
+
+/*
+  Self-styled post card (page/includes/embed/custom-card.html).
+  Uses theme variables so it looks correct in both light and dark mode, and any
+  post image keeps its real colours.
+*/
+.custom-card {
+  max-width: 500px;
+  margin: 0 auto 1rem;
+  background-color: var(--card-bg, var(--main-bg));
+  border: 1px solid var(--card-border-color);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+
+  .custom-card__header {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.75rem 1rem;
+  }
+
+  .custom-card__avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  .custom-card__avatar--placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: #fff;
+    background-color: var(--link-color);
+    text-transform: uppercase;
+  }
+
+  .custom-card__meta {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+    min-width: 0;
+  }
+
+  .custom-card__author {
+    font-weight: 600;
+    color: var(--text-color);
+
+    &:hover {
+      color: var(--link-color);
+      text-decoration: underline;
+    }
+  }
+
+  .custom-card__date {
+    font-size: 0.8rem;
+    color: var(--text-muted-color);
+  }
+
+  .custom-card__text {
+    padding: 0 1rem 0.75rem;
+    color: var(--text-color);
+
+    > :last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .custom-card__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0;
+  }
+
+  .custom-card__footer {
+    display: block;
+    padding: 0.6rem 1rem;
+    border-top: 1px solid var(--card-border-color);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--link-color);
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
 /* --- buttons --- */
 .btn-lang {
   border: 1px solid !important;

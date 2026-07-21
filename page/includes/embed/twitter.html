@@ -1,0 +1,52 @@
+{% comment %}
+  X (Twitter) post embed that follows the site's light/dark mode.
+  Usage: {% include embed/twitter.html href='https://x.com/user/status/1234567890' %}
+  Optional: align ('left' | 'center' | 'right')
+{% endcomment %}
+<div class="embed-twitter"
+  data-href="{{ include.href }}"
+  {% if include.align %}data-align="{{ include.align }}"{% endif %}></div>
+
+<script type="text/javascript">
+  (function () {
+    if (window.__twitterEmbedThemeInit) {
+      /* Script already set up by an earlier embed on this page. */
+      if (window.__renderTwitterEmbeds) { window.__renderTwitterEmbeds(); }
+      return;
+    }
+    window.__twitterEmbedThemeInit = true;
+
+    function isDarkMode() {
+      var mode = document.documentElement.getAttribute("data-mode");
+      if (mode) { return mode === "dark"; }
+      return window.matchMedia("(prefers-color-scheme: dark)").matches;
+    }
+
+    function render() {
+      var theme = isDarkMode() ? "dark" : "light";
+      document.querySelectorAll(".embed-twitter").forEach(function (box) {
+        box.innerHTML =
+          '<blockquote class="twitter-tweet" data-theme="' + theme + '"' +
+          (box.dataset.align ? ' data-align="' + box.dataset.align + '"' : "") +
+          '><a href="' + box.dataset.href + '"></a></blockquote>';
+      });
+      if (window.twttr && window.twttr.widgets) { window.twttr.widgets.load(); }
+    }
+    window.__renderTwitterEmbeds = render;
+
+    /* Load the X widgets library once, then render. */
+    var s = document.createElement("script");
+    s.async = true;
+    s.charset = "utf-8";
+    s.src = "https://platform.twitter.com/widgets.js";
+    s.onload = render;
+    document.head.appendChild(s);
+
+    /* Re-render with the new theme whenever the mode toggle fires. */
+    window.addEventListener("message", function (e) {
+      if (e.data && e.data.direction === "mode-toggle") { render(); }
+    });
+
+    render();
+  })();
+</script>
