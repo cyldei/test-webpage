@@ -22,10 +22,4 @@ Do zobaczenia na kolejnych spotkaniach!
 
 {% include embed/facebook.html href='https://www.facebook.com/MBPTychy/posts/pfbid0DDV5a6v3UrLDvZa13QbHPriXBKLSGdQiCGdRzNUhWHqJveDxTzbsDDUfhAYDZijol' show_text='true' overflow='auto' %}
 
-<p align=center><a href="https://www.facebook.com/MBPTychy/posts/pfbid0DDV5a6v3UrLDvZa13QbHPriXBKLSGdQiCGdRzNUhWHqJveDxTzbsDDUfhAYDZijol">Oryginalny post MBP Tychy</a></p>
-
-{% comment %}
-  Twitter test embed, disabled. Liquid skips comment blocks entirely, unlike
-  HTML comments which still execute includes.
-  {% include embed/twitter.html href='https://x.com/user/status/1234567890' %}
-{% endcomment %}
+<!-- <p align=center><a href="https://www.facebook.com/MBPTychy/posts/pfbid0DDV5a6v3UrLDvZa13QbHPriXBKLSGdQiCGdRzNUhWHqJveDxTzbsDDUfhAYDZijol">Oryginalny post MBP Tychy</a></p> -->
