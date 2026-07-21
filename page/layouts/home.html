@@ -155,13 +155,19 @@ layout: page
          under it — no gap above, and the card stays the same size as the rest. */
       margin-top: -2.4rem;
     }
+  }
 
-    /* Full-bleed pinned highlight on mobile (new version only): the tint spans
-       the whole viewport width (edge to edge). Negative margins pull the card
-       out to the screen edges, while matching padding pushes its text back so
-       it still lines up with the non-pinned posts. No border/rounded corners so
-       there's no clipped sliver artifact. */
-    {% if pin_new %}
+  {% if pin_new %}
+  /* Full-bleed pinned highlight whenever the layout is full-width (sidebar
+     hidden, ≤849px — the theme's own breakpoint). The tint spans the whole
+     viewport (edge to edge): viewport-relative margins pull the card out to the
+     screen edges and matching padding pushes its text back so it still lines up
+     with the non-pinned posts. This must cover the entire ≤849px range, not
+     just phones: the default desktop rule uses fixed negative margins that only
+     align at one specific content width, so on tablet/narrow widths (577–849px)
+     the pinned tint mis-scaled and overflowed. `overflow-x: hidden` (set by the
+     theme ≤849px) clips any sub-pixel viewport-unit overshoot. */
+  @media all and (max-width: 849px) {
     #post-list .post-preview.pinned {
       /* Mobile uses its own invert setting (mobile_invert), so re-pick the
          gradient here rather than inheriting the desktop one. */
@@ -180,13 +186,11 @@ layout: page
     html[data-mode="dark"] #post-list .post-preview.pinned {
       --pin-grad: {{ pin_grad_dark_mobile }};
     }
-    {% endif %}
   }
 
-  {% if pin_new %}
-  /* OS dark with no manual toggle, on mobile: mirror the desktop
+  /* OS dark with no manual toggle, full-width layout: mirror the desktop
      prefers-color-scheme rule but with the mobile invert setting. */
-  @media all and (max-width: 576px) and (prefers-color-scheme: dark) {
+  @media all and (max-width: 849px) and (prefers-color-scheme: dark) {
     html:not([data-mode]) #post-list .post-preview.pinned {
       --pin-grad: {{ pin_grad_dark_mobile }};
     }
