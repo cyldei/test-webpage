@@ -609,7 +609,6 @@ i { /* fontawesome icons */
   }
 }
 
-.embed-facebook,
 .embed-twitter {
   display: flex;
   justify-content: center;
@@ -626,10 +625,28 @@ i { /* fontawesome icons */
 }
 
 /*
+  Facebook's SDK reads this container's width to size the post (adaptive), so it
+  must be a normal block at the real column width — NOT a flex box, which would
+  report full width and force the post to its 750px max. Center via text-align.
+*/
+.embed-facebook {
+  margin-bottom: 1rem;
+  text-align: center;
+
+  .fb-post,
+  .fb-video,
+  span,
+  iframe {
+    max-width: 100% !important;
+  }
+}
+
+/*
   Facebook's official embed has no dark theme, so in dark mode we just dim the
   white card slightly to make it less harsh (photos keep their real colours).
 */
 .embed-facebook iframe {
+  border-radius: 8px;
   transition: filter 0.3s ease-in-out;
 }
 

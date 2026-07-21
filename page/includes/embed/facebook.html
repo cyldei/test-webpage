@@ -1,19 +1,53 @@
 {% comment %}
-  Facebook post/video embed.
+  Facebook post/video embed (responsive).
   Usage: {% include embed/facebook.html href='https://www.facebook.com/.../posts/...' %}
-  Optional: width (default 500), height (default 680), type ('post' | 'video', default 'post')
+  Optional:
+    width       - max width in px (default 750, FB max is 750)
+    type        - 'post' | 'video' (default 'post')
+    show_text   - 'true' | 'false' show the post caption (default 'false' = shorter)
+    max_height  - cap the embed height in px (optional; omit for no cap / "infinite")
+    overflow    - how to handle content past max_height: 'hidden' (crop, default),
+                  'auto' (scrollbar), or 'visible' (no clip)
+
+  Uses Facebook's JS SDK so the post adapts to its container width and re-renders
+  when the browser is resized. Height is otherwise determined by Facebook.
 {% endcomment %}
 {% assign fb_type = include.type | default: 'post' %}
-{% assign fb_width = include.width | default: 500 %}
-{% assign fb_height = include.height | default: 680 %}
-<div class="embed-facebook">
-  <iframe class="lazyload"
-    src="https://www.facebook.com/plugins/{{ fb_type }}.php?href={{ include.href | url_encode }}&show_text=true&width={{ fb_width }}&height={{ fb_height }}"
-    width="{{ fb_width }}"
-    height="{{ fb_height }}"
-    style="border:none;overflow:hidden"
-    scrolling="no"
-    frameborder="0"
-    allowfullscreen="true"
-    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+{% assign fb_width = include.width | default: 750 %}
+{% assign fb_show_text = include.show_text | default: 'false' %}
+{% assign fb_overflow = include.overflow | default: 'hidden' %}
+<div id="fb-root"></div>
+<div class="embed-facebook"{% if include.max_height %} style="max-height:{{ include.max_height }}px;overflow:{{ fb_overflow }}"{% endif %}>
+  <div class="fb-{{ fb_type }}"
+    data-href="{{ include.href }}"
+    data-width="{{ fb_width }}"
+    data-adapt-container-width="true"
+    data-show-text="{{ fb_show_text }}"></div>
 </div>
+
+<script type="text/javascript">
+  (function () {
+    if (!window.__fbSdkInit) {
+      window.__fbSdkInit = true;
+
+      var js = document.createElement("script");
+      js.async = true;
+      js.defer = true;
+      js.crossOrigin = "anonymous";
+      js.src = "https://connect.facebook.net/pl_PL/sdk.js#xfbml=1&version=v19.0";
+      document.head.appendChild(js);
+
+      /* Re-render so the post width follows the container on resize. */
+      var timer;
+      window.addEventListener("resize", function () {
+        clearTimeout(timer);
+        timer = setTimeout(function () {
+          if (window.FB && window.FB.XFBML) { window.FB.XFBML.parse(); }
+        }, 250);
+      });
+    } else if (window.FB && window.FB.XFBML) {
+      /* SDK already loaded by an earlier embed – render this one. */
+      window.FB.XFBML.parse();
+    }
+  })();
+</script>
