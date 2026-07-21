@@ -8,13 +8,15 @@
     author_url  - link to the author (optional; defaults to href)
     avatar      - avatar image URL (optional; falls back to the author's initial)
     date        - human-readable date string (optional)
-    image       - post image URL (optional)
+    image       - a single post image URL (optional)
+    images      - a comma-separated list of image URLs (optional; use instead of `image`)
     href        - link to the original post / source
     link_text   - footer link label (optional; default 'Zobacz oryginał')
+    width       - max width in px (optional; default 500)
     text        - post body; capture it first, then pass as text=<var>
 
 {% endcomment %}
-<div class="custom-card">
+<div class="custom-card"{% if include.width %} style="--card-width:{{ include.width }}px"{% endif %}>
   <div class="custom-card__header">
     {% if include.avatar %}
       <img class="custom-card__avatar" src="{{ include.avatar }}" alt="{{ include.author }}">
@@ -32,10 +34,28 @@
     <div class="custom-card__text">{{ include.text | markdownify }}</div>
   {% endif %}
 
-  {% if include.image %}
-    <a href="{{ include.href }}" target="_blank" rel="noopener noreferrer">
-      <img class="custom-card__image" src="{{ include.image }}" alt="{{ include.author }}" loading="lazy">
-    </a>
+  {% assign _raw_images = include.images | default: include.image %}
+  {% assign _clean_images = '' %}
+  {% if _raw_images %}
+    {% assign _split_images = _raw_images | split: ',' %}
+    {% for _img in _split_images %}
+      {% assign _img_url = _img | strip %}
+      {% if _img_url != '' %}
+        {% if _clean_images == '' %}
+          {% assign _clean_images = _img_url %}
+        {% else %}
+          {% assign _clean_images = _clean_images | append: '|||' | append: _img_url %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+  {% assign card_images = _clean_images | split: '|||' %}
+  {% if card_images.size > 0 %}
+    <div class="custom-card__images custom-card__images--{{ card_images.size }}">
+      {%- for img_url in card_images -%}
+        <a href="{{ include.href }}" target="_blank" rel="noopener noreferrer"><img src="{{ img_url }}" alt="{{ include.author }}" loading="lazy"></a>
+      {%- endfor -%}
+    </div>
   {% endif %}
 
   {% if include.href %}

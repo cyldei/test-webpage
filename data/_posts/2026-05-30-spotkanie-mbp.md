@@ -20,7 +20,7 @@ Do zobaczenia na kolejnych spotkaniach!
 
 ---
 
-{% include embed/facebook.html href='https://www.facebook.com/MBPTychy/posts/pfbid0DDV5a6v3UrLDvZa13QbHPriXBKLSGdQiCGdRzNUhWHqJveDxTzbsDDUfhAYDZijol' width='750' max_height='500' show_text='true' overflow='auto' %}
+{% include embed/facebook.html href='https://www.facebook.com/MBPTychy/posts/pfbid0DDV5a6v3UrLDvZa13QbHPriXBKLSGdQiCGdRzNUhWHqJveDxTzbsDDUfhAYDZijol' show_text='true' overflow='auto' %}
 
 <p align=center><a href="https://www.facebook.com/MBPTychy/posts/pfbid0DDV5a6v3UrLDvZa13QbHPriXBKLSGdQiCGdRzNUhWHqJveDxTzbsDDUfhAYDZijol">Oryginalny post MBP Tychy</a></p>
 

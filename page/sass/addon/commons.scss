@@ -642,8 +642,11 @@ i { /* fontawesome icons */
 }
 
 /*
-  Facebook's official embed has no dark theme, so in dark mode we just dim the
-  white card slightly to make it less harsh (photos keep their real colours).
+  Facebook's official embed has no dark theme, so in dark mode we dim the white
+  card. brightness() already removes the most luminance from the brightest areas
+  (the white card), and the paired contrast(<1) pulls the highlights down further
+  while leaving the photo's mid-tones/shadows largely intact — so it mostly dims
+  the whites rather than the whole image.
 */
 .embed-facebook iframe {
   border-radius: 8px;
@@ -652,14 +655,14 @@ i { /* fontawesome icons */
 
 @media (prefers-color-scheme: light) {
   html[data-mode="dark"] .embed-facebook iframe {
-    filter: brightness(0.85);
+    filter: brightness(0.7) contrast(0.9);
   }
 }
 
 @media (prefers-color-scheme: dark) {
   html:not([data-mode]) .embed-facebook iframe,
   html[data-mode="dark"] .embed-facebook iframe {
-    filter: brightness(0.85);
+    filter: brightness(0.7) contrast(0.9);
   }
 }
 
@@ -669,13 +672,32 @@ i { /* fontawesome icons */
   post image keeps its real colours.
 */
 .custom-card {
-  max-width: 500px;
+  max-width: var(--card-width, 500px);
   margin: 0 auto 1rem;
   background-color: var(--card-bg, var(--main-bg));
   border: 1px solid var(--card-border-color);
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+
+  /* In light mode the card bg matches the page, so lean on a stronger shadow
+     and a more defined border to make it stand out. */
+  @at-root {
+    @media (prefers-color-scheme: light) {
+      html:not([data-mode]) &,
+      html[data-mode="light"] & {
+        border-color: #e3e3e3;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+      }
+    }
+
+    @media (prefers-color-scheme: dark) {
+      html[data-mode="light"] & {
+        border-color: #e3e3e3;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+      }
+    }
+  }
 
   .custom-card__header {
     display: flex;
@@ -685,11 +707,28 @@ i { /* fontawesome icons */
   }
 
   .custom-card__avatar {
+    display: block;
+    box-sizing: border-box;
     width: 40px;
     height: 40px;
     border-radius: 50%;
+    border: 2px solid var(--card-border-color);
+    overflow: hidden;
     object-fit: cover;
     flex-shrink: 0;
+    margin: 0;
+
+    /* When it's an image the theme wraps it in an <a> and lazyloads the inner
+       <img>; make that image fill the whole circle. */
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      border: 0;
+      border-radius: 50%;
+      object-fit: cover;
+    }
   }
 
   .custom-card__avatar--placeholder {
@@ -733,11 +772,87 @@ i { /* fontawesome icons */
     }
   }
 
-  .custom-card__image {
-    display: block;
-    width: 100%;
-    height: auto;
-    margin: 0;
+  .custom-card__images {
+    display: grid;
+    gap: 2px;
+    line-height: 0;
+    font-size: 0;
+
+    > a {
+      display: block;
+      overflow: hidden;
+      min-width: 0;
+      min-height: 0;
+      margin: 0;
+      border: 0;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      border: 0;
+      object-fit: cover;
+    }
+
+    /* 2 images: side by side. */
+    &.custom-card__images--2 {
+      grid-template-columns: 1fr 1fr;
+      aspect-ratio: 2 / 1;
+    }
+
+    /* 3 images: one tall on the left, two stacked on the right. */
+    &.custom-card__images--3 {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      aspect-ratio: 3 / 2;
+
+      > a:first-child {
+        grid-row: 1 / 3;
+      }
+    }
+
+    /* 4 images: 2 x 2 grid. */
+    &.custom-card__images--4 {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      aspect-ratio: 3 / 2;
+    }
+
+    /* 5 images: two on top, three on the bottom (Facebook-style). */
+    &.custom-card__images--5 {
+      grid-template-columns: repeat(6, 1fr);
+      grid-template-rows: 1fr 1fr;
+      aspect-ratio: 3 / 2;
+
+      > a:nth-child(1),
+      > a:nth-child(2) {
+        grid-column: span 3;
+      }
+
+      > a:nth-child(3),
+      > a:nth-child(4),
+      > a:nth-child(5) {
+        grid-column: span 2;
+      }
+    }
+
+    /* 6+ images: uniform three-column grid. */
+    &:not(.custom-card__images--1):not(.custom-card__images--2):not(.custom-card__images--3):not(.custom-card__images--4):not(.custom-card__images--5) {
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-auto-rows: 1fr;
+
+      > a {
+        aspect-ratio: 1 / 1;
+      }
+    }
+
+    /* A single image keeps its natural aspect ratio. */
+    &.custom-card__images--1 img {
+      height: auto;
+      object-fit: unset;
+    }
   }
 
   .custom-card__footer {

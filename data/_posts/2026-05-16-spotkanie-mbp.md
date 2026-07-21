@@ -27,4 +27,21 @@ Jesteście moją największą inspiracją!
 
 Do zobaczenia na kolejnych literackich szlakach! 
 
-Oryginalny post: [MBP Tychy](https://mbp.tychy.pl/art,4546,wierszoczytanie-na-5)
+---
+
+{% capture txt %}
+**Wierszoczytanie na 5!**
+
+_Światowy Dzień Poezji to okazja do ugoszczenia przedszkolaków i uczniów w naszej bibliotece, gdzie wspaniałe wiersze Wandy Chotomskiej, Agnieszki Frączek oraz Michała Jankowiaka czytali zaproszeni goście, pani Danuta Policht oraz autor książek dla dzieci, pan Michał Jankowiak._[...]
+{% endcapture %}
+
+{% include embed/custom-card.html
+    author="MBP Tychy"
+    author_url="https://mbp.tychy.pl"
+	 avatar="https://mbp.tychy.pl/container/template/mbp-logo-skrot-rgb.png"
+    images="https://mbp.tychy.pl/files/pl/2024-Wierszoczytanie-F5-26031.jpg, https://mbp.tychy.pl/files/pl/2024-Wierszoczytanie-F5-26035.jpg, https://mbp.tychy.pl/files/pl/2024-Wierszoczytanie-F5-26037.jpg, https://mbp.tychy.pl/files/pl/2024-Wierszoczytanie-F5-26038.jpg"
+    href="https://mbp.tychy.pl/art,4546,wierszoczytanie-na-5"
+    link_text="Zobacz pełny post na stronie MBP Tychy"
+    width="700"
+    text=txt
+%}
